@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Hub</title>
+    <title>DevPrs</title>
     <style>
         * {
             margin: 0;
@@ -11,49 +11,48 @@
             box-sizing: border-box;
         }
         body {
-            background: #000;  /* Black background */
-            font-family: 'Georgia', serif;
+            background: #121212;  /* Dark background */
+            font-family: 'Arial', sans-serif;
             color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             text-align: center;
-            overflow: hidden;
             padding: 20px;
             position: relative;
-            animation: backgroundAnimation 3s infinite alternate;
+            overflow: hidden;
+            animation: backgroundPulse 5s infinite alternate;
         }
         h1 {
             font-size: 60px;
             margin-bottom: 20px;
-            color: #d4af37;  /* Gold color */
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
-            font-family: 'Lucida Bright', serif;
+            color: #00ffcc;  /* Neon turquoise */
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.8);
             animation: fadeIn 2s ease-in-out;
         }
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
             padding: 50px;
-            background: rgba(0, 0, 0, 0.8);  /* Dark transparent background */
-            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
             max-width: 500px;
             animation: slideIn 1.5s ease-out;
         }
         .cta {
             font-size: 24px;
-            color: #fff;
+            color: #ffffff;
             margin: 20px;
             animation: fadeIn 3s ease-in-out;
         }
         .game-info {
             font-size: 18px;
-            color: #b28d28;
+            color: #bbb;
             margin-bottom: 30px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
             font-style: italic;
             animation: fadeIn 4s ease-in-out;
         }
@@ -63,11 +62,10 @@
             padding: 20px 50px;
             font-size: 24px;
             text-decoration: none;
-            background: #d4af37;
+            background: #ff4081;  /* Neon pink */
             color: white;
             border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            transform: translateY(0);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
             display: flex;
             align-items: center;
@@ -75,9 +73,9 @@
             animation: buttonFadeIn 2s ease-in-out;
         }
         a:hover {
-            background: #b28d28; /* Darker gold on hover */
+            background: #ff80c3; /* Light neon pink on hover */
             transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.7);
         }
         a:active {
             transform: translateY(2px);
@@ -88,7 +86,7 @@
             background: #555;
         }
         .about-link:hover {
-            background: #888;
+            background: #777;
         }
 
         /* Animations */
@@ -107,15 +105,16 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
-        @keyframes backgroundAnimation {
-            0% { background: #000; }
-            100% { background: #222; }
+        @keyframes backgroundPulse {
+            0% { background: #121212; }
+            50% { background: #1a1a1a; }
+            100% { background: #121212; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Game Hub</h1>
+        <h1>DevPrs</h1>
         <div class="cta">Get ready for an exciting adventure!</div>
         <div class="game-info">Choose your difficulty and start the game!</div>
         <a href="game_easy.html">Play Easy Mode</a>
