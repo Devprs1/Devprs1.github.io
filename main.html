@@ -3,97 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Endless Runner</title>
+    <title>Game Hub</title>
     <style>
-        canvas {
-            background: #70c5ce;
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: white;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        a {
             display: block;
-            margin: auto;
+            margin: 20px auto;
+            padding: 15px 30px;
+            width: 200px;
+            background: #ff6600;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        a:hover {
+            background: #ff4500;
         }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas" width="800" height="400"></canvas>
-    <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-
-        let player = { x: 50, y: 300, width: 30, height: 30, dy: 0, gravity: 1, jumpPower: -15, onGround: false };
-        let obstacles = [];
-        let frame = 0;
-        let score = 0;
-        let gameOver = false;
-
-        document.addEventListener("keydown", (e) => {
-            if (e.code === "Space" && player.onGround) {
-                player.dy = player.jumpPower;
-                player.onGround = false;
-            }
-        });
-
-        function update() {
-            if (gameOver) return;
-            frame++;
-            score++;
-
-            // Player physics
-            player.dy += player.gravity;
-            player.y += player.dy;
-            if (player.y >= 300) {
-                player.y = 300;
-                player.onGround = true;
-            }
-
-            // Spawn obstacles
-            if (frame % 100 === 0) {
-                let obstacleHeight = Math.random() * 50 + 20;
-                obstacles.push({ x: 800, y: 370 - obstacleHeight, width: 20, height: obstacleHeight });
-            }
-
-            // Move obstacles
-            for (let i = 0; i < obstacles.length; i++) {
-                obstacles[i].x -= 5;
-
-                // Collision detection
-                if (
-                    player.x < obstacles[i].x + obstacles[i].width &&
-                    player.x + player.width > obstacles[i].x &&
-                    player.y < obstacles[i].y + obstacles[i].height &&
-                    player.y + player.height > obstacles[i].y
-                ) {
-                    gameOver = true;
-                }
-            }
-
-            // Remove off-screen obstacles
-            obstacles = obstacles.filter(obstacle => obstacle.x > -20);
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "black";
-            ctx.fillRect(player.x, player.y, player.width, player.height);
-
-            ctx.fillStyle = "red";
-            obstacles.forEach(obstacle => ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height));
-
-            ctx.fillStyle = "white";
-            ctx.font = "20px Arial";
-            ctx.fillText("Score: " + score, 10, 20);
-
-            if (gameOver) {
-                ctx.fillStyle = "black";
-                ctx.fillText("Game Over! Press F5 to Restart", 250, 200);
-            }
-        }
-
-        function gameLoop() {
-            update();
-            draw();
-            requestAnimationFrame(gameLoop);
-        }
-
-        gameLoop();
-    </script>
+    <div class="container">
+        <h1>Welcome to the Game Hub</h1>
+        <a href="game_easy.html">Play Easy Mode</a>
+        <a href="game_hard.html">Play Hard Mode</a>
+        <a href="about.html">About the Game</a>
+    </div>
 </body>
 </html>
