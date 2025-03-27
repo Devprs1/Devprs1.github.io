@@ -21,13 +21,15 @@
             text-align: center;
             overflow: hidden;
             padding: 20px;
+            position: relative;
         }
         h1 {
             font-size: 60px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             color: #d4af37;  /* Gold color */
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
             font-family: 'Lucida Bright', serif;
+            animation: fadeIn 2s ease-in-out;
         }
         .container {
             display: flex;
@@ -38,6 +40,20 @@
             background: rgba(0, 0, 0, 0.8);  /* Dark transparent background */
             border-radius: 15px;
             max-width: 500px;
+            animation: slideIn 1.5s ease-out;
+        }
+        .cta {
+            font-size: 24px;
+            color: #fff;
+            margin: 20px;
+            animation: fadeIn 3s ease-in-out;
+        }
+        .game-info {
+            font-size: 18px;
+            color: #b28d28;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            font-style: italic;
         }
         a {
             display: block;
@@ -51,6 +67,9 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             transform: translateY(0);
             transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         a:hover {
             background: #b28d28; /* Darker gold on hover */
@@ -68,14 +87,42 @@
         .about-link:hover {
             background: #888;
         }
+        .social-links a {
+            margin: 10px;
+            font-size: 18px;
+            text-decoration: none;
+            color: #d4af37;
+            padding: 10px;
+        }
+        .social-links a:hover {
+            color: #ff6f61;
+            transition: color 0.3s ease;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Made By Pragyan Subedi</h1>
+        <div class="cta">Get ready for an exciting adventure!</div>
+        <div class="game-info">Choose your difficulty and get started in this epic game!</div>
         <a href="game_easy.html">Play Easy Mode</a>
         <a href="game_hard.html">Play Hard Mode</a>
         <a href="about.html" class="about-link">About the Game</a>
+        <div class="social-links">
+            <a href="https://twitter.com" target="_blank">Follow us on Twitter</a>
+            <a href="https://facebook.com" target="_blank">Like us on Facebook</a>
+        </div>
     </div>
 </body>
 </html>
