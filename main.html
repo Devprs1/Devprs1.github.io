@@ -22,6 +22,7 @@
             overflow: hidden;
             padding: 20px;
             position: relative;
+            animation: backgroundAnimation 3s infinite alternate;
         }
         h1 {
             font-size: 60px;
@@ -54,6 +55,7 @@
             margin-bottom: 30px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
             font-style: italic;
+            animation: fadeIn 4s ease-in-out;
         }
         a {
             display: block;
@@ -70,6 +72,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: buttonFadeIn 2s ease-in-out;
         }
         a:hover {
             background: #b28d28; /* Darker gold on hover */
@@ -87,19 +90,8 @@
         .about-link:hover {
             background: #888;
         }
-        .social-links a {
-            margin: 10px;
-            font-size: 18px;
-            text-decoration: none;
-            color: #d4af37;
-            padding: 10px;
-        }
-        .social-links a:hover {
-            color: #ff6f61;
-            transition: color 0.3s ease;
-        }
 
-        /* Animation */
+        /* Animations */
         @keyframes fadeIn {
             0% { opacity: 0; }
             100% { opacity: 1; }
@@ -109,20 +101,26 @@
             0% { transform: translateY(50px); opacity: 0; }
             100% { transform: translateY(0); opacity: 1; }
         }
+
+        @keyframes buttonFadeIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background: #000; }
+            100% { background: #222; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Made By Pragyan Subedi</h1>
+        <h1>Game Hub</h1>
         <div class="cta">Get ready for an exciting adventure!</div>
-        <div class="game-info">Choose your difficulty and get started in this epic game!</div>
+        <div class="game-info">Choose your difficulty and start the game!</div>
         <a href="game_easy.html">Play Easy Mode</a>
         <a href="game_hard.html">Play Hard Mode</a>
         <a href="about.html" class="about-link">About the Game</a>
-        <div class="social-links">
-            <a href="https://twitter.com" target="_blank">Follow us on Twitter</a>
-            <a href="https://facebook.com" target="_blank">Like us on Facebook</a>
-        </div>
     </div>
 </body>
 </html>
