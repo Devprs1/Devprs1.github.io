@@ -9,70 +9,124 @@
             background-color: black;
             margin: 0;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
         }
         canvas {
+            background: linear-gradient(90deg, #1a1a1a, #222, #1a1a1a);
             display: block;
-            background: radial-gradient(circle, #222, #000);
+            border-bottom: 5px solid #00ffcc;
+            box-shadow: 0px 0px 20px #00ffcc;
+        }
+        .mobile-controls {
+            display: none;
+            position: absolute;
+            bottom: 20px;
+        }
+        .mobile-controls button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 10px;
+            background: #00ffcc;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        @media (max-width: 800px) {
+            .mobile-controls {
+                display: flex;
+                gap: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <canvas id="gameCanvas"></canvas>
+    <div class="mobile-controls">
+        <button id="jumpBtn">JUMP</button>
+        <button id="restartBtn">RESTART</button>
+    </div>
     <script>
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = 800;
+        canvas.height = 300;
+
+        let playerImg = new Image();
+        playerImg.src = "https://i.imgur.com/vxI9xnU.png"; // Custom player sprite
+
+        let obstacleImg = new Image();
+        obstacleImg.src = "https://i.imgur.com/hFpcgzl.png"; // Custom obstacle sprite
 
         let player = {
             x: 50,
-            y: 50,
-            size: 20,
-            speed: 5,
-            color: "#00ffcc"
+            y: 220,
+            width: 40,
+            height: 40,
+            velocityY: 0,
+            gravity: 0.5,
+            jumpPower: -10,
+            isJumping: false
         };
 
-        let points = [];
-        for (let i = 0; i < 10; i++) {
-            points.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: 10,
-                color: "#ff4081"
-            });
-        }
+        let obstacles = [];
+        let score = 0;
+        let gameSpeed = 4;
+        let isGameOver = false;
 
-        let keys = {};
-        window.addEventListener("keydown", (e) => keys[e.key] = true);
-        window.addEventListener("keyup", (e) => keys[e.key] = false);
+        function spawnObstacle() {
+            obstacles.push({ x: canvas.width, y: 220, width: 40, height: 40 });
+            setTimeout(spawnObstacle, Math.random() * 2000 + 1000);
+        }
+        spawnObstacle();
 
         function update() {
-            if (keys["ArrowUp"]) player.y -= player.speed;
-            if (keys["ArrowDown"]) player.y += player.speed;
-            if (keys["ArrowLeft"]) player.x -= player.speed;
-            if (keys["ArrowRight"]) player.x += player.speed;
+            if (!isGameOver) {
+                player.velocityY += player.gravity;
+                player.y += player.velocityY;
+                if (player.y >= 220) {
+                    player.y = 220;
+                    player.isJumping = false;
+                }
+
+                obstacles.forEach((obstacle, index) => {
+                    obstacle.x -= gameSpeed;
+                    if (obstacle.x + obstacle.width < 0) {
+                        obstacles.splice(index, 1);
+                        score++;
+                    }
+
+                    if (player.x < obstacle.x + obstacle.width &&
+                        player.x + player.width > obstacle.x &&
+                        player.y < obstacle.y + obstacle.height &&
+                        player.y + player.height > obstacle.y) {
+                        isGameOver = true;
+                    }
+                });
+            }
         }
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Draw player with glow effect
-            ctx.shadowColor = player.color;
-            ctx.shadowBlur = 20;
-            ctx.fillStyle = player.color;
-            ctx.fillRect(player.x, player.y, player.size, player.size);
-            ctx.shadowBlur = 0;
-
-            // Draw points with glow effect
-            points.forEach(point => {
-                ctx.fillStyle = point.color;
-                ctx.beginPath();
-                ctx.arc(point.x, point.y, point.size, 0, Math.PI * 2);
-                ctx.shadowColor = point.color;
-                ctx.shadowBlur = 15;
-                ctx.fill();
-                ctx.shadowBlur = 0;
+            ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+            obstacles.forEach(obstacle => {
+                ctx.drawImage(obstacleImg, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
             });
+
+            ctx.fillStyle = "#fff";
+            ctx.font = "20px Arial";
+            ctx.fillText("Score: " + score, 20, 30);
+            if (isGameOver) {
+                ctx.fillStyle = "red";
+                ctx.font = "30px Arial";
+                ctx.fillText("Game Over! Press R or Tap Restart", 200, 150);
+            }
         }
 
         function gameLoop() {
@@ -81,7 +135,28 @@
             requestAnimationFrame(gameLoop);
         }
         gameLoop();
+
+        function jump() {
+            if (!player.isJumping) {
+                player.velocityY = player.jumpPower;
+                player.isJumping = true;
+            }
+        }
+
+        function restartGame() {
+            isGameOver = false;
+            player.y = 220;
+            obstacles = [];
+            score = 0;
+        }
+
+        document.addEventListener("keydown", (e) => {
+            if (e.code === "Space") jump();
+            if (e.code === "KeyR") restartGame();
+        });
+
+        document.getElementById("jumpBtn").addEventListener("click", jump);
+        document.getElementById("restartBtn").addEventListener("click", restartGame);
     </script>
 </body>
 </html>
-
