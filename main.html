@@ -3,160 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NnGame - Easy Mode</title>
+    <title>NnGame Hub</title>
     <style>
         body {
             background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
             margin: 0;
-            overflow: hidden;
+            padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            animation: fadeIn 1.5s ease-in-out;
         }
-        canvas {
-            background: linear-gradient(90deg, #1a1a1a, #222, #1a1a1a);
-            display: block;
-            border-bottom: 5px solid #00ffcc;
-            box-shadow: 0px 0px 20px #00ffcc;
-        }
-        .mobile-controls {
-            display: none;
-            position: absolute;
-            bottom: 20px;
-        }
-        .mobile-controls button {
-            font-size: 20px;
-            padding: 10px 20px;
-            margin: 5px;
-            border: none;
-            border-radius: 10px;
-            background: #00ffcc;
-            color: black;
+
+        h1 {
+            font-size: 50px;
             font-weight: bold;
-            cursor: pointer;
+            background: linear-gradient(90deg, #00ffcc, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 1.5s infinite alternate;
         }
-        @media (max-width: 800px) {
-            .mobile-controls {
-                display: flex;
-                gap: 20px;
+
+        .menu {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            padding: 15px 30px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #00ffcc, #ff00ff);
+            transition: 0.3s ease-in-out;
+            box-shadow: 0px 0px 15px #00ffcc;
+        }
+
+        .menu a:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 0px 25px #ff00ff;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+            }
+            to {
+                text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
             }
         }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
-    <div class="mobile-controls">
-        <button id="jumpBtn">JUMP</button>
-        <button id="restartBtn">RESTART</button>
+    <h1>Welcome to NnGame</h1>
+    <div class="menu">
+        <a href="easy.html">Easy Mode</a>
+        <a href="hard.html">Hard Mode</a>
+        <a href="about.html">About</a>
     </div>
-    <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = 800;
-        canvas.height = 300;
-
-        let playerImg = new Image();
-        playerImg.src = "https://i.imgur.com/3bL7Z9z.png"; // Dog sprite
-
-        let obstacleImg = new Image();
-        obstacleImg.src = "https://i.imgur.com/hFpcgzl.png"; // Obstacle sprite
-
-        let player = {
-            x: 50,
-            y: 220,
-            width: 50,
-            height: 50,
-            velocityY: 0,
-            gravity: 0.5,
-            jumpPower: -10,
-            isJumping: false
-        };
-
-        let obstacles = [];
-        let score = 0;
-        let gameSpeed = 4;
-        let isGameOver = false;
-
-        function spawnObstacle() {
-            obstacles.push({ x: canvas.width, y: 220, width: 40, height: 40 });
-            setTimeout(spawnObstacle, Math.random() * 2000 + 1000);
-        }
-        spawnObstacle();
-
-        function update() {
-            if (!isGameOver) {
-                player.velocityY += player.gravity;
-                player.y += player.velocityY;
-                if (player.y >= 220) {
-                    player.y = 220;
-                    player.isJumping = false;
-                }
-
-                obstacles.forEach((obstacle, index) => {
-                    obstacle.x -= gameSpeed;
-                    if (obstacle.x + obstacle.width < 0) {
-                        obstacles.splice(index, 1);
-                        score++;
-                    }
-
-                    if (player.x < obstacle.x + obstacle.width &&
-                        player.x + player.width > obstacle.x &&
-                        player.y < obstacle.y + obstacle.height &&
-                        player.y + player.height > obstacle.y) {
-                        isGameOver = true;
-                    }
-                });
-            }
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
-            obstacles.forEach(obstacle => {
-                ctx.drawImage(obstacleImg, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-            });
-
-            ctx.fillStyle = "#fff";
-            ctx.font = "20px Arial";
-            ctx.fillText("Score: " + score, 20, 30);
-            if (isGameOver) {
-                ctx.fillStyle = "red";
-                ctx.font = "30px Arial";
-                ctx.fillText("Game Over! Press R or Tap Restart", 200, 150);
-            }
-        }
-
-        function gameLoop() {
-            update();
-            draw();
-            requestAnimationFrame(gameLoop);
-        }
-        gameLoop();
-
-        function jump() {
-            if (!player.isJumping) {
-                player.velocityY = player.jumpPower;
-                player.isJumping = true;
-            }
-        }
-
-        function restartGame() {
-            isGameOver = false;
-            player.y = 220;
-            obstacles = [];
-            score = 0;
-        }
-
-        document.addEventListener("keydown", (e) => {
-            if (e.code === "Space") jump();
-            if (e.code === "KeyR") restartGame();
-        });
-
-        document.getElementById("jumpBtn").addEventListener("click", jump);
-        document.getElementById("restartBtn").addEventListener("click", restartGame);
-    </script>
 </body>
 </html>
