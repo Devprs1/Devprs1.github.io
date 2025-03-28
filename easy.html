@@ -58,20 +58,21 @@
         canvas.height = 300;
 
         let playerImg = new Image();
-        playerImg.src = "https://i.imgur.com/vxI9xnU.png"; // Custom player sprite
+        playerImg.src = "https://i.imgur.com/uH5HZp1.png"; // Dog sprite
 
         let obstacleImg = new Image();
-        obstacleImg.src = "https://i.imgur.com/hFpcgzl.png"; // Custom obstacle sprite
+        obstacleImg.src = "https://i.imgur.com/hFpcgzl.png"; // Obstacle sprite
 
         let player = {
             x: 50,
             y: 220,
-            width: 40,
-            height: 40,
+            width: 50,
+            height: 50,
             velocityY: 0,
             gravity: 0.5,
             jumpPower: -10,
-            isJumping: false
+            isJumping: false,
+            frame: 0
         };
 
         let obstacles = [];
@@ -108,13 +109,13 @@
                         isGameOver = true;
                     }
                 });
+                player.frame = (player.frame + 1) % 4;
             }
         }
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+            ctx.drawImage(playerImg, player.frame * 50, 0, 50, 50, player.x, player.y, player.width, player.height);
             obstacles.forEach(obstacle => {
                 ctx.drawImage(obstacleImg, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
             });
