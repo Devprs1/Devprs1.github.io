@@ -3,123 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NnGame</title>
+    <title>NnGame - Easy Mode</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
-            background: #121212;  /* Dark background */
-            font-family: 'Arial', sans-serif;
-            color: #fff;
+            background-color: black;
+            margin: 0;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            text-align: center;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            animation: backgroundPulse 5s infinite alternate;
-        }
-        h1 {
-            font-size: 60px;
-            margin-bottom: 20px;
-            color: #00ffcc;  /* Neon turquoise */
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.8);
-            animation: fadeIn 2s ease-in-out;
-        }
-        .container {
-            display: flex;
             flex-direction: column;
-            align-items: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            padding: 50px;
-            background: rgba(0, 0, 0, 0.9);
-            border-radius: 20px;
-            max-width: 500px;
-            animation: slideIn 1.5s ease-out;
         }
-        .cta {
-            font-size: 24px;
-            color: #ffffff;
-            margin: 20px;
-            animation: fadeIn 3s ease-in-out;
-        }
-        .game-info {
-            font-size: 18px;
-            color: #bbb;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
-            font-style: italic;
-            animation: fadeIn 4s ease-in-out;
-        }
-        a {
+        canvas {
+            background: linear-gradient(90deg, #1a1a1a, #222, #1a1a1a);
             display: block;
-            margin: 20px;
-            padding: 20px 50px;
-            font-size: 24px;
-            text-decoration: none;
-            background: #ff4081;  /* Neon pink */
-            color: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: buttonFadeIn 2s ease-in-out;
+            border-bottom: 5px solid #00ffcc;
+            box-shadow: 0px 0px 20px #00ffcc;
         }
-        a:hover {
-            background: #ff80c3; /* Light neon pink on hover */
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.7);
+        .mobile-controls {
+            display: none;
+            position: absolute;
+            bottom: 20px;
         }
-        a:active {
-            transform: translateY(2px);
+        .mobile-controls button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 10px;
+            background: #00ffcc;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
         }
-        .about-link {
-            font-size: 18px;
-            margin-top: 30px;
-            background: #555;
-        }
-        .about-link:hover {
-            background: #777;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            0% { transform: translateY(50px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes buttonFadeIn {
-            0% { opacity: 0; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes backgroundPulse {
-            0% { background: #121212; }
-            50% { background: #1a1a1a; }
-            100% { background: #121212; }
+        @media (max-width: 800px) {
+            .mobile-controls {
+                display: flex;
+                gap: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>NnGame</h1>
-        <div class="cta">Get ready for an exciting adventure!</div>
-        <div class="game-info">Choose your difficulty and start the game!</div>
-        <a href="easy.html">Play Easy Mode</a>
-        <a href="hard.html">Play Hard Mode</a>
-        <a href="about.html" class="about-link">About the Game</a>
+    <canvas id="gameCanvas"></canvas>
+    <div class="mobile-controls">
+        <button id="jumpBtn">JUMP</button>
+        <button id="restartBtn">RESTART</button>
     </div>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 800;
+        canvas.height = 300;
+
+        let playerImg = new Image();
+        playerImg.src = "https://i.imgur.com/3bL7Z9z.png"; // Dog sprite
+
+        let obstacleImg = new Image();
+        obstacleImg.src = "https://i.imgur.com/hFpcgzl.png"; // Obstacle sprite
+
+        let player = {
+            x: 50,
+            y: 220,
+            width: 50,
+            height: 50,
+            velocityY: 0,
+            gravity: 0.5,
+            jumpPower: -10,
+            isJumping: false
+        };
+
+        let obstacles = [];
+        let score = 0;
+        let gameSpeed = 4;
+        let isGameOver = false;
+
+        function spawnObstacle() {
+            obstacles.push({ x: canvas.width, y: 220, width: 40, height: 40 });
+            setTimeout(spawnObstacle, Math.random() * 2000 + 1000);
+        }
+        spawnObstacle();
+
+        function update() {
+            if (!isGameOver) {
+                player.velocityY += player.gravity;
+                player.y += player.velocityY;
+                if (player.y >= 220) {
+                    player.y = 220;
+                    player.isJumping = false;
+                }
+
+                obstacles.forEach((obstacle, index) => {
+                    obstacle.x -= gameSpeed;
+                    if (obstacle.x + obstacle.width < 0) {
+                        obstacles.splice(index, 1);
+                        score++;
+                    }
+
+                    if (player.x < obstacle.x + obstacle.width &&
+                        player.x + player.width > obstacle.x &&
+                        player.y < obstacle.y + obstacle.height &&
+                        player.y + player.height > obstacle.y) {
+                        isGameOver = true;
+                    }
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+            obstacles.forEach(obstacle => {
+                ctx.drawImage(obstacleImg, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            });
+
+            ctx.fillStyle = "#fff";
+            ctx.font = "20px Arial";
+            ctx.fillText("Score: " + score, 20, 30);
+            if (isGameOver) {
+                ctx.fillStyle = "red";
+                ctx.font = "30px Arial";
+                ctx.fillText("Game Over! Press R or Tap Restart", 200, 150);
+            }
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+        gameLoop();
+
+        function jump() {
+            if (!player.isJumping) {
+                player.velocityY = player.jumpPower;
+                player.isJumping = true;
+            }
+        }
+
+        function restartGame() {
+            isGameOver = false;
+            player.y = 220;
+            obstacles = [];
+            score = 0;
+        }
+
+        document.addEventListener("keydown", (e) => {
+            if (e.code === "Space") jump();
+            if (e.code === "KeyR") restartGame();
+        });
+
+        document.getElementById("jumpBtn").addEventListener("click", jump);
+        document.getElementById("restartBtn").addEventListener("click", restartGame);
+    </script>
 </body>
 </html>
