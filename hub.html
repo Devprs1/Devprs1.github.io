@@ -1,1 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deforestation Awareness</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      z-index: 1;
+      animation: fadeIn 2s ease-out;
+    }
+
+    header p {
+      z-index: 1;
+      font-size: 1.2rem;
+      animation: fadeIn 3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    section p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .image {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin: 20px 0;
+    }
+
+    footer {
+      text-align: center;
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div>
+      <h1>Save the Forests</h1>
+      <p>Together we can fight deforestation and protect our planet.</p>
+    </div>
+  </header>
+
+  <section id="causes">
+    <h2>Causes of Deforestation</h2>
+    <p>Deforestation is driven by various factors such as logging, agriculture, urbanization, and mining. Forests are cleared to make space for crop fields, grazing lands, and infrastructure.</p>
+    <img src="https://images.unsplash.com/photo-1609871689811-08d1cd6e4d8d?auto=format&fit=crop&w=1470&q=80" alt="Deforestation Causes" class="image">
+  </section>
+
+  <section id="effects">
+    <h2>Effects of Deforestation</h2>
+    <p>The destruction of forests leads to habitat loss, climate change, and biodiversity decline. It contributes to global warming by increasing carbon dioxide levels in the atmosphere.</p>
+    <img src="https://images.unsplash.com/photo-1521649921902-b5c5a9fd0499?auto=format&fit=crop&w=1470&q=80" alt="Effects of Deforestation" class="image">
+  </section>
+
+  <section id="solutions">
+    <h2>Solutions to Deforestation</h2>
+    <p>We can combat deforestation by promoting reforestation, sustainable farming, and protecting forest laws. Everyone has a role to play by supporting eco-friendly products and organizations.</p>
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=1470&q=80" alt="Reforestation" class="image">
+  </section>
+
+  <footer>
+    <p>Made with ❤️ for a school project by [Pragyan Subedi ]</p>
+  </footer>
+</body>
+
+</html>
 
