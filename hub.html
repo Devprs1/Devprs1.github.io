@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deforestation Awareness</title>
+  <title>Deforestation Awareness Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
   <style>
     * {
@@ -73,11 +73,21 @@
     header h1 {
       font-size: 3rem;
       animation: fadeIn 2s ease-out;
+      font-weight: 600;
     }
 
     header p {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
+      font-weight: 300;
       animation: fadeIn 3s ease-out;
+    }
+
+    header .school-name {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-top: 15px;
+      color: #f39c12;
+      animation: fadeIn 4s ease-out;
     }
 
     @keyframes fadeIn {
@@ -85,37 +95,11 @@
         opacity: 0;
         transform: translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
       }
-    }
-
-    section {
-      padding: 60px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    section h2 {
-      font-size: 2rem;
-      color: #2c3e50;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    section p {
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-      text-align: justify;
-    }
-
-    .image {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      margin: 20px 0;
     }
 
     footer {
@@ -123,41 +107,24 @@
       background: #2c3e50;
       color: white;
       padding: 20px;
+      font-size: 1.2rem;
+      font-weight: 300;
     }
   </style>
 </head>
 
 <body>
   <nav>
-    <a href="#causes">Causes</a>
-    <a href="#effects">Effects</a>
-    <a href="#solutions">Solutions</a>
+    <a href="#">Home</a>
   </nav>
 
   <header>
     <div>
-      <h1>Save the Forests</h1>
-      <p>Together we can fight deforestation and protect our planet.</p>
+      <h1>Welcome to the Deforestation Awareness Hub</h1>
+      <p>Created by Pragyan Subedi</p>
+      <p class="school-name">Escola EB 2,3 Manuel De Maia</p>
     </div>
   </header>
-
-  <section id="causes">
-    <h2>Causes of Deforestation</h2>
-    <p>Deforestation is driven by various factors such as logging, agriculture, urbanization, and mining. Forests are cleared to make space for crop fields, grazing lands, and infrastructure.</p>
-    <img src="https://images.unsplash.com/photo-1609871689811-08d1cd6e4d8d?auto=format&fit=crop&w=1470&q=80" alt="Deforestation Causes" class="image">
-  </section>
-
-  <section id="effects">
-    <h2>Effects of Deforestation</h2>
-    <p>The destruction of forests leads to habitat loss, climate change, and biodiversity decline. It contributes to global warming by increasing carbon dioxide levels in the atmosphere.</p>
-    <img src="https://images.unsplash.com/photo-1521649921902-b5c5a9fd0499?auto=format&fit=crop&w=1470&q=80" alt="Effects of Deforestation" class="image">
-  </section>
-
-  <section id="solutions">
-    <h2>Solutions to Deforestation</h2>
-    <p>We can combat deforestation by promoting reforestation, sustainable farming, and protecting forest laws. Everyone has a role to play by supporting eco-friendly products and organizations.</p>
-    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=1470&q=80" alt="Reforestation" class="image">
-  </section>
 
   <footer>
     <p>Made with ❤️ for a school project by Pragyan Subedi</p>
