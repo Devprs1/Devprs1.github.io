@@ -1,23 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>mctiers.com Replica</title>
+  <meta charset="UTF-8">
+  <title>NMC Overall Ranking</title>
 </head>
-<body style="font-family:sans-serif; margin: 20px;">
-    <h1>mctiers.com Replica</h1>
-    <div>
-        <h2>Overall</h2>
-        <p>
-            This is a simple, minimal replica of mctiers.com. All content is on this single page, with no extra colors or fancy sections.
-        </p>
-        <p>
-            There are currently no players. 
-            <button onclick="alert('Add Player feature coming soon!')" style="font-size:1em;">Add Player</button>
-        </p>
-        <p>
-            For questions, contact: <a href="mailto:info@mctiers.com">info@mctiers.com</a>
-        </p>
+<body style="background: #161c23; margin:0; font-family: 'Segoe UI', Arial, sans-serif; color: #f1f4f8;">
+  <!-- Header Bar -->
+  <div style="background: #181f27; display:flex; align-items:center; padding: 0 32px; height:80px; box-shadow:0 2px 8px #0004;">
+    <div style="display:flex;align-items:center;">
+      <span style="font-weight:bold; font-size:2em; letter-spacing:1px;
+        background: linear-gradient(90deg,#5efc8d 10%, #fbe047 40%, #d88f24 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        NMC
+      </span>
+      <span style="font-weight:900; font-size:2em; letter-spacing:2px; margin-left:4px;
+        background: linear-gradient(97deg,#fbe047 10%, #d88f24 90%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+      </span>
     </div>
+    <div style="flex:1"></div>
+    <input type="text" placeholder="Search player..." style="background:#212837; border:none; color:#fff; border-radius:6px; padding:7px 12px; margin-right: 32px;">
+  </div>
+
+  <!-- Nav Bar -->
+  <div style="display:flex; background: #181f27; border-bottom:2px solid #222e3a;">
+    <div style="padding:18px 32px 0 32px;">
+      <span style="display:flex; align-items:center; border-bottom:2.5px solid #fff; padding-bottom:8px;">
+        <span style="font-size:1.3em; margin-right:8px;">🏆</span>
+        <span style="font-weight:bold; color: #fff;">Overall</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Overall Table Section -->
+  <div style="max-width:920px; margin:32px auto 0 auto; background:#181f27; border-radius:14px; box-shadow:0 6px 24px #0003; padding:32px 24px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+      <h2 style="margin:0;font-size:1.6em; letter-spacing:1px; color:#fbe047;">Overall Rankings</h2>
+      <button onclick="addPlayerRow()" style="background:#25ac78; color:#fff; font-weight:bold; border:none; border-radius:7px; padding:10px 22px; font-size:1em; cursor:pointer; box-shadow:0 2px 6px #0002;">+ Add Player</button>
+    </div>
+    <table id="rankingTable" style="width:100%; border-collapse:separate; border-spacing:0 14px;">
+      <thead>
+        <tr style="color:#8094b9; font-size:.98em;">
+          <th style="text-align:left;padding:8px 10px;">#</th>
+          <th style="text-align:left;padding:8px 10px;">PLAYER</th>
+          <th style="text-align:left;padding:8px 10px;">REGION</th>
+          <th style="text-align:left;padding:8px 10px;">TIERS</th>
+        </tr>
+      </thead>
+      <tbody id="rankingBody">
+        <!-- Player rows inserted here -->
+      </tbody>
+    </table>
+    <div id="emptyMsg" style="text-align:center; color:#8094b9; margin-top:30px;">
+      No players yet!
+    </div>
+  </div>
+
+  <script>
+    let playerCount = 0;
+    function addPlayerRow() {
+      playerCount++;
+      document.getElementById('emptyMsg').style.display = 'none';
+      const tbody = document.getElementById('rankingBody');
+      const row = document.createElement('tr');
+      row.style.background = "#202938";
+      row.style.borderRadius = "8px";
+      row.innerHTML = `
+        <td style="font-weight:bold; font-size:1.4em; color:#fbe047; padding:16px 10px;">${playerCount}.</td>
+        <td style="padding:16px 10px;">
+          <input type="text" placeholder="Player Name" style="background:#232b3a; color:#fff; border:none; border-radius:6px; padding:7px 10px; font-size:1em; width:140px;">
+          <div style="font-size:.92em; color:#8eb2e2; margin-top:4px;">
+            <input type="text" placeholder="Rank (e.g. Combat Master)" style="background:#232b3a; color:#8eb2e2; border:none; border-radius:5px; padding:3px 8px; font-size:.92em; width:160px;">
+            (<input type="number" placeholder="points" style="background:#232b3a; color:#8eb2e2; border:none; border-radius:5px; padding:3px 8px; font-size:.92em; width:60px;"> points)
+          </div>
+        </td>
+        <td style="padding:16px 10px;">
+          <select style="background:#3b4d5d; color:#fff; border:none; border-radius:5px; font-size:1em; padding:5px 10px;">
+            <option>NA</option>
+            <option>EU</option>
+            <option>ASIA</option>
+            <option>OCE</option>
+          </select>
+        </td>
+        <td style="padding:16px 10px;">
+          <span style="background:#222e3a; color:#fbe047; border-radius:4px; padding:4px 10px; margin-right:8px; font-size:.98em;">HT1</span>
+          <span style="background:#222e3a; color:#d88f24; border-radius:4px; padding:4px 10px; margin-right:8px; font-size:.98em;">LT1</span>
+          <span style="background:#222e3a; color:#f13d4c; border-radius:4px; padding:4px 10px; font-size:.98em;">UHC</span>
+        </td>
+      `;
+      tbody.appendChild(row);
+    }
+  </script>
 </body>
 </html>
