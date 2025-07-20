@@ -5,6 +5,7 @@
   <title>NMC Overall Ranking</title>
 </head>
 <body style="background:#161c23; margin:0; font-family:'Segoe UI',Arial,sans-serif; color:#f1f4f8;">
+
   <!-- Header Bar -->
   <div style="background:#181f27; display:flex; align-items:center; padding:0 32px; height:80px; box-shadow:0 2px 8px #0004;">
     <div style="display:flex;align-items:center;">
@@ -15,7 +16,7 @@
       </span>
       <span style="font-weight:900; font-size:2em; letter-spacing:2px; margin-left:4px;
         background: linear-gradient(97deg,#fbe047 10%, #d88f24 90%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
       </span>
     </div>
     <div style="flex:1"></div>
@@ -32,46 +33,18 @@
     </div>
   </div>
 
-  <!-- Overall Table Section -->
+  <!-- Leaderboard -->
   <div style="max-width:950px; margin:32px auto 0 auto; background:#181f27; border-radius:14px; box-shadow:0 6px 24px #0003; padding:32px 24px;">
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
       <h2 style="margin:0;font-size:1.6em; letter-spacing:1px; color:#fbe047;">Overall Rankings</h2>
-      <button onclick="showAddPlayer()" style="background:#25ac78; color:#fff; font-weight:bold; border:none; border-radius:7px; padding:10px 22px; font-size:1em; cursor:pointer; box-shadow:0 2px 6px #0002;">+ Add Player</button>
     </div>
-    <!-- Add Player Form (hidden by default) -->
-    <form id="addPlayerForm" style="display:none; background:#232b3a; padding:18px 16px; border-radius:8px; margin-bottom:18px;">
-      <div style="display:flex; flex-wrap:wrap; gap:14px 22px; align-items:center;">
-        <input id="playerName" required placeholder="Player Name" style="background:#212837; color:#fff; border:none; border-radius:6px; padding:7px 10px; font-size:1em; width:130px;">
-        <input id="playerRank" required placeholder="Rank" style="background:#212837; color:#fff; border:none; border-radius:6px; padding:7px 10px; font-size:1em; width:130px;">
-        <input id="playerPoints" required placeholder="Points" type="number" style="background:#212837; color:#fff; border:none; border-radius:6px; padding:7px 10px; font-size:1em; width:90px;">
-        <select id="playerRegion" style="background:#3b4d5d; color:#fff; border:none; border-radius:5px; font-size:1em; padding:6px 12px;">
-          <option>NA</option>
-          <option>EU</option>
-          <option>ASIA</option>
-          <option>OCE</option>
-        </select>
-        <select id="playerGamemode" style="background:#3b4d5d; color:#fff; border:none; border-radius:5px; font-size:1em; padding:6px 12px;">
-          <option>HT</option>
-          <option>LT</option>
-          <option>UHC</option>
-          <option>Pot</option>
-          <option>Vanilla</option>
-        </select>
-        <input id="playerTiers" placeholder="Tiers (comma separated)" style="background:#212837; color:#fff; border:none; border-radius:6px; padding:7px 10px; font-size:1em; width:200px;" title="e.g. HT1, LT2, UHC">
-        <button type="submit" style="margin-left:16px; background:#25ac78; color:#fff; font-weight:bold; border:none; border-radius:7px; padding:8px 18px; font-size:1em; cursor:pointer;">Add</button>
-        <button type="button" onclick="hideAddPlayer()" style="background:#d9534f; color:#fff; border:none; border-radius:7px; padding:8px 18px; font-size:1em; margin-left:8px; cursor:pointer;">Cancel</button>
-      </div>
-    </form>
     <div id="searchMsg" style="color:#fbe047; text-align:center; margin:10px 0 0 0; display:none;"></div>
     <table id="rankingTable" style="width:100%; border-collapse:separate; border-spacing:0 14px;">
       <thead>
         <tr style="color:#8094b9; font-size:.98em;">
           <th style="text-align:left;padding:8px 10px;">#</th>
           <th style="text-align:left;padding:8px 10px;">PLAYER</th>
-          <th style="text-align:left;padding:8px 10px;">RANK</th>
-          <th style="text-align:left;padding:8px 10px;">POINTS</th>
           <th style="text-align:left;padding:8px 10px;">REGION</th>
-          <th style="text-align:left;padding:8px 10px;">GAMEMODE</th>
           <th style="text-align:left;padding:8px 10px;">TIERS</th>
         </tr>
       </thead>
@@ -85,80 +58,107 @@
   </div>
 
   <script>
-    let players = [];
+    // EDIT/ADD PLAYERS HERE:
+    // Each player: {name, avatar, rank, points, region, tiers}
+    // tiers: { gamemode, items:[ {icon, label, tier} ] }
+    const players = [
+      {
+        name: "Marlowww",
+        avatar: "https://crafatar.com/avatars/1e12c3d8a64c4c8d9a5f3d8c2a331a09?size=48", // replace with real avatar URL
+        rank: "Combat Grandmaster",
+        points: 405,
+        region: "NA",
+        tiers: [
+          { gamemode: "Sword", items: [ {icon:"⚔️", label:"HT1", tier:"HT1"} ] },
+          { gamemode: "Axe",   items: [ {icon:"🪓", label:"HT1", tier:"HT1"} ] },
+          { gamemode: "Mace",  items: [ {icon:"🛡️", label:"LT1", tier:"LT1"} ] },
+          { gamemode: "Pot",   items: [ {icon:"🧪", label:"LT1", tier:"LT1"} ] },
+          { gamemode: "UHC",   items: [ {icon:"❤️", label:"LT1", tier:"LT1"} ] }
+        ]
+      },
+      {
+        name: "ItzRealMe",
+        avatar: "https://crafatar.com/avatars/8667ba71b85a4004af54457a9734eed7?size=48",
+        rank: "Combat Master",
+        points: 330,
+        region: "NA",
+        tiers: [
+          { gamemode: "Sword", items: [ {icon:"⚔️", label:"HT1", tier:"HT1"} ] },
+          { gamemode: "Axe",   items: [ {icon:"🪓", label:"HT2", tier:"HT2"} ] },
+          { gamemode: "Mace",  items: [ {icon:"🛡️", label:"LT2", tier:"LT2"} ] },
+          { gamemode: "Pot",   items: [ {icon:"🧪", label:"HT1", tier:"HT1"} ] },
+          { gamemode: "UHC",   items: [ {icon:"❤️", label:"LT2", tier:"LT2"} ] }
+        ]
+      },
+      {
+        name: "Swight",
+        avatar: "https://crafatar.com/avatars/7a81e7d2cfa445e8a9d6c1b5d09a1a6b?size=48",
+        rank: "Combat Master",
+        points: 260,
+        region: "NA",
+        tiers: [
+          { gamemode: "Sword", items: [ {icon:"⚔️", label:"HT1", tier:"HT1"} ] },
+          { gamemode: "Axe",   items: [ {icon:"🪓", label:"HT3", tier:"HT3"} ] },
+          { gamemode: "UHC",   items: [ {icon:"❤️", label:"LT1", tier:"LT1"} ] }
+        ]
+      },
+      {
+        name: "coldified",
+        avatar: "https://crafatar.com/avatars/853c80ef3c3749fdaa49938b674adae6?size=48",
+        rank: "Combat Ace",
+        points: 226,
+        region: "EU",
+        tiers: [
+          { gamemode: "Sword", items: [ {icon:"⚔️", label:"HT2", tier:"HT2"} ] },
+          { gamemode: "Axe",   items: [ {icon:"🪓", label:"HT2", tier:"HT2"} ] },
+          { gamemode: "Pot",   items: [ {icon:"🧪", label:"LT2", tier:"LT2"} ] }
+        ]
+      }
+    ];
 
-    function showAddPlayer() {
-      document.getElementById('addPlayerForm').style.display = '';
-    }
-    function hideAddPlayer() {
-      document.getElementById('addPlayerForm').reset();
-      document.getElementById('addPlayerForm').style.display = 'none';
-    }
+    // --- End of player data section ---
 
-    document.getElementById('addPlayerForm').onsubmit = function(e) {
-      e.preventDefault();
-      const name = document.getElementById('playerName').value.trim();
-      const rank = document.getElementById('playerRank').value.trim();
-      const points = parseInt(document.getElementById('playerPoints').value);
-      const region = document.getElementById('playerRegion').value;
-      const gamemode = document.getElementById('playerGamemode').value;
-      const tiers = document.getElementById('playerTiers').value.split(',').map(t=>t.trim()).filter(Boolean);
-
-      if(!name || !rank || isNaN(points)) return;
-      players.push({name, rank, points, region, gamemode, tiers});
-      hideAddPlayer();
-      renderTable();
-    };
-
-    function renderTable(highlighted) {
+    // UI Rendering
+    function renderLeaderboard(highlighted) {
       const tbody = document.getElementById('rankingBody');
       tbody.innerHTML = '';
-      players
-        .sort((a,b)=>b.points-a.points)
-        .forEach((p,i)=>{
-          const tr = document.createElement('tr');
-          tr.style.background = (highlighted && highlighted === p.name.toLowerCase()) ? "#273554" : "#202938";
-          tr.style.borderRadius = "8px";
-          tr.id = "player-row-" + i;
-
-          tr.innerHTML = `
-            <td style="font-weight:bold; font-size:1.2em; color:#fbe047; padding:16px 10px;">${i+1}.</td>
-            <td style="padding:16px 10px;">${p.name}</td>
-            <td style="padding:16px 10px;">${p.rank}</td>
-            <td style="padding:16px 10px;">${p.points}</td>
-            <td style="padding:16px 10px;">
-              <span style="background:${regionColor(p.region)}; color:#fff; border-radius:4px; padding:4px 10px; font-size:.98em;">${p.region}</span>
-            </td>
-            <td style="padding:16px 10px;">
-              <span style="background:${gamemodeColor(p.gamemode)}; color:#fff; border-radius:4px; padding:4px 10px; font-size:.98em;">${p.gamemode}</span>
-            </td>
-            <td style="padding:16px 10px;">
-              ${p.tiers.map(tierBadge).join(' ')}
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
-
-      document.getElementById('emptyMsg').style.display = players.length ? 'none' : '';
-    }
-
-    function searchPlayer() {
-      const val = document.getElementById('searchInput').value.trim().toLowerCase();
-      let found = false;
-      let idx = -1;
-      players.forEach((p,i)=>{
-        if(p.name.toLowerCase() === val && val) {
-          found = true;
-          idx = i;
-        }
+      const sorted = [...players].sort((a,b)=>b.points-a.points);
+      sorted.forEach((p,i)=>{
+        const tr = document.createElement('tr');
+        tr.style.background = (highlighted && highlighted === p.name.toLowerCase()) ? "#273554" : "#202938";
+        tr.style.borderRadius = "8px";
+        tr.id = "player-row-" + i;
+        // Place Number Badge
+        let badgeColor = ['#fbe047','#e7e7e7','#d88f24','#348af7'][i] || '#222e3a';
+        let badgeTextColor = i === 1 ? '#222e3a' : '#fff';
+        tr.innerHTML = `
+          <td style="padding:0 10px;">
+            <div style="background:${badgeColor};color:${badgeTextColor};font-weight:bold;font-size:1.5em;width:56px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:8px 0 0 8px;">
+              ${i+1}.
+            </div>
+          </td>
+          <td style="padding:0 10px;">
+            <div style="display:flex; align-items:center;">
+              <img src="${p.avatar}" alt="${p.name}" style="width:46px; height:46px; border-radius:8px; margin-right:16px; background:#e3e3e3;">
+              <div>
+                <span style="font-weight:bold; font-size:1.2em; color:#fff;">${p.name}</span>
+                <div style="font-size:1em; color:#cfd8e1; margin-top:2px;">
+                  <span style="font-size:1.1em;">&#11044;</span>
+                  ${p.rank} <span style="color:#8094b9;">(${p.points} points)</span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td style="padding:0 10px;">
+            <span style="background:${regionColor(p.region)}; color:#fff; border-radius:5px; padding:7px 16px; font-size:1em; font-weight:bold;">${p.region}</span>
+          </td>
+          <td style="padding:0 10px;">
+            ${p.tiers.map(t => t.items.map(item => tierBadge(item.icon, item.label)).join(' ')).join(' ')}
+          </td>
+        `;
+        tbody.appendChild(tr);
       });
-      renderTable(found ? val : undefined);
-      document.getElementById('searchMsg').style.display = found ? 'none' : (val ? '' : 'none');
-      document.getElementById('searchMsg').textContent = found ? '' : (val ? 'Player not found!' : '');
-      if(found) {
-        const row = document.getElementById('player-row-'+idx);
-        if(row) row.scrollIntoView({behavior:'smooth', block:'center'});
-      }
+      document.getElementById('emptyMsg').style.display = players.length ? 'none' : '';
     }
 
     function regionColor(region) {
@@ -170,26 +170,37 @@
         default: return "#555";
       }
     }
-    function gamemodeColor(mode) {
-      switch(mode) {
-        case "HT": return "#ffb200";
-        case "LT": return "#d88f24";
-        case "UHC": return "#f13d4c";
-        case "Pot": return "#e74ecb";
-        case "Vanilla": return "#8eb2e2";
-        default: return "#4caf50";
+
+    function tierBadge(icon, label) {
+      let color="#fbe047", fg="#222e3a";
+      if(label.startsWith("HT")) color="#fbe047";
+      else if(label.startsWith("LT")) color="#d88f24";
+      else if(label.toUpperCase()==="UHC") color="#f13d4c";
+      else if(label.toLowerCase().includes('pot')) color="#e74ecb";
+      return `<span style="margin-right:4px;display:inline-flex;align-items:center;background:${color};color:${fg};border-radius:4px;padding:3px 8px;font-weight:bold;font-size:1em;">
+        ${icon} ${label}
+      </span>`;
+    }
+
+    function searchPlayer() {
+      const val = document.getElementById('searchInput').value.trim().toLowerCase();
+      let found = false, idx = -1;
+      players.forEach((p,i)=>{
+        if(p.name.toLowerCase() === val && val) {
+          found = true;
+          idx = i;
+        }
+      });
+      renderLeaderboard(found ? val : undefined);
+      document.getElementById('searchMsg').style.display = found ? 'none' : (val ? '' : 'none');
+      document.getElementById('searchMsg').textContent = found ? '' : (val ? 'Player not found!' : '');
+      if(found) {
+        const row = document.getElementById('player-row-'+idx);
+        if(row) row.scrollIntoView({behavior:'smooth', block:'center'});
       }
     }
-    function tierBadge(tier) {
-      if(!tier) return '';
-      let color="#212837";
-      if(tier.startsWith("HT")) color="#fbe047";
-      else if(tier.startsWith("LT")) color="#d88f24";
-      else if(tier.toUpperCase()==="UHC") color="#f13d4c";
-      else if(tier.toLowerCase().includes('pot')) color="#e74ecb";
-      return `<span style="background:${color}; color:#222e3a; border-radius:4px; padding:4px 9px; margin-right:4px; font-weight:bold; font-size:.98em;">${tier}</span>`;
-    }
-    renderTable();
+
+    renderLeaderboard();
   </script>
 </body>
 </html>
