@@ -4,31 +4,64 @@
   <meta charset="UTF-8">
   <title>NMC Overall Ranking</title>
   <style>
+    :root {
+      --fade-slide-in: fadeSlideIn 0.55s cubic-bezier(.16,1.2,.32,1.01) both;
+      --highlight-anim: highlightRow 0.58s cubic-bezier(.16,1.2,.32,1.01);
+    }
     @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(30px);}
-      to { opacity: 1; transform: translateY(0);}
+      0% { opacity: 0; transform: translateY(40px) scale(.98);}
+      60% { opacity: .6; }
+      100% { opacity: 1; transform: translateY(0) scale(1);}
+    }
+    @keyframes highlightRow {
+      0% { box-shadow: 0 0 0 0 #fbe04700, 0 2px 12px #fbe04722, 0 1px 2px #0006; }
+      50% { box-shadow: 0 0 0 10px #fbe04755, 0 2px 22px #fbe04744, 0 1px 2px #0006; }
+      100% { box-shadow: 0 0 0 0 #fbe04700, 0 2px 16px #fbe04733, 0 1px 2px #0006;}
     }
     .fade-in {
-      animation: fadeSlideIn 0.5s cubic-bezier(.4,1.6,.5,1) both;
+      animation: var(--fade-slide-in);
+      will-change: opacity, transform;
+    }
+    .row-hover {
+      transition: box-shadow 0.18s cubic-bezier(.33,1.2,.32,1.01), transform 0.18s cubic-bezier(.33,1.2,.32,1.01);
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
     }
     .row-hover:hover {
-      box-shadow: 0 2px 16px #fbe04733, 0 1px 2px #0006;
-      transform: scale(1.012);
-      transition: transform 0.16s, box-shadow 0.16s;
+      box-shadow: 0 2px 24px #fbe04733, 0 1px 2px #0006;
+      transform: scale(1.015) translateY(-2px);
       z-index: 2;
-      position: relative;
     }
-    .badge-hover:hover {
-      box-shadow: 0 0 0 2px #fbe047aa;
-      transform: scale(1.1);
-      transition: box-shadow 0.12s, transform 0.12s;
+    .badge-hover {
+      transition: box-shadow 0.16s, transform 0.16s;
+      cursor: pointer;
+      will-change: transform, box-shadow;
       z-index: 1;
       position: relative;
     }
+    .badge-hover:hover {
+      box-shadow: 0 0 0 3px #fbe047cc;
+      transform: scale(1.12) rotate(-4deg);
+      z-index: 2;
+    }
     .highlighted {
-      box-shadow: 0 0 0 3px #fbe047cc !important;
+      animation: var(--highlight-anim);
       background: #273554 !important;
-      transition: box-shadow 0.22s, background 0.22s;
+      position: relative;
+      z-index: 5;
+    }
+    /* Fast highlight if search again quickly */
+    .highlighted.fast {
+      animation: highlightRow 0.28s cubic-bezier(.33,1.2,.32,1.01);
+    }
+    /* For text highlight in search */
+    .search-mark {
+      background: linear-gradient(90deg,#ffe066 40%,#fff6d0 90%);
+      color: #322a00;
+      border-radius: 4px;
+      padding: 1px 3px 1px 3px;
+      box-shadow: 0 0 0 1.5px #ffe066cc;
     }
     @media (max-width:700px) {
       .tiers-col { flex-wrap: wrap; }
@@ -99,7 +132,7 @@
         points: 512,
         region: "NA",
         tiers: [
-          { gamemode: "Mace",     icon: "https://mctiers.com/tier_icons/mace.svg",   label: "HT1" },
+          { gamemode: "Mace",     icon: "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/mace.png",   label: "HT1" },
           { gamemode: "Crystal",  icon: "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/crystal.png",label: "HT1" },
           { gamemode: "Pearl",    icon: "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/pearl.png",  label: "HT1" },
           { gamemode: "Axe",      icon: "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/axe.png",    label: "LT1" },
@@ -111,47 +144,59 @@
       }
     ];
 
-    // UI Rendering
-    function renderLeaderboard(highlighted) {
+    // Render leaderboard and search
+    let lastHighlighted = null, lastSearch = "";
+
+    function renderLeaderboard(highlighted, searchTerm) {
       const tbody = document.getElementById('rankingBody');
       tbody.innerHTML = '';
-      const sorted = [...players].sort((a,b)=>b.points-a.points);
-      sorted.forEach((p,i)=>{
-        const tr = document.createElement('tr');
-        tr.className = "fade-in row-hover";
-        if (highlighted && highlighted === p.name.toLowerCase()) tr.className += " highlighted";
-        tr.style.borderRadius = "8px";
-        tr.id = "player-row-" + i;
-        let badgeColor = ['#fbe047','#e7e7e7','#d88f24','#348af7'][i] || '#222e3a';
-        let badgeTextColor = i === 1 ? '#222e3a' : '#fff';
-        tr.innerHTML = `
-          <td style="padding:0 10px;">
-            <div style="background:${badgeColor};color:${badgeTextColor};font-weight:bold;font-size:1.5em;width:56px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:8px 0 0 8px;">
-              ${i+1}.
-            </div>
-          </td>
-          <td style="padding:0 10px;">
-            <div style="display:flex; align-items:center;">
-              <img src="${p.avatar}" alt="${p.name}" style="width:46px; height:46px; border-radius:8px; margin-right:16px; background:#e3e3e3;">
-              <div>
-                <span style="font-weight:bold; font-size:1.2em; color:#fff;">${p.name}</span>
-                <div style="font-size:1em; color:#cfd8e1; margin-top:2px;">
-                  <span style="font-size:1.1em;">&#11044;</span>
-                  ${p.rank} <span style="color:#8094b9;">(${p.points} points)</span>
+      const sorted = [...players].sort((a, b) => b.points - a.points);
+      let foundIdx = -1;
+      sorted.forEach((p, i) => {
+        // For better animation, use setTimeout per row
+        setTimeout(() => {
+          const tr = document.createElement('tr');
+          tr.className = "fade-in row-hover";
+          if (highlighted && highlighted === p.name.toLowerCase()) {
+            tr.className += " highlighted" + (lastHighlighted === highlighted && lastSearch===searchTerm ? " fast" : "");
+            foundIdx = i;
+          }
+          tr.style.borderRadius = "8px";
+          tr.id = "player-row-" + i;
+          let badgeColor = ['#fbe047', '#e7e7e7', '#d88f24', '#348af7'][i] || '#222e3a';
+          let badgeTextColor = i === 1 ? '#222e3a' : '#fff';
+          tr.innerHTML = `
+            <td style="padding:0 10px;">
+              <div style="background:${badgeColor};color:${badgeTextColor};font-weight:bold;font-size:1.5em;width:56px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:8px 0 0 8px;">
+                ${i + 1}.
+              </div>
+            </td>
+            <td style="padding:0 10px;">
+              <div style="display:flex; align-items:center;">
+                <img src="${p.avatar}" alt="${p.name}" style="width:46px; height:46px; border-radius:8px; margin-right:16px; background:#e3e3e3;">
+                <div>
+                  <span style="font-weight:bold; font-size:1.2em; color:#fff;">${highlightText(p.name, searchTerm)}</span>
+                  <div style="font-size:1em; color:#cfd8e1; margin-top:2px;">
+                    <span style="font-size:1.1em;">&#11044;</span>
+                    ${p.rank} <span style="color:#8094b9;">(${p.points} points)</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </td>
-          <td style="padding:0 10px;">
-            <span style="background:${regionColor(p.region)}; color:#fff; border-radius:5px; padding:7px 16px; font-size:1em; font-weight:bold;">${p.region}</span>
-          </td>
-          <td style="padding:0 10px;">
-            <div class="tiers-col" style="display:flex;gap:6px;">
-              ${p.tiers.map(t => tierBadge(t.icon, t.label)).join('')}
-            </div>
-          </td>
-        `;
-        tbody.appendChild(tr);
+            </td>
+            <td style="padding:0 10px;">
+              <span style="background:${regionColor(p.region)}; color:#fff; border-radius:5px; padding:7px 16px; font-size:1em; font-weight:bold;">${p.region}</span>
+            </td>
+            <td style="padding:0 10px;">
+              <div class="tiers-col" style="display:flex;gap:6px;">
+                ${p.tiers.map(t => tierBadge(t.icon, t.label)).join('')}
+              </div>
+            </td>
+          `;
+          tbody.appendChild(tr);
+          if (highlighted && highlighted === p.name.toLowerCase() && document.getElementById("player-row-"+i)) {
+            setTimeout(()=>document.getElementById("player-row-"+i).scrollIntoView({behavior:'smooth', block:'center'}), 150);
+          }
+        }, i * 60);
       });
       document.getElementById('emptyMsg').style.display = players.length ? 'none' : '';
     }
@@ -165,7 +210,14 @@
         default: return "#555";
       }
     }
-
+    function highlightText(name, term) {
+      if (!term) return name;
+      const idx = name.toLowerCase().indexOf(term.toLowerCase());
+      if (idx === -1) return name;
+      return name.substring(0, idx) + '<span class="search-mark">' +
+        name.substring(idx, idx + term.length) + '</span>' +
+        name.substring(idx + term.length);
+    }
     function tierBadge(icon, label) {
       return `
         <span class="badge-hover" style="display:inline-flex;align-items:center;flex-direction:column; margin-right:0;">
@@ -182,22 +234,35 @@
     function searchPlayer() {
       const val = document.getElementById('searchInput').value.trim().toLowerCase();
       let found = false, idx = -1;
+      let exact = null;
       players.forEach((p,i)=>{
         if(p.name.toLowerCase() === val && val) {
-          found = true;
-          idx = i;
+          found = true; exact = p.name.toLowerCase(); idx = i;
         }
       });
-      renderLeaderboard(found ? val : undefined);
+      // Partial match highlight
+      if(!exact && val) {
+        players.forEach((p,i)=>{
+          if(!exact && p.name.toLowerCase().includes(val)) {
+            exact = p.name.toLowerCase(); idx = i; found = true;
+          }
+        });
+      }
+      renderLeaderboard(exact, val);
       document.getElementById('searchMsg').style.display = found ? 'none' : (val ? '' : 'none');
       document.getElementById('searchMsg').textContent = found ? '' : (val ? 'Player not found!' : '');
-      if(found) {
-        const row = document.getElementById('player-row-'+idx);
-        if(row) row.scrollIntoView({behavior:'smooth', block:'center'});
-      }
+      lastHighlighted = exact; lastSearch = val;
     }
 
+    // Initial render
     renderLeaderboard();
+
+    // Animate on load: fade table in
+    window.onload = () => {
+      document.querySelectorAll('.fade-in').forEach((el, i) => {
+        el.style.animationDelay = (i * 0.08) + 's';
+      });
+    };
   </script>
 </body>
 </html>
