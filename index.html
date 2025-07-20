@@ -58,65 +58,59 @@
   </div>
 
   <script>
-    // EDIT/ADD PLAYERS HERE:
-    // Each player: {name, avatar, rank, points, region, tiers}
-    // tiers: { gamemode, items:[ {icon, label, tier} ] }
+    // Only edit/add players here!
+    // Use the gamemodeIcons and colors below for each gamemode
     const players = [
       {
-        name: "Marlowww",
-        avatar: "https://crafatar.com/avatars/1e12c3d8a64c4c8d9a5f3d8c2a331a09?size=48", // replace with real avatar URL
-        rank: "Combat Grandmaster",
-        points: 405,
-        region: "NA",
-        tiers: [
-          { gamemode: "Sword", items: [ {icon:"⚔️", label:"HT1", tier:"HT1"} ] },
-          { gamemode: "Axe",   items: [ {icon:"🪓", label:"HT1", tier:"HT1"} ] },
-          { gamemode: "Mace",  items: [ {icon:"🛡️", label:"LT1", tier:"LT1"} ] },
-          { gamemode: "Pot",   items: [ {icon:"🧪", label:"LT1", tier:"LT1"} ] },
-          { gamemode: "UHC",   items: [ {icon:"❤️", label:"LT1", tier:"LT1"} ] }
-        ]
-      },
-      {
-        name: "ItzRealMe",
+        name: "prsking",
         avatar: "https://crafatar.com/avatars/8667ba71b85a4004af54457a9734eed7?size=48",
-        rank: "Combat Master",
-        points: 330,
+        rank: "Combat Legend",
+        points: 512,
         region: "NA",
         tiers: [
-          { gamemode: "Sword", items: [ {icon:"⚔️", label:"HT1", tier:"HT1"} ] },
-          { gamemode: "Axe",   items: [ {icon:"🪓", label:"HT2", tier:"HT2"} ] },
-          { gamemode: "Mace",  items: [ {icon:"🛡️", label:"LT2", tier:"LT2"} ] },
-          { gamemode: "Pot",   items: [ {icon:"🧪", label:"HT1", tier:"HT1"} ] },
-          { gamemode: "UHC",   items: [ {icon:"❤️", label:"LT2", tier:"LT2"} ] }
-        ]
-      },
-      {
-        name: "Swight",
-        avatar: "https://crafatar.com/avatars/7a81e7d2cfa445e8a9d6c1b5d09a1a6b?size=48",
-        rank: "Combat Master",
-        points: 260,
-        region: "NA",
-        tiers: [
-          { gamemode: "Sword", items: [ {icon:"⚔️", label:"HT1", tier:"HT1"} ] },
-          { gamemode: "Axe",   items: [ {icon:"🪓", label:"HT3", tier:"HT3"} ] },
-          { gamemode: "UHC",   items: [ {icon:"❤️", label:"LT1", tier:"LT1"} ] }
-        ]
-      },
-      {
-        name: "coldified",
-        avatar: "https://crafatar.com/avatars/853c80ef3c3749fdaa49938b674adae6?size=48",
-        rank: "Combat Ace",
-        points: 226,
-        region: "EU",
-        tiers: [
-          { gamemode: "Sword", items: [ {icon:"⚔️", label:"HT2", tier:"HT2"} ] },
-          { gamemode: "Axe",   items: [ {icon:"🪓", label:"HT2", tier:"HT2"} ] },
-          { gamemode: "Pot",   items: [ {icon:"🧪", label:"LT2", tier:"LT2"} ] }
+          { gamemode: "Mace",     icon: "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/mace.png",   label: "HT1" },
+          { gamemode: "Crystal",  icon: "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/crystal.png",label: "HT1" },
+          { gamemode: "Pearl",    icon: "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/pearl.png",  label: "HT1" },
+          { gamemode: "Axe",      icon: "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/axe.png",    label: "LT1" },
+          { gamemode: "Sumo",     icon: "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/sumo.png",   label: "LT1" },
+          { gamemode: "Sword",    icon: "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/sword.png",  label: "LT1" },
+          { gamemode: "Pot",      icon: "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/pot.png",    label: "LT1" },
+          { gamemode: "UHC",      icon: "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/uhc.png",    label: "LT1" }
         ]
       }
     ];
 
     // --- End of player data section ---
+
+    // Gamemode badge color
+    function badgeColor(label) {
+      if(label.startsWith("HT")) return "#bfa23c";
+      if(label.startsWith("LT")) return "#bfa23c";
+      return "#555";
+    }
+
+    function regionColor(region) {
+      switch(region) {
+        case "NA": return "#ad3131";
+        case "EU": return "#26b956";
+        case "ASIA": return "#2e7be6";
+        case "OCE": return "#b98f26";
+        default: return "#555";
+      }
+    }
+
+    function tierBadge(icon, label) {
+      return `
+        <span style="display:inline-flex;align-items:center;flex-direction:column; margin-right:9px;">
+          <span style="display:inline-flex;align-items:center;justify-content:center; width:32px; height:32px; background:#15191f; border-radius:50%; border:2px solid #bfa23c; margin-bottom:2px;">
+            <img src="${icon}" alt="" style="width:20px;height:20px;">
+          </span>
+          <span style="background:#bfa23c; color:#222e3a; border-radius:7px; padding:2px 12px 2px 12px; font-size:.98em; font-weight:bold; margin-top:2px; letter-spacing:1px;">
+            ${label}
+          </span>
+        </span>
+      `;
+    }
 
     // UI Rendering
     function renderLeaderboard(highlighted) {
@@ -128,7 +122,6 @@
         tr.style.background = (highlighted && highlighted === p.name.toLowerCase()) ? "#273554" : "#202938";
         tr.style.borderRadius = "8px";
         tr.id = "player-row-" + i;
-        // Place Number Badge
         let badgeColor = ['#fbe047','#e7e7e7','#d88f24','#348af7'][i] || '#222e3a';
         let badgeTextColor = i === 1 ? '#222e3a' : '#fff';
         tr.innerHTML = `
@@ -152,34 +145,13 @@
           <td style="padding:0 10px;">
             <span style="background:${regionColor(p.region)}; color:#fff; border-radius:5px; padding:7px 16px; font-size:1em; font-weight:bold;">${p.region}</span>
           </td>
-          <td style="padding:0 10px;">
-            ${p.tiers.map(t => t.items.map(item => tierBadge(item.icon, item.label)).join(' ')).join(' ')}
+          <td style="padding:0 10px; display:flex; flex-wrap:wrap; gap:3px;">
+            ${p.tiers.map(t => tierBadge(t.icon, t.label)).join('')}
           </td>
         `;
         tbody.appendChild(tr);
       });
       document.getElementById('emptyMsg').style.display = players.length ? 'none' : '';
-    }
-
-    function regionColor(region) {
-      switch(region) {
-        case "NA": return "#ad3131";
-        case "EU": return "#26b956";
-        case "ASIA": return "#2e7be6";
-        case "OCE": return "#b98f26";
-        default: return "#555";
-      }
-    }
-
-    function tierBadge(icon, label) {
-      let color="#fbe047", fg="#222e3a";
-      if(label.startsWith("HT")) color="#fbe047";
-      else if(label.startsWith("LT")) color="#d88f24";
-      else if(label.toUpperCase()==="UHC") color="#f13d4c";
-      else if(label.toLowerCase().includes('pot')) color="#e74ecb";
-      return `<span style="margin-right:4px;display:inline-flex;align-items:center;background:${color};color:${fg};border-radius:4px;padding:3px 8px;font-weight:bold;font-size:1em;">
-        ${icon} ${label}
-      </span>`;
     }
 
     function searchPlayer() {
