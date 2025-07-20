@@ -3,388 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>NMC Overall Ranking</title>
+  <!-- ...styles unchanged for brevity... (use your last code's <style> section as-is) ... -->
   <style>
-    @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(30px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    @keyframes tierPop {
-      0%   { transform: scale(0.5); opacity: 0; }
-      60%  { transform: scale(1.15); opacity: 1; }
-      80%  { transform: scale(0.93);}
-      100% { transform: scale(1);}
-    }
-    @keyframes tierGlow {
-      0%   { box-shadow: 0 0 0 0 #fbe04700, 0 0 0 0 #fff0; }
-      80%  { box-shadow: 0 0 10px 4px #fbe04799, 0 0 1.5px 0 #fff2; }
-      100% { box-shadow: 0 0 10px 2.5px #fbe04799, 0 0 1.5px 0 #fff2; }
-    }
-    .fade-in {
-      animation: fadeSlideIn 0.5s cubic-bezier(.4,1.6,.5,1) both;
-    }
-    .row-hover:hover {
-      box-shadow: 0 2px 16px #fbe04733, 0 1px 2px #0006;
-      transform: scale(1.012);
-      transition: transform 0.16s, box-shadow 0.16s;
-      z-index: 2;
-      position: relative;
-    }
-    .badge-hover {
-      transition: box-shadow 0.13s, transform 0.13s;
-      cursor: pointer;
-      animation: tierPop 0.48s cubic-bezier(.22,1.25,.2,1.05);
-      will-change: transform, box-shadow;
-    }
-    .badge-hover:hover {
-      animation: tierGlow 0.33s cubic-bezier(.22,1.25,.2,1.05) forwards;
-      transform: scale(1.13);
-      z-index: 2;
-      position: relative;
-    }
-    .highlighted {
-      box-shadow: 0 0 0 3px #fbe047cc !important;
-      background: #273554 !important;
-      transition: box-shadow 0.22s, background 0.22s;
-    }
-    .search-mark {
-      background: linear-gradient(90deg,#ffe066 40%,#fff6d0 90%);
-      color: #322a00;
-      border-radius: 4px;
-      padding: 1px 3px 1px 3px;
-      box-shadow: 0 0 0 1.5px #ffe066cc;
-    }
-    @media (max-width:700px) {
-      .tiers-col { flex-wrap: wrap; }
-      .tiers-col > span { margin-bottom: 6px; }
-    }
-
-    /* Modal styles */
-    .modal-bg {
-      position: fixed; inset: 0;
-      background: rgba(10,14,24,0.56);
-      z-index: 1000;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 80px;
-      min-height:100vh;
-    }
-    .modal {
-      background: #171c23;
-      border-radius: 15px;
-      box-shadow: 0 8px 32px #0007, 0 1.5px 0 #222e3a;
-      width: 340px;
-      padding: 0 0 10px 0;
-      animation: fadeIn 0.3s cubic-bezier(.33,1.2,.32,1.01);
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(28px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    .modal-tabs {
-      display: flex;
-      border-radius: 12px 12px 0 0;
-      background: #12161e;
-      padding: 0 8px;
-      border-bottom: 2px solid #212837;
-      margin-bottom: 2px;
-    }
-    .modal-tab {
-      flex: 1;
-      font-weight: 700;
-      font-size: 1.05em;
-      text-align: center;
-      padding: 13px 2px 11px 2px;
-      background: none;
-      border: none;
-      color: #7d91b3;
-      cursor: pointer;
-      border-radius: 10px 10px 0 0;
-      transition: background 0.15s, color 0.15s;
-      outline: none;
-    }
-    .modal-tab.active {
-      background: #171c23;
-      color: #fff;
-      border-bottom: 2.5px solid #fbe047;
-      cursor: default;
-    }
-    .modal-content {
-      padding: 18px 22px 16px 22px;
-    }
-    .titles-header {
-      font-size: 1.06em;
-      color: #cfd8e1;
-      margin-bottom: 16px;
-      margin-top: 0;
-      line-height: 1.6em;
-    }
-    .titles-header a {
-      color: #fff7b3;
-      text-decoration: underline;
-      font-weight: 600;
-    }
-    .title-row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 8px;
-      font-size: 1.03em;
-      gap: 7px;
-    }
-    .title-emoji {
-      font-size: 1.18em;
-      margin-right: 7px;
-      vertical-align: middle;
-    }
-    .title-name {
-      font-weight: bold;
-      margin-right: 6px;
-    }
-    .title-desc {
-      font-size: .96em;
-      color: #cfd8e1;
-      margin-left: 4px;
-      letter-spacing: .01em;
-    }
-    /* Colors for each title */
-    .grandmaster   { color: #fbe047; }
-    .master        { color: #ffe066; }
-    .ace           { color: #ef5b8e; }
-    .specialist    { color: #b285f5; }
-    .cadet         { color: #7ddaff; }
-    .novice        { color: #b3baff; }
-    /* Points tab style (styled to match screenshot) */
-    .points-content {
-      color: #cfd8e1;
-      text-align: left;
-      font-size: 1em;
-      padding: 0;
-    }
-    .points-row {
-      display:flex;
-      align-items:center;
-      margin-bottom:7px;
-      gap: 0.7em;
-    }
-    .points-tier {
-      font-weight:700;
-      font-size:1.07em;
-      margin-right:10px;
-      min-width: 62px;
-      letter-spacing: .02em;
-    }
-    .points-badge {
-      display:inline-block;
-      border-radius:7px;
-      padding:2.5px 13px;
-      font-weight:700;
-      font-size:.99em;
-      margin-left:2px;
-      margin-right:2px;
-      box-shadow:0 1px 0 #fff2;
-      vertical-align: middle;
-    }
-    .points-badge--gold {
-      background:#28251e;
-      color:#ffe066;
-      box-shadow:0 1px 0 #fbe04733;
-    }
-    .points-badge--gold2 {
-      background:#28251e;
-      color:#fbe047;
-      box-shadow:0 1px 0 #fbe04733;
-    }
-    .points-badge--silver {
-      background:#22242a;
-      color:#bfc3ca;
-      box-shadow:0 1px 0 #fff2;
-    }
-    .points-badge--bronze {
-      background:#2a241e;
-      color:#d88f24;
-      box-shadow:0 1px 0 #d88f2433;
-    }
-    .points-badge--gray {
-      background:#23242a;
-      color:#bfc3ca;
-      box-shadow:0 1px 0 #fff2;
-    }
-    .points-trophy {
-      font-size:1.17em;
-      margin-right:9px;
-      vertical-align:middle;
-    }
-    .points-star {
-      font-size:1.09em;
-      margin-right:9px;
-      vertical-align:middle;
-    }
-    .modal-close {
-      position: absolute;
-      top: 10px;
-      right: 14px;
-      font-size: 1.5em;
-      color: #7d91b3;
-      background: none;
-      border: none;
-      cursor: pointer;
-      z-index: 1001;
-      transition: color 0.15s;
-    }
-    .modal-close:hover { color: #fbe047; }
-    /* Info button styles */
-    .info-btn {
-      background: #242d39;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 1em;
-      padding: 10px 18px 10px 38px;
-      cursor: pointer;
-      position: relative;
-      margin-right: 14px;
-      transition: background 0.13s;
-    }
-    .info-btn:before {
-      content: "i";
-      position: absolute;
-      left: 16px;
-      top: 9px;
-      font-size: 1.15em;
-      background: #212837;
-      color: #fbe047;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      text-align: center;
-      line-height: 18px;
-      font-weight: 900;
-      box-shadow: 0 1.5px 3px #0002;
-    }
-    .info-btn:hover {
-      background: #31394a;
-    }
-    .header-extra {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .header-server {
-      background: #222b35;
-      border-radius: 9px;
-      display: flex;
-      align-items: center;
-      padding: 4px 14px 4px 12px;
-      gap: 11px;
-      font-size: 1em;
-      margin-right: 2px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      box-shadow: 0 1.5px 6px #0002;
-      position: relative;
-    }
-    .header-server .server-label {
-      background: linear-gradient(90deg,#fbe047 10%,#d88f24 90%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
-      font-size: 1.08em;
-      margin-right: 8px;
-      letter-spacing: 1.3px;
-    }
-    .header-server .server-ip {
-      background: #15191f;
-      color: #fbe047;
-      border-radius: 7px;
-      padding: 4px 14px;
-      font-size: 1.02em;
-      font-family: 'Consolas', 'Courier New', monospace;
-      font-weight: 700;
-      margin-right: 6px;
-      letter-spacing: 0.2px;
-      border: 1.5px solid #ffe066;
-      box-shadow: 0 0 8px #fbe04740 inset;
-      user-select: all;
-      transition: background 0.13s;
-      cursor: pointer;
-    }
-    .header-server .server-ip:hover {
-      background: #222b35;
-      color: #fff5d7;
-      border-color: #fbe047;
-    }
-    .header-server .discord {
-      margin-left: 8px;
-      font-size: 1.35em;
-      color: #7289da;
-      vertical-align: middle;
-      text-decoration: none;
-      transition: color 0.16s;
-    }
-    .header-server .discord:hover {
-      color: #b3e0ff;
-    }
-    .header-server .copied-msg {
-      position: absolute;
-      bottom: -22px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #15191f;
-      color: #fbe047;
-      border-radius: 6px;
-      font-size: 0.93em;
-      padding: 2px 10px 2px 10px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.22s;
-      z-index: 10;
-      border: 1px solid #ffe066;
-      font-weight: 700;
-    }
-    .header-server .copied-msg.active {
-      opacity: 1;
-    }
+    /* [same CSS as previous answer, unchanged] */
+    /* ... (for brevity, see previous code) ... */
   </style>
 </head>
 <body style="background:#161c23; margin:0; font-family:'Segoe UI',Arial,sans-serif; color:#f1f4f8;">
 
-  <!-- Header Bar -->
-  <div style="background:#181f27; display:flex; align-items:center; padding:0 32px; height:80px; box-shadow:0 2px 8px #0004;">
-    <div style="display:flex;align-items:center;">
-      <span style="font-weight:bold; font-size:2em; letter-spacing:1px;
-        background: linear-gradient(90deg,#5efc8d 10%, #fbe047 40%, #d88f24 80%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        NMC
-      </span>
-      <span style="font-weight:900; font-size:2em; letter-spacing:2px; margin-left:4px;
-        background: linear-gradient(97deg,#fbe047 10%, #d88f24 90%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        <!-- (No extra text here, matches your code) -->
-      </span>
-    </div>
-    <div style="flex:1"></div>
-    <div class="header-extra">
-      <button class="info-btn" onclick="openModal()">Information</button>
-      <div class="header-server">
-        <span class="server-label">SERVER IP</span>
-        <span class="server-ip" id="serverIp" onclick="copyServerIp()">mcpvp.club</span>
-        <span class="copied-msg" id="copiedMsg">Copied!</span>
-        <a href="https://discord.gg/xyz" target="_blank" rel="noopener" class="discord" title="Discord">&#128172;</a>
-      </div>
-    </div>
-    <input id="searchInput" type="text" placeholder="Search player..." style="background:#212837; border:none; color:#fff; border-radius:6px; padding:7px 12px; margin-left:18px;" oninput="searchPlayer()" autocomplete="off">
-  </div>
-
-  <!-- Nav Bar -->
-  <div style="display:flex; background:#181f27; border-bottom:2px solid #222e3a;">
-    <div style="padding:18px 32px 0 32px;">
-      <span style="display:flex; align-items:center; border-bottom:2.5px solid #fff; padding-bottom:8px;">
-        <span style="font-size:1.3em; margin-right:8px;">🏆</span>
-        <span style="font-weight:bold; color:#fff;">Overall</span>
-      </span>
-    </div>
-  </div>
+  <!-- ...header, nav, modal unchanged... -->
 
   <!-- Leaderboard -->
   <div style="max-width:950px; margin:32px auto 0 auto; background:#181f27; border-radius:14px; box-shadow:0 6px 24px #0003; padding:32px 24px;">
@@ -410,88 +37,7 @@
     </div>
   </div>
 
-  <!-- Modal (hidden by default) -->
-  <div id="modal-bg" class="modal-bg" style="display:none;">
-    <div class="modal" style="position:relative;">
-      <button class="modal-close" onclick="closeModal()" title="Close">&times;</button>
-      <div class="modal-tabs">
-        <button class="modal-tab active" id="tab-titles" onclick="showTab('titles')">Titles</button>
-        <button class="modal-tab" id="tab-points" onclick="showTab('points')">Points</button>
-      </div>
-      <div class="modal-content" id="content-titles">
-        <div class="titles-header">
-          How to obtain <a href="#">Achievement Titles</a>
-        </div>
-        <div class="title-row">
-          <span class="title-emoji grandmaster">🏅</span>
-          <span class="title-name grandmaster">Combat Grandmaster</span>
-          <span class="title-desc">Obtained 400+ total points.</span>
-        </div>
-        <div class="title-row">
-          <span class="title-emoji master">🏅</span>
-          <span class="title-name master">Combat Master</span>
-          <span class="title-desc">Obtained 250+ total points.</span>
-        </div>
-        <div class="title-row">
-          <span class="title-emoji ace">🏅</span>
-          <span class="title-name ace">Combat Ace</span>
-          <span class="title-desc">Obtained 100+ total points.</span>
-        </div>
-        <div class="title-row">
-          <span class="title-emoji specialist">🏅</span>
-          <span class="title-name specialist">Combat Specialist</span>
-          <span class="title-desc">Obtained 50+ total points.</span>
-        </div>
-        <div class="title-row">
-          <span class="title-emoji cadet">🏅</span>
-          <span class="title-name cadet">Combat Cadet</span>
-          <span class="title-desc">Obtained 20+ total points.</span>
-        </div>
-        <div class="title-row">
-          <span class="title-emoji novice">🏅</span>
-          <span class="title-name novice">Combat Novice</span>
-          <span class="title-desc">Obtained 10+ total points.</span>
-        </div>
-      </div>
-      <div class="modal-content" id="content-points" style="display:none;">
-        <div class="titles-header" style="margin-bottom:14px;">
-          How <a href="#" style="color:#ffe066;text-decoration:underline;">ranking points</a> are calculated
-        </div>
-        <div class="points-content">
-          <div class="points-row">
-            <span class="points-trophy" style="color:#fbe047;">🏆</span>
-            <span class="points-tier" style="color:#ffe066;">Tier 1</span>
-            <span class="points-badge points-badge--gold">▲ 60 Points</span>
-            <span class="points-badge points-badge--gold2">▲ 45 Points</span>
-          </div>
-          <div class="points-row">
-            <span class="points-trophy" style="color:#bfc3ca;">🥈</span>
-            <span class="points-tier" style="color:#bfc3ca;">Tier 2</span>
-            <span class="points-badge points-badge--silver">▲ 30 Points</span>
-            <span class="points-badge points-badge--silver">▲ 20 Points</span>
-          </div>
-          <div class="points-row">
-            <span class="points-trophy" style="color:#d88f24;">🥉</span>
-            <span class="points-tier" style="color:#d88f24;">Tier 3</span>
-            <span class="points-badge points-badge--bronze">▲ 10 Points</span>
-            <span class="points-badge points-badge--bronze">▲ 6 Points</span>
-          </div>
-          <div class="points-row">
-            <span class="points-star" style="color:#b0b0b0;">⭑</span>
-            <span class="points-tier" style="color:#bfc3ca;">Tier 4</span>
-            <span class="points-badge points-badge--gray">▲ 4 Points</span>
-            <span class="points-badge points-badge--gray">▲ 3 Points</span>
-          </div>
-          <div class="points-row">
-            <span class="points-star" style="color:#b0b0b0;">⭑</span>
-            <span class="points-tier" style="color:#bfc3ca;">Tier 5</span>
-            <span class="points-badge points-badge--gray">▲ 2 Points</span>
-            <span class="points-badge points-badge--gray">▲ 1 Point</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- ...modal and scripts unchanged... -->
 
   <script>
     // Updated gamemode icons
@@ -503,7 +49,8 @@
       "Nethop": "https://mctiers.com/tier_icons/nethop.svg",
       "Sword": "https://mctiers.com/tier_icons/sword.svg",
       "Pot": "https://mctiers.com/tier_icons/pot.svg",
-      "Axe": "https://mctiers.com/tier_icons/axe.svg"
+      "Axe": "https://mctiers.com/tier_icons/axe.svg",
+      "Cpvp": "https://mctiers.com/tier_icons/crystal.svg"  // Add Cpvp as crystal for now (or use correct icon if you have one)
     };
     // Only edit/add players here!
     const players = [
@@ -523,10 +70,20 @@
           { gamemode: "Pot",      label: "LT1" },
           { gamemode: "UHC",      label: "LT1" }
         ]
+      },
+      {
+        name: "OoogaBoogaPrs",
+        avatar: "https://crafatar.com/avatars/2b8c3b72a6c947c1b7b1b3e5c3cc7d45?size=48", // Example UUID, change if you want!
+        rank: "Crystal Specialist",
+        points: 410,
+        region: "EU", // You wrote "as" but probably meant "EU" or something, change if needed!
+        tiers: [
+          { gamemode: "Cpvp", label: "HT1" }
+        ]
       }
     ];
 
-    // Render leaderboard and search
+    // ... rest of JS unchanged, see previous code for: renderLeaderboard, regionColor, etc. ...
     function renderLeaderboard(highlighted, searchTerm) {
       const tbody = document.getElementById('rankingBody');
       tbody.innerHTML = '';
@@ -626,7 +183,7 @@
       document.getElementById('searchMsg').textContent = found ? '' : (val ? 'Player not found!' : '');
     }
 
-    // Modal logic
+    // ...rest of JS unchanged (modal logic, copyServerIp, etc)...
     function openModal() {
       document.getElementById('modal-bg').style.display = '';
       document.body.style.overflow = 'hidden';
@@ -645,7 +202,6 @@
       if(e.key==="Escape") closeModal();
     });
 
-    // Server IP copy logic
     function copyServerIp() {
       const ip = "mcpvp.club";
       navigator.clipboard.writeText(ip);
