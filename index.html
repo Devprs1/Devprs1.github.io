@@ -402,16 +402,16 @@
   </div>
 
   <script>
-    // Gamemode PNG icons (edit/add as needed)
+    // Updated gamemode icons
     const GAMEMODE_ICONS = {
-      "Mace": "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/mace.png",
-      "Crystal": "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/crystal.png",
-      "Pearl": "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/pearl.png",
-      "Axe": "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/axe.png",
-      "Sumo": "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/sumo.png",
-      "Sword": "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/sword.png",
-      "Pot": "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/pot.png",
-      "UHC": "https://raw.githubusercontent.com/Devprs1/mctiers-assets/main/icons/uhc.png"
+      "Mace": "https://mctiers.com/tier_icons/mace.svg",
+      "Crystal": "https://mctiers.com/tier_icons/vanilla.svg",
+      "Pearl": "https://mctiers.com/tier_icons/smp.svg",
+      "UHC": "https://mctiers.com/tier_icons/uhc.svg",
+      "Nethop": "https://mctiers.com/tier_icons/nethop.svg",
+      "Sword": "https://mctiers.com/tier_icons/sword.svg",
+      "Pot": "https://mctiers.com/tier_icons/pot.svg",
+      "Axe": "https://mctiers.com/tier_icons/axe.svg"
     };
     // Only edit/add players here!
     const players = [
@@ -419,10 +419,17 @@
         name: "prsking",
         avatar: "https://crafatar.com/avatars/8667ba71b85a4004af54457a9734eed7?size=48",
         rank: "Combat Legend",
-        points: 60,
-        region: "EU",
+        points: 512,
+        region: "NA",
         tiers: [
+          { gamemode: "Mace",     label: "HT1" },
           { gamemode: "Crystal",  label: "HT1" },
+          { gamemode: "Pearl",    label: "HT1" },
+          { gamemode: "Axe",      label: "LT1" },
+          { gamemode: "Nethop",   label: "LT1" },
+          { gamemode: "Sword",    label: "LT1" },
+          { gamemode: "Pot",      label: "LT1" },
+          { gamemode: "UHC",      label: "LT1" }
         ]
       }
     ];
