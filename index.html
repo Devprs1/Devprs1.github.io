@@ -3,6 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <title>NMC Overall Ranking</title>
+  <style>
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .fade-in {
+      animation: fadeSlideIn 0.5s cubic-bezier(.4,1.6,.5,1) both;
+    }
+    .row-hover:hover {
+      box-shadow: 0 2px 16px #fbe04733, 0 1px 2px #0006;
+      transform: scale(1.012);
+      transition: transform 0.16s, box-shadow 0.16s;
+      z-index: 2;
+      position: relative;
+    }
+    .badge-hover:hover {
+      box-shadow: 0 0 0 2px #fbe047aa;
+      transform: scale(1.1);
+      transition: box-shadow 0.12s, transform 0.12s;
+      z-index: 1;
+      position: relative;
+    }
+    .highlighted {
+      box-shadow: 0 0 0 3px #fbe047cc !important;
+      background: #273554 !important;
+      transition: box-shadow 0.22s, background 0.22s;
+    }
+    @media (max-width:700px) {
+      .tiers-col { flex-wrap: wrap; }
+      .tiers-col > span { margin-bottom: 6px; }
+    }
+  </style>
 </head>
 <body style="background:#161c23; margin:0; font-family:'Segoe UI',Arial,sans-serif; color:#f1f4f8;">
 
@@ -59,7 +91,6 @@
 
   <script>
     // Only edit/add players here!
-    // Use the gamemodeIcons and colors below for each gamemode
     const players = [
       {
         name: "prsking",
@@ -80,38 +111,6 @@
       }
     ];
 
-    // --- End of player data section ---
-
-    // Gamemode badge color
-    function badgeColor(label) {
-      if(label.startsWith("HT")) return "#bfa23c";
-      if(label.startsWith("LT")) return "#bfa23c";
-      return "#555";
-    }
-
-    function regionColor(region) {
-      switch(region) {
-        case "NA": return "#ad3131";
-        case "EU": return "#26b956";
-        case "ASIA": return "#2e7be6";
-        case "OCE": return "#b98f26";
-        default: return "#555";
-      }
-    }
-
-    function tierBadge(icon, label) {
-      return `
-        <span style="display:inline-flex;align-items:center;flex-direction:column; margin-right:9px;">
-          <span style="display:inline-flex;align-items:center;justify-content:center; width:32px; height:32px; background:#15191f; border-radius:50%; border:2px solid #bfa23c; margin-bottom:2px;">
-            <img src="${icon}" alt="" style="width:20px;height:20px;">
-          </span>
-          <span style="background:#bfa23c; color:#222e3a; border-radius:7px; padding:2px 12px 2px 12px; font-size:.98em; font-weight:bold; margin-top:2px; letter-spacing:1px;">
-            ${label}
-          </span>
-        </span>
-      `;
-    }
-
     // UI Rendering
     function renderLeaderboard(highlighted) {
       const tbody = document.getElementById('rankingBody');
@@ -119,7 +118,8 @@
       const sorted = [...players].sort((a,b)=>b.points-a.points);
       sorted.forEach((p,i)=>{
         const tr = document.createElement('tr');
-        tr.style.background = (highlighted && highlighted === p.name.toLowerCase()) ? "#273554" : "#202938";
+        tr.className = "fade-in row-hover";
+        if (highlighted && highlighted === p.name.toLowerCase()) tr.className += " highlighted";
         tr.style.borderRadius = "8px";
         tr.id = "player-row-" + i;
         let badgeColor = ['#fbe047','#e7e7e7','#d88f24','#348af7'][i] || '#222e3a';
@@ -145,13 +145,38 @@
           <td style="padding:0 10px;">
             <span style="background:${regionColor(p.region)}; color:#fff; border-radius:5px; padding:7px 16px; font-size:1em; font-weight:bold;">${p.region}</span>
           </td>
-          <td style="padding:0 10px; display:flex; flex-wrap:wrap; gap:3px;">
-            ${p.tiers.map(t => tierBadge(t.icon, t.label)).join('')}
+          <td style="padding:0 10px;">
+            <div class="tiers-col" style="display:flex;gap:6px;">
+              ${p.tiers.map(t => tierBadge(t.icon, t.label)).join('')}
+            </div>
           </td>
         `;
         tbody.appendChild(tr);
       });
       document.getElementById('emptyMsg').style.display = players.length ? 'none' : '';
+    }
+
+    function regionColor(region) {
+      switch(region) {
+        case "NA": return "#ad3131";
+        case "EU": return "#26b956";
+        case "ASIA": return "#2e7be6";
+        case "OCE": return "#b98f26";
+        default: return "#555";
+      }
+    }
+
+    function tierBadge(icon, label) {
+      return `
+        <span class="badge-hover" style="display:inline-flex;align-items:center;flex-direction:column; margin-right:0;">
+          <span style="display:inline-flex;align-items:center;justify-content:center; width:32px; height:32px; background:#15191f; border-radius:50%; border:2px solid #bfa23c; margin-bottom:2px;">
+            <img src="${icon}" alt="" style="width:20px;height:20px;">
+          </span>
+          <span style="background:#bfa23c; color:#222e3a; border-radius:7px; padding:2px 12px 2px 12px; font-size:.98em; font-weight:bold; margin-top:2px; letter-spacing:1px;">
+            ${label}
+          </span>
+        </span>
+      `;
     }
 
     function searchPlayer() {
