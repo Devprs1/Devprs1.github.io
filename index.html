@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>NMC Overall Ranking</title>
   <style>
+    /* ... All your original CSS ... */
     @keyframes fadeSlideIn {
       from { opacity: 0; transform: translateY(30px);}
       to { opacity: 1; transform: translateY(0);}
@@ -340,23 +341,72 @@
     .header-server .copied-msg.active {
       opacity: 1;
     }
+    /* NMC Animated Logo */
+    .nmc-logo-animated {
+      display: inline-block;
+      padding: 13px 22px;
+      background: #1a232c;
+      border-radius: 14px;
+      box-shadow: 0 3px 30px #0008;
+    }
+    .nmc-logo-animated span {
+      font-family: 'Bungee', 'Lilita One', 'Luckiest Guy', 'Arial Black', Arial, sans-serif;
+      font-size: 2.6em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      vertical-align: middle;
+      line-height: 1;
+      display: inline-block;
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+      margin-right: 3px;
+      text-shadow: 0 4px 0 #262a1e, 0 8px 14px #0007;
+    }
+    .nmc-green {
+      background: linear-gradient(120deg, #90ff73 0%, #6ecf32 40%, #3d881d 90%);
+      box-shadow: 0 2px 6px #0006;
+      filter: brightness(1.02);
+    }
+    .animated-n {
+      animation: nmcBounce 1.35s infinite cubic-bezier(.5,1.7,.5,1.01) alternate;
+    }
+    .nmc-yellow {
+      background: linear-gradient(120deg, #ffe066 0%, #fbe047 38%, #d88f24 100%);
+      box-shadow: 0 2px 6px #d88f2440;
+      filter: brightness(1.07);
+    }
+    .animated-m {
+      animation: nmcBounce 1.45s infinite cubic-bezier(.4,1.7,.5,1.01) alternate;
+    }
+    .nmc-gold {
+      background: linear-gradient(120deg, #ffe066 0%, #d88f24 60%, #c47b24 100%);
+      box-shadow: 0 2px 6px #d88f2440;
+      filter: brightness(1.13);
+    }
+    .animated-c {
+      animation: nmcBounce 1.62s infinite cubic-bezier(.5,1.7,.5,1.01) alternate;
+    }
+    @keyframes nmcBounce {
+      0%   { transform: scale(1) translateY(0);}
+      38%  { transform: scale(1.08) translateY(-3px);}
+      65%  { transform: scale(0.95) translateY(2.5px);}
+      100% { transform: scale(1.09) translateY(-6px);}
+    }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee:wght@400&display=swap" rel="stylesheet">
 </head>
 <body style="background:#161c23; margin:0; font-family:'Segoe UI',Arial,sans-serif; color:#f1f4f8;">
 
   <!-- Header Bar -->
   <div style="background:#181f27; display:flex; align-items:center; padding:0 32px; height:80px; box-shadow:0 2px 8px #0004;">
     <div style="display:flex;align-items:center;">
-      <span style="font-weight:bold; font-size:2em; letter-spacing:1px;
-        background: linear-gradient(90deg,#5efc8d 10%, #fbe047 40%, #d88f24 80%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        NMC
-      </span>
-      <span style="font-weight:900; font-size:2em; letter-spacing:2px; margin-left:4px;
-        background: linear-gradient(97deg,#fbe047 10%, #d88f24 90%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        <!-- (No extra text here, matches your code) -->
-      </span>
+      <!-- Animated NMC Logo -->
+      <div class="nmc-logo-animated">
+        <span class="nmc-green animated-n">N</span>
+        <span class="nmc-yellow animated-m">M</span>
+        <span class="nmc-gold animated-c">C</span>
+      </div>
     </div>
     <div style="flex:1"></div>
     <div class="header-extra">
@@ -500,6 +550,7 @@
       "Pot": "https://mctiers.com/tier_icons/pot.svg",
       "Axe": "https://mctiers.com/tier_icons/axe.svg"
     };
+    // Add as many players as you want here
     const players = [
       {
         name: "shi_licker",
@@ -526,8 +577,10 @@
           { gamemode: "Crystal", label: "HT4" }
         ]
       }
+      // Add more players here!
     ];
 
+    // Sort by points DESC so highest always #1 like mctiers.com
     function renderLeaderboard(highlighted, searchTerm) {
       const tbody = document.getElementById('rankingBody');
       tbody.innerHTML = '';
@@ -579,6 +632,7 @@
         case "EU": return "#26b956";
         case "ASIA": return "#2e7be6";
         case "OCE": return "#b98f26";
+        case "AS": return "#2e7be6";
         default: return "#555";
       }
     }
