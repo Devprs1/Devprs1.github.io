@@ -340,44 +340,23 @@
     .header-server .copied-msg.active {
       opacity: 1;
     }
-    /* --- MCTIERS-style NMC logo --- */
-    .nmc-logo-mctiers {
-      display: inline-block;
-      padding: 7px 24px;
-      background: #161d23;
-      border-radius: 14px;
-      box-shadow: 0 2px 16px #0008;
-      font-size: 0;
-    }
-    .nmc-logo-mctiers .nmc-mc {
-      font-family: 'Bungee', 'Lilita One', 'Luckiest Guy', 'Arial Black', Arial, sans-serif;
-      font-size: 2.7em;
-      font-weight: 900;
-      letter-spacing: 0.05em;
-      vertical-align: middle;
-      display: inline-block;
-      background: linear-gradient(180deg, #b5ff71 0%, #59c42b 45%, #7e5a27 70%, #2a1d10 100%);
-      color: transparent;
-      -webkit-background-clip: text;
-      background-clip: text;
-      text-shadow:
-        0 2px 0 #3b7b19,
-        0 6px 10px #0007,
-        0 0px 1px #2a1d10,
-        0 2px 0 #222;
-      filter: drop-shadow(0 0 1px #2a1d10) drop-shadow(0 2px 0 #222);
-    }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Bungee:wght@400&display=swap" rel="stylesheet">
 </head>
 <body style="background:#161c23; margin:0; font-family:'Segoe UI',Arial,sans-serif; color:#f1f4f8;">
 
   <!-- Header Bar -->
   <div style="background:#181f27; display:flex; align-items:center; padding:0 32px; height:80px; box-shadow:0 2px 8px #0004;">
     <div style="display:flex;align-items:center;">
-      <div class="nmc-logo-mctiers">
-        <span class="nmc-mc">NMC</span>
-      </div>
+      <span style="font-weight:bold; font-size:2em; letter-spacing:1px;
+        background: linear-gradient(90deg,#5efc8d 10%, #fbe047 40%, #d88f24 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        NMC
+      </span>
+      <span style="font-weight:900; font-size:2em; letter-spacing:2px; margin-left:4px;
+        background: linear-gradient(97deg,#fbe047 10%, #d88f24 90%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        <!-- (No extra text here, matches your code) -->
+      </span>
     </div>
     <div style="flex:1"></div>
     <div class="header-extra">
@@ -510,7 +489,6 @@
   </div>
 
   <script>
-    // Updated gamemode icons
     const GAMEMODE_ICONS = {
       "Mace": "https://mctiers.com/tier_icons/mace.svg",
       "Crystal": "https://mctiers.com/tier_icons/vanilla.svg",
@@ -519,8 +497,7 @@
       "Nethop": "https://mctiers.com/tier_icons/nethop.svg",
       "Sword": "https://mctiers.com/tier_icons/sword.svg",
       "Pot": "https://mctiers.com/tier_icons/pot.svg",
-      "Axe": "https://mctiers.com/tier_icons/axe.svg",
-      "INGAMEMODE": "https://mctiers.com/tier_icons/mace.svg" // just as example, you can change the URL
+      "Axe": "https://mctiers.com/tier_icons/axe.svg"
     };
     const players = [
       {
@@ -539,16 +516,6 @@
         ]
       },
       {
-        name: "REG_MI",
-        avatar: "https://crafatar.com/avatars/00000000000000000000000000000000?size=48",
-        rank: "Combat Cadet",
-        points: 30,
-        region: "AS",
-        tiers: [
-          { gamemode: "INGAMEMODE", label: "Tier 1" }
-        ]
-      },
-      {
         name: "OoogaBoogaPrs",
         avatar: "https://crafatar.com/avatars/2b8c3b72a6c947c1b7b1b3e5c3cc7d45?size=48",
         rank: "Crystal Specialist",
@@ -556,6 +523,107 @@
         region: "EU",
         tiers: [
           { gamemode: "Crystal", label: "HT4" }
+        ]
+      },
+      // 10 more players: name "Unranked", region "AS", LT5 in Crystal, points 0, avatar is unique per player
+      {
+        name: "Unranked",
+        avatar: "https://crafatar.com/avatars/00000000000000000000000000000001?size=48",
+        rank: "Unranked",
+        points: 0,
+        region: "AS",
+        tiers: [
+          { gamemode: "Crystal", label: "LT5" }
+        ]
+      },
+      {
+        name: "Unranked",
+        avatar: "https://crafatar.com/avatars/00000000000000000000000000000002?size=48",
+        rank: "Unranked",
+        points: 0,
+        region: "AS",
+        tiers: [
+          { gamemode: "Crystal", label: "LT5" }
+        ]
+      },
+      {
+        name: "Unranked",
+        avatar: "https://crafatar.com/avatars/00000000000000000000000000000003?size=48",
+        rank: "Unranked",
+        points: 0,
+        region: "AS",
+        tiers: [
+          { gamemode: "Crystal", label: "LT5" }
+        ]
+      },
+      {
+        name: "Unranked",
+        avatar: "https://crafatar.com/avatars/00000000000000000000000000000004?size=48",
+        rank: "Unranked",
+        points: 0,
+        region: "AS",
+        tiers: [
+          { gamemode: "Crystal", label: "LT5" }
+        ]
+      },
+      {
+        name: "Unranked",
+        avatar: "https://crafatar.com/avatars/00000000000000000000000000000005?size=48",
+        rank: "Unranked",
+        points: 0,
+        region: "AS",
+        tiers: [
+          { gamemode: "Crystal", label: "LT5" }
+        ]
+      },
+      {
+        name: "Unranked",
+        avatar: "https://crafatar.com/avatars/00000000000000000000000000000006?size=48",
+        rank: "Unranked",
+        points: 0,
+        region: "AS",
+        tiers: [
+          { gamemode: "Crystal", label: "LT5" }
+        ]
+      },
+      {
+        name: "Unranked",
+        avatar: "https://crafatar.com/avatars/00000000000000000000000000000007?size=48",
+        rank: "Unranked",
+        points: 0,
+        region: "AS",
+        tiers: [
+          { gamemode: "Crystal", label: "LT5" }
+        ]
+      },
+      {
+        name: "Unranked",
+        avatar: "https://crafatar.com/avatars/00000000000000000000000000000008?size=48",
+        rank: "Unranked",
+        points: 0,
+        region: "AS",
+        tiers: [
+          { gamemode: "Crystal", label: "LT5" }
+        ]
+      },
+      {
+        name: "Unranked",
+        avatar: "https://crafatar.com/avatars/00000000000000000000000000000009?size=48",
+        rank: "Unranked",
+        points: 0,
+        region: "AS",
+        tiers: [
+          { gamemode: "Crystal", label: "LT5" }
+        ]
+      },
+      {
+        name: "Unranked",
+        avatar: "https://crafatar.com/avatars/00000000000000000000000000000010?size=48",
+        rank: "Unranked",
+        points: 0,
+        region: "AS",
+        tiers: [
+          { gamemode: "Crystal", label: "LT5" }
         ]
       }
     ];
