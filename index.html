@@ -4,100 +4,369 @@
   <meta charset="UTF-8">
   <title>NMC Overall Ranking</title>
   <style>
-    /* All your leaderboard, modal, and header styles here... */
-    /* Discord Button styles inspired by your uploaded image */
-    .discord-btn {
-      background: #181f27;
-      border-radius: 16px;
-      box-shadow: 0 4px 18px #0a111b;
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes tierPop {
+      0%   { transform: scale(0.5); opacity: 0; }
+      60%  { transform: scale(1.15); opacity: 1; }
+      80%  { transform: scale(0.93);}
+      100% { transform: scale(1);}
+    }
+    @keyframes tierGlow {
+      0%   { box-shadow: 0 0 0 0 #fbe04700, 0 0 0 0 #fff0; }
+      80%  { box-shadow: 0 0 10px 4px #fbe04799, 0 0 1.5px 0 #fff2; }
+      100% { box-shadow: 0 0 10px 2.5px #fbe04799, 0 0 1.5px 0 #fff2; }
+    }
+    .fade-in {
+      animation: fadeSlideIn 0.5s cubic-bezier(.4,1.6,.5,1) both;
+    }
+    .row-hover:hover {
+      box-shadow: 0 2px 16px #fbe04733, 0 1px 2px #0006;
+      transform: scale(1.012);
+      transition: transform 0.16s, box-shadow 0.16s;
+      z-index: 2;
+      position: relative;
+    }
+    .badge-hover {
+      transition: box-shadow 0.13s, transform 0.13s;
+      cursor: pointer;
+      animation: tierPop 0.48s cubic-bezier(.22,1.25,.2,1.05);
+      will-change: transform, box-shadow;
+    }
+    .badge-hover:hover {
+      animation: tierGlow 0.33s cubic-bezier(.22,1.25,.2,1.05) forwards;
+      transform: scale(1.13);
+      z-index: 2;
+      position: relative;
+    }
+    .highlighted {
+      box-shadow: 0 0 0 3px #fbe047cc !important;
+      background: #273554 !important;
+      transition: box-shadow 0.22s, background 0.22s;
+    }
+    .search-mark {
+      background: linear-gradient(90deg,#ffe066 40%,#fff6d0 90%);
+      color: #322a00;
+      border-radius: 4px;
+      padding: 1px 3px 1px 3px;
+      box-shadow: 0 0 0 1.5px #ffe066cc;
+    }
+    @media (max-width:700px) {
+      .tiers-col { flex-wrap: wrap; }
+      .tiers-col > span { margin-bottom: 6px; }
+    }
+    .modal-bg {
+      position: fixed; inset: 0;
+      background: rgba(10,14,24,0.56);
+      z-index: 1000;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 80px;
+      min-height:100vh;
+    }
+    .modal {
+      background: #171c23;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px #0007, 0 1.5px 0 #222e3a;
+      width: 340px;
+      padding: 0 0 10px 0;
+      animation: fadeIn 0.3s cubic-bezier(.33,1.2,.32,1.01);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(28px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .modal-tabs {
+      display: flex;
+      border-radius: 12px 12px 0 0;
+      background: #12161e;
+      padding: 0 8px;
+      border-bottom: 2px solid #212837;
+      margin-bottom: 2px;
+    }
+    .modal-tab {
+      flex: 1;
+      font-weight: 700;
+      font-size: 1.05em;
+      text-align: center;
+      padding: 13px 2px 11px 2px;
+      background: none;
       border: none;
-      padding: 7px 18px;
+      color: #7d91b3;
+      cursor: pointer;
+      border-radius: 10px 10px 0 0;
+      transition: background 0.15s, color 0.15s;
+      outline: none;
+    }
+    .modal-tab.active {
+      background: #171c23;
+      color: #fff;
+      border-bottom: 2.5px solid #fbe047;
+      cursor: default;
+    }
+    .modal-content {
+      padding: 18px 22px 16px 22px;
+    }
+    .titles-header {
+      font-size: 1.06em;
+      color: #cfd8e1;
+      margin-bottom: 16px;
+      margin-top: 0;
+      line-height: 1.6em;
+    }
+    .titles-header a {
+      color: #fff7b3;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    .title-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 1.03em;
+      gap: 7px;
+    }
+    .title-emoji {
+      font-size: 1.18em;
+      margin-right: 7px;
+      vertical-align: middle;
+    }
+    .title-name {
+      font-weight: bold;
+      margin-right: 6px;
+    }
+    .title-desc {
+      font-size: .96em;
+      color: #cfd8e1;
+      margin-left: 4px;
+      letter-spacing: .01em;
+    }
+    .grandmaster   { color: #fbe047; }
+    .master        { color: #ffe066; }
+    .ace           { color: #ef5b8e; }
+    .specialist    { color: #b285f5; }
+    .cadet         { color: #7ddaff; }
+    .novice        { color: #b3baff; }
+    .points-content {
+      color: #cfd8e1;
+      text-align: left;
+      font-size: 1em;
+      padding: 0;
+    }
+    .points-row {
+      display:flex;
+      align-items:center;
+      margin-bottom:7px;
+      gap: 0.7em;
+    }
+    .points-tier {
+      font-weight:700;
+      font-size:1.07em;
+      margin-right:10px;
+      min-width: 62px;
+      letter-spacing: .02em;
+    }
+    .points-badge {
+      display:inline-block;
+      border-radius:7px;
+      padding:2.5px 13px;
+      font-weight:700;
+      font-size:.99em;
+      margin-left:2px;
+      margin-right:2px;
+      box-shadow:0 1px 0 #fff2;
+      vertical-align: middle;
+    }
+    .points-badge--gold {
+      background:#28251e;
+      color:#ffe066;
+      box-shadow:0 1px 0 #fbe04733;
+    }
+    .points-badge--gold2 {
+      background:#28251e;
+      color:#fbe047;
+      box-shadow:0 1px 0 #fbe04733;
+    }
+    .points-badge--silver {
+      background:#22242a;
+      color:#bfc3ca;
+      box-shadow:0 1px 0 #fff2;
+    }
+    .points-badge--bronze {
+      background:#2a241e;
+      color:#d88f24;
+      box-shadow:0 1px 0 #d88f2433;
+    }
+    .points-badge--gray {
+      background:#23242a;
+      color:#bfc3ca;
+      box-shadow:0 1px 0 #fff2;
+    }
+    .points-trophy {
+      font-size:1.17em;
+      margin-right:9px;
+      vertical-align:middle;
+    }
+    .points-star {
+      font-size:1.09em;
+      margin-right:9px;
+      vertical-align:middle;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 1.5em;
+      color: #7d91b3;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+      transition: color 0.15s;
+    }
+    .modal-close:hover { color: #fbe047; }
+    .info-btn {
+      background: #242d39;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1em;
+      padding: 10px 18px 10px 38px;
+      cursor: pointer;
+      position: relative;
+      margin-right: 14px;
+      transition: background 0.13s;
+    }
+    .info-btn:before {
+      content: "i";
+      position: absolute;
+      left: 16px;
+      top: 9px;
+      font-size: 1.15em;
+      background: #212837;
+      color: #fbe047;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      text-align: center;
+      line-height: 18px;
+      font-weight: 900;
+      box-shadow: 0 1.5px 3px #0002;
+    }
+    .info-btn:hover {
+      background: #31394a;
+    }
+    .header-extra {
       display: flex;
       align-items: center;
       gap: 8px;
-      cursor: pointer;
-      outline: none;
-      transition: background 0.15s;
-      font-size: 1em;
     }
-    .discord-btn:hover {
+    .header-server {
       background: #222b35;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      padding: 4px 14px 4px 12px;
+      gap: 11px;
+      font-size: 1em;
+      margin-right: 2px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 1.5px 6px #0002;
+      position: relative;
     }
-    .discord-icon-img {
-      width: 19px;
-      height: 19px;
-      vertical-align: middle;
-      margin-right: 3px;
-      margin-top: -2px;
-      filter: drop-shadow(0 0 2px #7289da);
-    }
-    .discord-btn-label {
-      color: #fff;
-      font-weight: 700;
-      font-size: 1.02em;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      letter-spacing: 0.2px;
-      margin-top: 1px;
-      margin-bottom: 0;
-      padding: 0 3px;
-    }
-    /* NMC logo like mctiers style */
-    .nmc-logo-mctiers {
-      display: inline-block;
-      padding: 7px 24px;
-      background: #161d23;
-      border-radius: 14px;
-      box-shadow: 0 2px 16px #0008;
-      font-size: 0;
-    }
-    .nmc-logo-mctiers .nmc-mc {
-      font-family: 'Bungee', 'Lilita One', 'Luckiest Guy', 'Arial Black', Arial, sans-serif;
-      font-size: 2.7em;
-      font-weight: 900;
-      letter-spacing: 0.05em;
-      vertical-align: middle;
-      display: inline-block;
-      background: linear-gradient(180deg, #b5ff71 0%, #59c42b 45%, #7e5a27 70%, #2a1d10 100%);
-      color: transparent;
+    .header-server .server-label {
+      background: linear-gradient(90deg,#fbe047 10%,#d88f24 90%);
       -webkit-background-clip: text;
-      background-clip: text;
-      text-shadow:
-        0 2px 0 #3b7b19,
-        0 6px 10px #0007,
-        0 0px 1px #2a1d10,
-        0 2px 0 #222;
-      filter: drop-shadow(0 0 1px #2a1d10) drop-shadow(0 2px 0 #222);
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+      font-size: 1.08em;
+      margin-right: 8px;
+      letter-spacing: 1.3px;
     }
-    /* Leaderboard & modal CSS (copy from your original for brevity) */
-    .fade-in {animation: fadeSlideIn 0.5s cubic-bezier(.4,1.6,.5,1) both;}
-    .row-hover:hover {box-shadow: 0 2px 16px #fbe04733, 0 1px 2px #0006;transform: scale(1.012);transition: transform 0.16s, box-shadow 0.16s;z-index: 2;position: relative;}
-    .badge-hover {transition: box-shadow 0.13s, transform 0.13s;cursor: pointer;}
-    .highlighted {box-shadow: 0 0 0 3px #fbe047cc !important;background: #273554 !important;transition: box-shadow 0.22s, background 0.22s;}
-    .search-mark {background: linear-gradient(90deg,#ffe066 40%,#fff6d0 90%);color: #322a00;border-radius: 4px;padding: 1px 3px 1px 3px;box-shadow: 0 0 0 1.5px #ffe066cc;}
-    @media (max-width:700px) {.tiers-col { flex-wrap: wrap; }.tiers-col > span { margin-bottom: 6px; }}
-    /* ...add your other styles as needed... */
+    .header-server .server-ip {
+      background: #15191f;
+      color: #fbe047;
+      border-radius: 7px;
+      padding: 4px 14px;
+      font-size: 1.02em;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-weight: 700;
+      margin-right: 6px;
+      letter-spacing: 0.2px;
+      border: 1.5px solid #ffe066;
+      box-shadow: 0 0 8px #fbe04740 inset;
+      user-select: all;
+      transition: background 0.13s;
+      cursor: pointer;
+    }
+    .header-server .server-ip:hover {
+      background: #222b35;
+      color: #fff5d7;
+      border-color: #fbe047;
+    }
+    .header-server .discord {
+      margin-left: 8px;
+      font-size: 1.35em;
+      color: #7289da;
+      vertical-align: middle;
+      text-decoration: none;
+      transition: color 0.16s;
+    }
+    .header-server .discord:hover {
+      color: #b3e0ff;
+    }
+    .header-server .copied-msg {
+      position: absolute;
+      bottom: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #15191f;
+      color: #fbe047;
+      border-radius: 6px;
+      font-size: 0.93em;
+      padding: 2px 10px 2px 10px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s;
+      z-index: 10;
+      border: 1px solid #ffe066;
+      font-weight: 700;
+    }
+    .header-server .copied-msg.active {
+      opacity: 1;
+    }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Bungee:wght@400&display=swap" rel="stylesheet">
 </head>
 <body style="background:#161c23; margin:0; font-family:'Segoe UI',Arial,sans-serif; color:#f1f4f8;">
 
   <!-- Header Bar -->
   <div style="background:#181f27; display:flex; align-items:center; padding:0 32px; height:80px; box-shadow:0 2px 8px #0004;">
     <div style="display:flex;align-items:center;">
-      <div class="nmc-logo-mctiers">
-        <span class="nmc-mc">NMC</span>
-      </div>
+      <span style="font-weight:bold; font-size:2em; letter-spacing:1px;
+        background: linear-gradient(90deg,#5efc8d 10%, #fbe047 40%, #d88f24 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        NMC
+      </span>
+      <span style="font-weight:900; font-size:2em; letter-spacing:2px; margin-left:4px;
+        background: linear-gradient(97deg,#fbe047 10%, #d88f24 90%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        <!-- (No extra text here, matches your code) -->
+      </span>
     </div>
     <div style="flex:1"></div>
     <div class="header-extra">
       <button class="info-btn" onclick="openModal()">Information</button>
-      <!-- Discord Button (styled, with icon) -->
-      <a href="https://discord.gg/HMnXyFCPB9" target="_blank" rel="noopener" style="text-decoration:none;">
-        <button class="discord-btn" title="Discord">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAAA8AXHiAAAAW0lEQVQ4T2NkoAAwUqifBTlBGnAzgEGnAzgEGXAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEGnAzgEGXAzgEGnAzgEAAAAASUVORK5CYII=" alt="Discord" class="discord-icon-img" />
-          <span class="discord-btn-label">Discord</span>
-        </button>
-      </a>
+      <div class="header-server">
+        <span class="server-label">SERVER IP</span>
+        <span class="server-ip" id="serverIp" onclick="copyServerIp()">Soon</span>
+        <span class="copied-msg" id="copiedMsg">Copied!</span>
+        <a href="https://discord.gg/HMnXyFCPB9" target="_blank" rel="noopener" class="discord" title="Discord">&#128172;</a>
+      </div>
     </div>
     <input id="searchInput" type="text" placeholder="Search player..." style="background:#212837; border:none; color:#fff; border-radius:6px; padding:7px 12px; margin-left:18px;" oninput="searchPlayer()" autocomplete="off">
   </div>
@@ -231,7 +500,6 @@
       "Pot": "https://mctiers.com/tier_icons/pot.svg",
       "Axe": "https://mctiers.com/tier_icons/axe.svg"
     };
-    // Add as many players as you want here
     const players = [
       {
         name: "shi_licker",
@@ -258,10 +526,8 @@
           { gamemode: "Crystal", label: "HT4" }
         ]
       }
-      // Add more players here!
     ];
 
-    // Sort by points DESC so highest always #1 like mctiers.com
     function renderLeaderboard(highlighted, searchTerm) {
       const tbody = document.getElementById('rankingBody');
       tbody.innerHTML = '';
@@ -313,7 +579,6 @@
         case "EU": return "#26b956";
         case "ASIA": return "#2e7be6";
         case "OCE": return "#b98f26";
-        case "AS": return "#2e7be6";
         default: return "#555";
       }
     }
