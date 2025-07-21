@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>NMC Overall Ranking</title>
   <style>
-    /* --- All your original CSS above --- */
     @keyframes fadeSlideIn {
       from { opacity: 0; transform: translateY(30px);}
       to { opacity: 1; transform: translateY(0);}
@@ -376,7 +375,6 @@
   <!-- Header Bar -->
   <div style="background:#181f27; display:flex; align-items:center; padding:0 32px; height:80px; box-shadow:0 2px 8px #0004;">
     <div style="display:flex;align-items:center;">
-      <!-- MCTIERS-style logo replaces your old span -->
       <div class="nmc-logo-mctiers">
         <span class="nmc-mc">NMC</span>
       </div>
@@ -521,7 +519,8 @@
       "Nethop": "https://mctiers.com/tier_icons/nethop.svg",
       "Sword": "https://mctiers.com/tier_icons/sword.svg",
       "Pot": "https://mctiers.com/tier_icons/pot.svg",
-      "Axe": "https://mctiers.com/tier_icons/axe.svg"
+      "Axe": "https://mctiers.com/tier_icons/axe.svg",
+      "INGAMEMODE": "https://mctiers.com/tier_icons/mace.svg" // just as example, you can change the URL
     };
     const players = [
       {
@@ -537,6 +536,16 @@
           { gamemode: "Sword",    label: "HT3" },
           { gamemode: "Pot",      label: "LT3" },
           { gamemode: "UHC",      label: "LT3" }
+        ]
+      },
+      {
+        name: "REG_MI",
+        avatar: "https://crafatar.com/avatars/00000000000000000000000000000000?size=48",
+        rank: "Combat Cadet",
+        points: 30,
+        region: "AS",
+        tiers: [
+          { gamemode: "INGAMEMODE", label: "Tier 1" }
         ]
       },
       {
