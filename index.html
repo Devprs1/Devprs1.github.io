@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>NMC Overall Ranking</title>
   <style>
+    /* --- All your original CSS above --- */
     @keyframes fadeSlideIn {
       from { opacity: 0; transform: translateY(30px);}
       to { opacity: 1; transform: translateY(0);}
@@ -340,23 +341,45 @@
     .header-server .copied-msg.active {
       opacity: 1;
     }
+    /* --- MCTIERS-style NMC logo --- */
+    .nmc-logo-mctiers {
+      display: inline-block;
+      padding: 7px 24px;
+      background: #161d23;
+      border-radius: 14px;
+      box-shadow: 0 2px 16px #0008;
+      font-size: 0;
+    }
+    .nmc-logo-mctiers .nmc-mc {
+      font-family: 'Bungee', 'Lilita One', 'Luckiest Guy', 'Arial Black', Arial, sans-serif;
+      font-size: 2.7em;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      vertical-align: middle;
+      display: inline-block;
+      background: linear-gradient(180deg, #b5ff71 0%, #59c42b 45%, #7e5a27 70%, #2a1d10 100%);
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      text-shadow:
+        0 2px 0 #3b7b19,
+        0 6px 10px #0007,
+        0 0px 1px #2a1d10,
+        0 2px 0 #222;
+      filter: drop-shadow(0 0 1px #2a1d10) drop-shadow(0 2px 0 #222);
+    }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee:wght@400&display=swap" rel="stylesheet">
 </head>
 <body style="background:#161c23; margin:0; font-family:'Segoe UI',Arial,sans-serif; color:#f1f4f8;">
 
   <!-- Header Bar -->
   <div style="background:#181f27; display:flex; align-items:center; padding:0 32px; height:80px; box-shadow:0 2px 8px #0004;">
     <div style="display:flex;align-items:center;">
-      <span style="font-weight:bold; font-size:2em; letter-spacing:1px;
-        background: linear-gradient(90deg,#5efc8d 10%, #fbe047 40%, #d88f24 80%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        NMC
-      </span>
-      <span style="font-weight:900; font-size:2em; letter-spacing:2px; margin-left:4px;
-        background: linear-gradient(97deg,#fbe047 10%, #d88f24 90%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        <!-- (No extra text here, matches your code) -->
-      </span>
+      <!-- MCTIERS-style logo replaces your old span -->
+      <div class="nmc-logo-mctiers">
+        <span class="nmc-mc">NMC</span>
+      </div>
     </div>
     <div style="flex:1"></div>
     <div class="header-extra">
@@ -487,6 +510,7 @@
       </div>
     </div>
   </div>
+
   <script>
     // Updated gamemode icons
     const GAMEMODE_ICONS = {
@@ -516,21 +540,15 @@
         ]
       },
       {
-        name: "REG_MI",
+        name: "OoogaBoogaPrs",
         avatar: "https://crafatar.com/avatars/2b8c3b72a6c947c1b7b1b3e5c3cc7d45?size=48",
-        rank: "Crystal Cadet",
+        rank: "Crystal Specialist",
         points: 4,
-        region: "AS",
+        region: "EU",
         tiers: [
           { gamemode: "Crystal", label: "HT4" }
-          { gamemode: "Crystal", label: "LT4" }
-          { gamemode: "Pearl",    label: "HT4" },
-          { gamemode: "Axe",      label: "HT5" },
-          { gamemode: "Nethop",   label: "LT3" },
-          { gamemode: "Sword",    label: "LT4" },
-          { gamemode: "Pot",      label: "LT4" },
-          { gamemode: "UHC",      label: "HT5" }
         ]
+      }
     ];
 
     function renderLeaderboard(highlighted, searchTerm) {
@@ -584,6 +602,7 @@
         case "EU": return "#26b956";
         case "ASIA": return "#2e7be6";
         case "OCE": return "#b98f26";
+        case "AS": return "#2e7be6";
         default: return "#555";
       }
     }
