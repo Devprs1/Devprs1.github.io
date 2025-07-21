@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>NMC Overall Ranking</title>
   <style>
-    /* ... All your original CSS ... */
+    /* --- All your original CSS --- */
     @keyframes fadeSlideIn {
       from { opacity: 0; transform: translateY(30px);}
       to { opacity: 1; transform: translateY(0);}
@@ -341,57 +341,42 @@
     .header-server .copied-msg.active {
       opacity: 1;
     }
-    /* NMC Animated Logo */
-    .nmc-logo-animated {
+    /* NMC logo like mctiers style */
+    .nmc-logo-mctiers {
       display: inline-block;
-      padding: 13px 22px;
-      background: #1a232c;
+      padding: 5px 18px;
+      background: #161d23;
       border-radius: 14px;
-      box-shadow: 0 3px 30px #0008;
+      box-shadow: 0 2px 16px #0008;
+      font-size: 0;
     }
-    .nmc-logo-animated span {
+    .nmc-logo-mctiers span {
       font-family: 'Bungee', 'Lilita One', 'Luckiest Guy', 'Arial Black', Arial, sans-serif;
-      font-size: 2.6em;
+      font-size: 2.3em;
       font-weight: 900;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
       vertical-align: middle;
-      line-height: 1;
       display: inline-block;
+    }
+    .nmc-mc {
+      background: linear-gradient(180deg, #b5ff71 0%, #59c42b 45%, #7e5a27 70%, #2a1d10 100%);
       color: transparent;
-      background-clip: text;
       -webkit-background-clip: text;
-      margin-right: 3px;
-      text-shadow: 0 4px 0 #262a1e, 0 8px 14px #0007;
+      background-clip: text;
+      text-shadow:
+        0 2px 0 #3b7b19,
+        0 6px 10px #0007;
+      filter: drop-shadow(0 0 1px #2a1d10) drop-shadow(0 2px 0 #222);
     }
-    .nmc-green {
-      background: linear-gradient(120deg, #90ff73 0%, #6ecf32 40%, #3d881d 90%);
-      box-shadow: 0 2px 6px #0006;
-      filter: brightness(1.02);
-    }
-    .animated-n {
-      animation: nmcBounce 1.35s infinite cubic-bezier(.5,1.7,.5,1.01) alternate;
-    }
-    .nmc-yellow {
-      background: linear-gradient(120deg, #ffe066 0%, #fbe047 38%, #d88f24 100%);
-      box-shadow: 0 2px 6px #d88f2440;
-      filter: brightness(1.07);
-    }
-    .animated-m {
-      animation: nmcBounce 1.45s infinite cubic-bezier(.4,1.7,.5,1.01) alternate;
-    }
-    .nmc-gold {
-      background: linear-gradient(120deg, #ffe066 0%, #d88f24 60%, #c47b24 100%);
-      box-shadow: 0 2px 6px #d88f2440;
-      filter: brightness(1.13);
-    }
-    .animated-c {
-      animation: nmcBounce 1.62s infinite cubic-bezier(.5,1.7,.5,1.01) alternate;
-    }
-    @keyframes nmcBounce {
-      0%   { transform: scale(1) translateY(0);}
-      38%  { transform: scale(1.08) translateY(-3px);}
-      65%  { transform: scale(0.95) translateY(2.5px);}
-      100% { transform: scale(1.09) translateY(-6px);}
+    .nmc-tiers {
+      background: linear-gradient(180deg, #ffe066 0%, #fbe047 38%, #d88f24 60%, #c47b24 100%);
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      text-shadow:
+        0 2px 0 #a15d19,
+        0 6px 10px #0007;
+      filter: drop-shadow(0 0 1px #c47b24) drop-shadow(0 2px 0 #222);
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Bungee:wght@400&display=swap" rel="stylesheet">
@@ -401,11 +386,9 @@
   <!-- Header Bar -->
   <div style="background:#181f27; display:flex; align-items:center; padding:0 32px; height:80px; box-shadow:0 2px 8px #0004;">
     <div style="display:flex;align-items:center;">
-      <!-- Animated NMC Logo -->
-      <div class="nmc-logo-animated">
-        <span class="nmc-green animated-n">N</span>
-        <span class="nmc-yellow animated-m">M</span>
-        <span class="nmc-gold animated-c">C</span>
+      <!-- MCTIERS-style NMC logo -->
+      <div class="nmc-logo-mctiers">
+        <span class="nmc-mc">NMC</span>
       </div>
     </div>
     <div style="flex:1"></div>
