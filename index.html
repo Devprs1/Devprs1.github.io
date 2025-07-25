@@ -723,27 +723,38 @@
       `;
     }
 
-    function searchPlayer() {
-      const val = document.getElementById('searchInput').value.trim().toLowerCase();
-      let found = false, idx = -1;
-      let exact = null;
-      players.forEach((p,i)=>{
-        if(p.name.toLowerCase() === val && val) {
-          found = true; exact = p.name.toLowerCase(); idx = i;
-        }
-      });
-      if(!exact && val) {
-        players.forEach((p,i)=>{
-          if(!exact && p.name.toLowerCase().includes(val)) {
-            exact = p.name.toLowerCase(); idx = i; found = true;
-          }
-        });
-      }
-      renderLeaderboard(exact, val);
-      document.getElementById('searchMsg').style.display = found ? 'none' : (val ? '' : 'none');
-      document.getElementById('searchMsg').textContent = found ? '' : (val ? 'Player not found!' : '');
+function searchPlayer() {
+  const val = document.getElementById('searchInput').value.trim().toLowerCase();
+  let found = false, idx = -1;
+  let exact = null;
+  players.forEach((p,i)=>{
+    if(p.name.toLowerCase() === val && val) {
+      found = true; exact = p.name.toLowerCase(); idx = i;
     }
+  });
+  if(!exact && val) {
+    players.forEach((p,i)=>{
+      if(!exact && p.name.toLowerCase().includes(val)) {
+        exact = p.name.toLowerCase(); idx = i; found = true;
+      }
+    });
+  }
+  renderLeaderboard(exact, val);
+  document.getElementById('searchMsg').style.display = found ? 'none' : (val ? '' : 'none');
+  document.getElementById('searchMsg').textContent = found ? '' : (val ? 'Player not found!' : '');
 
+  // Scroll to and highlight if found
+  if (found && idx !== -1) {
+    setTimeout(() => {
+      const row = document.getElementById('player-row-' + idx);
+      if(row) {
+        row.scrollIntoView({ behavior: "smooth", block: "center" });
+        row.classList.add('highlighted');
+        setTimeout(() => row.classList.remove('highlighted'), 1800);
+      }
+    }, 80);
+  }
+}
     function openModal() {
       document.getElementById('modal-bg').style.display = '';
       document.body.style.overflow = 'hidden';
