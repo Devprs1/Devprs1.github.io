@@ -1,788 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>NMC Overall Ranking</title>
-  <style>
-    @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(30px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    @keyframes tierPop {
-      0%   { transform: scale(0.5); opacity: 0; }
-      60%  { transform: scale(1.15); opacity: 1; }
-      80%  { transform: scale(0.93);}
-      100% { transform: scale(1);}
-    }
-    @keyframes tierGlow {
-      0%   { box-shadow: 0 0 0 0 #fbe04700, 0 0 0 0 #fff0; }
-      80%  { box-shadow: 0 0 10px 4px #fbe04799, 0 0 1.5px 0 #fff2; }
-      100% { box-shadow: 0 0 10px 2.5px #fbe04799, 0 0 1.5px 0 #fff2; }
-    }
-    .fade-in {
-      animation: fadeSlideIn 0.5s cubic-bezier(.4,1.6,.5,1) both;
-    }
-    .row-hover:hover {
-      box-shadow: 0 2px 16px #fbe04733, 0 1px 2px #0006;
-      transform: scale(1.012);
-      transition: transform 0.16s, box-shadow 0.16s;
-      z-index: 2;
-      position: relative;
-    }
-    .badge-hover {
-      transition: box-shadow 0.13s, transform 0.13s;
-      cursor: pointer;
-      animation: tierPop 0.48s cubic-bezier(.22,1.25,.2,1.05);
-      will-change: transform, box-shadow;
-    }
-    .badge-hover:hover {
-      animation: tierGlow 0.33s cubic-bezier(.22,1.25,.2,1.05) forwards;
-      transform: scale(1.13);
-      z-index: 2;
-      position: relative;
-    }
-    .highlighted {
-      box-shadow: 0 0 0 3px #fbe047cc !important;
-      background: #273554 !important;
-      transition: box-shadow 0.22s, background 0.22s;
-    }
-    .search-mark {
-      background: linear-gradient(90deg,#ffe066 40%,#fff6d0 90%);
-      color: #322a00;
-      border-radius: 4px;
-      padding: 1px 3px 1px 3px;
-      box-shadow: 0 0 0 1.5px #ffe066cc;
-    }
-    @media (max-width:700px) {
-      .tiers-col { flex-wrap: wrap; }
-      .tiers-col > span { margin-bottom: 6px; }
-    }
-    .modal-bg {
-      position: fixed; inset: 0;
-      background: rgba(10,14,24,0.56);
-      z-index: 1000;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 80px;
-      min-height:100vh;
-    }
-    .modal {
-      background: #171c23;
-      border-radius: 15px;
-      box-shadow: 0 8px 32px #0007, 0 1.5px 0 #222e3a;
-      width: 340px;
-      padding: 0 0 10px 0;
-      animation: fadeIn 0.3s cubic-bezier(.33,1.2,.32,1.01);
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(28px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    .modal-tabs {
-      display: flex;
-      border-radius: 12px 12px 0 0;
-      background: #12161e;
-      padding: 0 8px;
-      border-bottom: 2px solid #212837;
-      margin-bottom: 2px;
-    }
-    .modal-tab {
-      flex: 1;
-      font-weight: 700;
-      font-size: 1.05em;
-      text-align: center;
-      padding: 13px 2px 11px 2px;
-      background: none;
-      border: none;
-      color: #7d91b3;
-      cursor: pointer;
-      border-radius: 10px 10px 0 0;
-      transition: background 0.15s, color 0.15s;
-      outline: none;
-    }
-    .modal-tab.active {
-      background: #171c23;
-      color: #fff;
-      border-bottom: 2.5px solid #fbe047;
-      cursor: default;
-    }
-    .modal-content {
-      padding: 18px 22px 16px 22px;
-    }
-    .titles-header {
-      font-size: 1.06em;
-      color: #cfd8e1;
-      margin-bottom: 16px;
-      margin-top: 0;
-      line-height: 1.6em;
-    }
-    .titles-header a {
-      color: #fff7b3;
-      text-decoration: underline;
-      font-weight: 600;
-    }
-    .title-row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 8px;
-      font-size: 1.03em;
-      gap: 7px;
-    }
-    .title-emoji {
-      font-size: 1.18em;
-      margin-right: 7px;
-      vertical-align: middle;
-    }
-    .title-name {
-      font-weight: bold;
-      margin-right: 6px;
-    }
-    .title-desc {
-      font-size: .96em;
-      color: #cfd8e1;
-      margin-left: 4px;
-      letter-spacing: .01em;
-    }
-    .grandmaster   { color: #fbe047; }
-    .master        { color: #ffe066; }
-    .ace           { color: #ef5b8e; }
-    .specialist    { color: #b285f5; }
-    .cadet         { color: #7ddaff; }
-    .novice        { color: #b3baff; }
-    .points-content {
-      color: #cfd8e1;
-      text-align: left;
-      font-size: 1em;
-      padding: 0;
-    }
-    .points-row {
-      display:flex;
-      align-items:center;
-      margin-bottom:7px;
-      gap: 0.7em;
-    }
-    .points-tier {
-      font-weight:700;
-      font-size:1.07em;
-      margin-right:10px;
-      min-width: 62px;
-      letter-spacing: .02em;
-    }
-    .points-badge {
-      display:inline-block;
-      border-radius:7px;
-      padding:2.5px 13px;
-      font-weight:700;
-      font-size:.99em;
-      margin-left:2px;
-      margin-right:2px;
-      box-shadow:0 1px 0 #fff2;
-      vertical-align: middle;
-    }
-    .points-badge--gold {
-      background:#28251e;
-      color:#ffe066;
-      box-shadow:0 1px 0 #fbe04733;
-    }
-    .points-badge--gold2 {
-      background:#28251e;
-      color:#fbe047;
-      box-shadow:0 1px 0 #fbe04733;
-    }
-    .points-badge--silver {
-      background:#22242a;
-      color:#bfc3ca;
-      box-shadow:0 1px 0 #fff2;
-    }
-    .points-badge--bronze {
-      background:#2a241e;
-      color:#d88f24;
-      box-shadow:0 1px 0 #d88f2433;
-    }
-    .points-badge--gray {
-      background:#23242a;
-      color:#bfc3ca;
-      box-shadow:0 1px 0 #fff2;
-    }
-    .points-trophy {
-      font-size:1.17em;
-      margin-right:9px;
-      vertical-align:middle;
-    }
-    .points-star {
-      font-size:1.09em;
-      margin-right:9px;
-      vertical-align:middle;
-    }
-    .modal-close {
-      position: absolute;
-      top: 10px;
-      right: 14px;
-      font-size: 1.5em;
-      color: #7d91b3;
-      background: none;
-      border: none;
-      cursor: pointer;
-      z-index: 1001;
-      transition: color 0.15s;
-    }
-    .modal-close:hover { color: #fbe047; }
-    .info-btn {
-      background: #242d39;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 1em;
-      padding: 10px 18px 10px 38px;
-      cursor: pointer;
-      position: relative;
-      margin-right: 14px;
-      transition: background 0.13s;
-    }
-    .info-btn:before {
-      content: "i";
-      position: absolute;
-      left: 16px;
-      top: 9px;
-      font-size: 1.15em;
-      background: #212837;
-      color: #fbe047;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      text-align: center;
-      line-height: 18px;
-      font-weight: 900;
-      box-shadow: 0 1.5px 3px #0002;
-    }
-    .info-btn:hover {
-      background: #31394a;
-    }
-    .header-extra {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .header-server {
-      background: #222b35;
-      border-radius: 9px;
-      display: flex;
-      align-items: center;
-      padding: 4px 14px 4px 12px;
-      gap: 11px;
-      font-size: 1em;
-      margin-right: 2px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      box-shadow: 0 1.5px 6px #0002;
-      position: relative;
-    }
-    .header-server .server-label {
-      background: linear-gradient(90deg,#fbe047 10%,#d88f24 90%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
-      font-size: 1.08em;
-      margin-right: 8px;
-      letter-spacing: 1.3px;
-    }
-    .header-server .server-ip {
-      background: #15191f;
-      color: #fbe047;
-      border-radius: 7px;
-      padding: 4px 14px;
-      font-size: 1.02em;
-      font-family: 'Consolas', 'Courier New', monospace;
-      font-weight: 700;
-      margin-right: 6px;
-      letter-spacing: 0.2px;
-      border: 1.5px solid #ffe066;
-      box-shadow: 0 0 8px #fbe04740 inset;
-      user-select: all;
-      transition: background 0.13s;
-      cursor: pointer;
-    }
-    .header-server .server-ip:hover {
-      background: #222b35;
-      color: #fff5d7;
-      border-color: #fbe047;
-    }
-    .header-server .discord {
-      margin-left: 8px;
-      font-size: 1.35em;
-      color: #7289da;
-      vertical-align: middle;
-      text-decoration: none;
-      transition: color 0.16s;
-    }
-    .header-server .discord:hover {
-      color: #b3e0ff;
-    }
-    .header-server .copied-msg {
-      position: absolute;
-      bottom: -22px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #15191f;
-      color: #fbe047;
-      border-radius: 6px;
-      font-size: 0.93em;
-      padding: 2px 10px 2px 10px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.22s;
-      z-index: 10;
-      border: 1px solid #ffe066;
-      font-weight: 700;
-    }
-    .header-server .copied-msg.active {
-      opacity: 1;
-    }
-  </style>
-</head>
-<body style="background:#161c23; margin:0; font-family:'Segoe UI',Arial,sans-serif; color:#f1f4f8;">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NMC Tiers - Leaderboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: #111;
+    color: #fff;
+  }
+  .container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+  }
 
-  <!-- Header Bar -->
-  <div style="background:#181f27; display:flex; align-items:center; padding:0 32px; height:80px; box-shadow:0 2px 8px #0004;">
-    <div style="display:flex;align-items:center;">
-      <span style="font-weight:bold; font-size:2em; letter-spacing:1px;
-        background: linear-gradient(90deg,#5efc8d 10%, #fbe047 40%, #d88f24 80%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        NMC
-      </span>
-      <span style="font-weight:900; font-size:2em; letter-spacing:2px; margin-left:4px;
-        background: linear-gradient(97deg,#fbe047 10%, #d88f24 90%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        <!-- (No extra text here, matches your code) -->
-      </span>
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .tab {
+    padding: 10px 15px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tab.active, .tab:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Search */
+  .search-box {
+    margin-bottom: 20px;
+  }
+  .search-box input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+  }
+  .search-box input::placeholder {
+    color: #ccc;
+  }
+
+  /* Leaderboard */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    backdrop-filter: blur(5px);
+  }
+  thead tr {
+    background: rgba(255,255,255,0.05);
+  }
+  th, td {
+    padding: 15px;
+    text-align: left;
+  }
+  tbody tr {
+    background: rgba(255,255,255,0.05);
+    margin-bottom: 10px;
+    border-radius: 10px;
+    display: block;
+    animation: fadeInUp 0.5s ease forwards;
+  }
+  tbody tr:hover {
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* Progress bar */
+  .progress {
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    height: 12px;
+    width: 100%;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ffcc00, #ff6600);
+    width: 0;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>NMC Tiers - Overall 🏆</h1>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" data-mode="overall">
+      <img src="https://pvptiers.com/icons/tiers/overall.png" alt="Overall" width="24"> Overall 🏆
     </div>
-    <div style="flex:1"></div>
-    <div class="header-extra">
-      <button class="info-btn" onclick="openModal()">Information</button>
-      <div class="header-server">
-        <span class="server-label">SERVER IP</span>
-        <span class="server-ip" id="serverIp" onclick="copyServerIp()">Soon</span>
-        <span class="copied-msg" id="copiedMsg">Copied!</span>
-        <a href="https://discord.gg/HMnXyFCPB9" target="_blank" rel="noopener" class="discord" title="Discord">&#128172;</a>
-      </div>
+    <div class="tab" data-mode="crystal">
+      <img src="https://pvptiers.com/icons/tiers/crystal.png" alt="Crystal" width="24"> Crystal ✨
     </div>
-    <input id="searchInput" type="text" placeholder="Search player..." style="background:#212837; border:none; color:#fff; border-radius:6px; padding:7px 12px; margin-left:18px;" oninput="searchPlayer()" autocomplete="off">
+    <div class="tab" data-mode="sword">
+      <img src="https://pvptiers.com/icons/tiers/sword.png" alt="Sword" width="24"> Sword ⚔️
+    </div>
+    <div class="tab" data-mode="uhc">
+      <img src="https://pvptiers.com/icons/tiers/uhc.png" alt="UHC" width="24"> UHC ❤️
+    </div>
+    <div class="tab" data-mode="pot">
+      <img src="https://pvptiers.com/icons/tiers/pot.png" alt="Pot" width="24"> Pot 🧪
+    </div>
+    <div class="tab" data-mode="netherite">
+      <img src="https://pvptiers.com/icons/tiers/neth_pot.png" alt="Netherite Pot" width="24"> Netherite Pot ⬛
+    </div>
+    <div class="tab" data-mode="smp">
+      <img src="https://pvptiers.com/icons/tiers/smp.png" alt="SMP" width="24"> SMP 🔮
+    </div>
+    <div class="tab" data-mode="axe">
+      <img src="https://pvptiers.com/icons/tiers/axe.png" alt="Axe" width="24"> Axe 🪓
+    </div>
+    <div class="tab" data-mode="mace">
+      <img src="https://pvptiers.com/icons/tiers/mace.png" alt="Mace" width="24"> Mace 🔨
+    </div>
   </div>
 
-  <!-- Nav Bar -->
-  <div style="display:flex; background:#181f27; border-bottom:2px solid #222e3a;">
-    <div style="padding:18px 32px 0 32px;">
-      <span style="display:flex; align-items:center; border-bottom:2.5px solid #fff; padding-bottom:8px;">
-        <span style="font-size:1.3em; margin-right:8px;">🏆</span>
-        <span style="font-weight:bold; color:#fff;">Overall</span>
-      </span>
-    </div>
+  <!-- Search -->
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Search player...">
   </div>
 
   <!-- Leaderboard -->
-  <div style="max-width:950px; margin:32px auto 0 auto; background:#181f27; border-radius:14px; box-shadow:0 6px 24px #0003; padding:32px 24px;">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
-      <h2 style="margin:0;font-size:1.6em; letter-spacing:1px; color:#fbe047;">Overall Rankings</h2>
-    </div>
-    <div id="searchMsg" style="color:#fbe047; text-align:center; margin:10px 0 0 0; display:none;"></div>
-    <table id="rankingTable" style="width:100%; border-collapse:separate; border-spacing:0 14px;">
-      <thead>
-        <tr style="color:#8094b9; font-size:.98em;">
-          <th style="text-align:left;padding:8px 10px;">#</th>
-          <th style="text-align:left;padding:8px 10px;">PLAYER</th>
-          <th style="text-align:left;padding:8px 10px;">REGION</th>
-          <th style="text-align:left;padding:8px 10px;">TIERS</th>
-        </tr>
-      </thead>
-      <tbody id="rankingBody">
-        <!-- Player rows inserted here -->
-      </tbody>
-    </table>
-    <div id="emptyMsg" style="text-align:center; color:#8094b9; margin-top:30px;">
-      No players yet!
-    </div>
-  </div>
-
-  <!-- Modal (hidden by default) -->
-  <div id="modal-bg" class="modal-bg" style="display:none;">
-    <div class="modal" style="position:relative;">
-      <button class="modal-close" onclick="closeModal()" title="Close">&times;</button>
-      <div class="modal-tabs">
-        <button class="modal-tab active" id="tab-titles" onclick="showTab('titles')">Titles</button>
-        <button class="modal-tab" id="tab-points" onclick="showTab('points')">Points</button>
-      </div>
-      <div class="modal-content" id="content-titles">
-        <div class="titles-header">
-          How to obtain <a href="#">Achievement Titles</a>
-        </div>
-        <div class="title-row">
-          <span class="title-emoji grandmaster">🏅</span>
-          <span class="title-name grandmaster">Combat Grandmaster</span>
-          <span class="title-desc">Obtained 400+ total points.</span>
-        </div>
-        <div class="title-row">
-          <span class="title-emoji master">🏅</span>
-          <span class="title-name master">Combat Master</span>
-          <span class="title-desc">Obtained 250+ total points.</span>
-        </div>
-        <div class="title-row">
-          <span class="title-emoji ace">🏅</span>
-          <span class="title-name ace">Combat Ace</span>
-          <span class="title-desc">Obtained 100+ total points.</span>
-        </div>
-        <div class="title-row">
-          <span class="title-emoji specialist">🏅</span>
-          <span class="title-name specialist">Combat Specialist</span>
-          <span class="title-desc">Obtained 50+ total points.</span>
-        </div>
-        <div class="title-row">
-          <span class="title-emoji cadet">🏅</span>
-          <span class="title-name cadet">Combat Cadet</span>
-          <span class="title-desc">Obtained 20+ total points.</span>
-        </div>
-        <div class="title-row">
-          <span class="title-emoji novice">🏅</span>
-          <span class="title-name novice">Combat Novice</span>
-          <span class="title-desc">Obtained 10+ total points.</span>
-        </div>
-      </div>
-      <div class="modal-content" id="content-points" style="display:none;">
-        <div class="titles-header" style="margin-bottom:14px;">
-          How <a href="#" style="color:#ffe066;text-decoration:underline;">ranking points</a> are calculated
-        </div>
-        <div class="points-content">
-          <div class="points-row">
-            <span class="points-trophy" style="color:#fbe047;">🏆</span>
-            <span class="points-tier" style="color:#ffe066;">Tier 1</span>
-            <span class="points-badge points-badge--gold">▲ 60 Points</span>
-            <span class="points-badge points-badge--gold2">▲ 45 Points</span>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Player</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody id="leaderboard">
+      <tr>
+        <td>1</td>
+        <td>OoogaBoogaPrs</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar" style="width: 90%;"></div>
           </div>
-          <div class="points-row">
-            <span class="points-trophy" style="color:#bfc3ca;">🥈</span>
-            <span class="points-tier" style="color:#bfc3ca;">Tier 2</span>
-            <span class="points-badge points-badge--silver">▲ 30 Points</span>
-            <span class="points-badge points-badge--silver">▲ 20 Points</span>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>ExamplePlayer</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar" style="width: 75%;"></div>
           </div>
-          <div class="points-row">
-            <span class="points-trophy" style="color:#d88f24;">🥉</span>
-            <span class="points-tier" style="color:#d88f24;">Tier 3</span>
-            <span class="points-badge points-badge--bronze">▲ 10 Points</span>
-            <span class="points-badge points-badge--bronze">▲ 6 Points</span>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>AnotherPlayer</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar" style="width: 60%;"></div>
           </div>
-          <div class="points-row">
-            <span class="points-star" style="color:#b0b0b0;">⭑</span>
-            <span class="points-tier" style="color:#bfc3ca;">Tier 4</span>
-            <span class="points-badge points-badge--gray">▲ 4 Points</span>
-            <span class="points-badge points-badge--gray">▲ 3 Points</span>
-          </div>
-          <div class="points-row">
-            <span class="points-star" style="color:#b0b0b0;">⭑</span>
-            <span class="points-tier" style="color:#bfc3ca;">Tier 5</span>
-            <span class="points-badge points-badge--gray">▲ 2 Points</span>
-            <span class="points-badge points-badge--gray">▲ 1 Point</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-  <script>
-    const GAMEMODE_ICONS = {
-      "Mace": "https://mctiers.com/tier_icons/mace.svg",
-      "Crystal": "https://mctiers.com/tier_icons/vanilla.svg",
-      "Pearl": "https://mctiers.com/tier_icons/smp.svg",
-      "UHC": "https://mctiers.com/tier_icons/uhc.svg",
-      "Nethop": "https://mctiers.com/tier_icons/nethop.svg",
-      "Sword": "https://mctiers.com/tier_icons/sword.svg",
-      "Pot": "https://mctiers.com/tier_icons/pot.svg",
-      "Axe": "https://mctiers.com/tier_icons/axe.svg"
-    };
-    const players = [
-      {
-        name: "shi_licker",
-        avatar: "https://render.crafty.gg/3d/bust/e1b7e0c9497d447e848770f22b7e4d32",
-        rank: "Combat Cadet",
-        points: 41,
-        region: "AS",
-        tiers: [
-          { gamemode: "Pearl",    label: "LT3" },
-          { gamemode: "Axe",      label: "LT4" },
-          { gamemode: "Nethop",   label: "HT3" },
-          { gamemode: "Sword",    label: "HT3" },
-          { gamemode: "Pot",      label: "LT3" },
-          { gamemode: "UHC",      label: "LT3" }
-        ]
-      },
-      {
-        name: "REG_MI",
-        avatar: "https://render.crafty.gg/3d/bust/72ccc067279143999c74683081917d38",
-        rank: "Combat Cadet",
-        points: 30,
-        region: "AS",
-        tiers: [
-          { gamemode: "Pearl",    label: "HT4" },
-          { gamemode: "Axe",      label: "HT5" },
-          { gamemode: "Nethop",   label: "LT3" },
-          { gamemode: "Sword",    label: "LT4" },
-          { gamemode: "Pot",      label: "LT3" },
-          { gamemode: "UHC",      label: "HT5" },
-          { gamemode: "Mace",     label: "LT4" },
-          { gamemode: "Crystal",     label: "LT4" }
-        ]
-      },
-      // 10 more players: name "Unranked", region "AS", LT5 in Crystal, points 0, avatar is unique per player
-      {
-        name: "Azaileyaaa",
-        avatar: "https://render.crafty.gg/3d/bust/0eea0d8087a84a6097994f88c88552aa",
-        rank: "Combat Cadet",
-        points: 27,
-        region: "AS",
-        tiers: [
-          { gamemode: "Pearl",    label: "HT5" },
-          { gamemode: "Axe",      label: "LT4" },
-          { gamemode: "Nethop",   label: "LT3" },
-          { gamemode: "Sword",    label: "LT4" },
-          { gamemode: "Pot",      label: "HT5" },
-          { gamemode: "Crystal",     label: "LT3" }
-        ]
-      },
-      {
-        name: "rbcauxe",
-        avatar: "https://render.crafty.gg/3d/bust/288d100dd8eb4c52948797f11367fc0e",
-        rank: "Combat Novice",
-        points: 16,
-        region: "AS",
-        tiers: [
-          { gamemode: "Axe",      label: "LT5" },
-          { gamemode: "Nethop",   label: "LT3" },
-          { gamemode: "Pot",      label: "HT5" },
-          { gamemode: "Crystal",     label: "LT3" }
-        ]
-      },
-      {
-        name: "1b4HeartsKeiani",
-        avatar: "https://render.crafty.gg/3d/bust/7a38e15099254996b6611e2f3918e62c",
-        rank: "Combat Novice",
-        points: 12,
-        region: "AS",
-        tiers: [
-          { gamemode: "Nethop",      label: "LT3" },
-          { gamemode: "Crystal",     label: "LT3" }
-        ]
-      },
-      {
-        name: "OoogaBoogaDext3r",
-        avatar: "https://render.crafty.gg/3d/bust/ce6bcc8f0c274459a8cb016a0043c0c5",
-        rank: "Rookie",
-        points: 8,
-        region: "AS",
-        tiers: [
-          { gamemode: "Nethop",      label: "LT3" },
-          { gamemode: "Pot",     label: "HT5" }
-        ]
-      },
-      {
-        name: "OoogaBoogaWeek",
-        avatar: "https://render.crafty.gg/3d/bust/78306addb7d7400fbd3224e9815fd823",
-        rank: "Rookie",
-        points: 7,
-        region: "AS",
-        tiers: [
-          { gamemode: "Nethop",      label: "HT4" },
-          { gamemode: "Pearl",     label: "LT4" }
-        ]
-      },
-      {
-        name: "OoogaBoogaSamar",
-        avatar: "https://render.crafty.gg/3d/bust/ee4f036a3f3e4145b71544069f3606ea",
-        rank: "Rookie",
-        points: 6,
-        region: "AS",
-        tiers: [
-          { gamemode: "Crystal", label: "LT3" }
-        ]
-      },
-      {
-        name: "ImagineQuickDrop",
-        avatar: "https://render.crafty.gg/3d/bust/cb701b2e11704c1eb3e9373fb39123af",
-        rank: "Rookie",
-        points: 4,
-        region: "AS",
-        tiers: [
-          { gamemode: "Crystal", label: "HT4" }
-        ]
-      },
-      {
-        name: "Dragon_Saber",
-        avatar: "https://render.crafty.gg/3d/bust/cd9207592c354ba3b8f9ae278df658be",
-        rank: "Rookie",
-        points: 4,
-        region: "AS",
-        tiers: [
-          { gamemode: "Sword", label: "HT4" }
-        ]
-      },
-      {
-        name: "OoogaBoogaSam",
-        avatar: "https://render.crafty.gg/3d/bust/1fad4e135883408f85ebb55e314dc5c6",
-        rank: "Rookie",
-        points: 3,
-        region: "AS",
-        tiers: [
-          { gamemode: "Mace", label: "LT4" }
-        ]
-      },
-      {
-        name: "RizzInVein",
-        avatar: "https://render.crafty.gg/3d/bust/b1b1203a4f5d4399991e8e6fe0194a37",
-        rank: "Rookie",
-        points: 7,
-        region: "AS",
-        tiers: [
-          { gamemode: "Crystal", label: "LT5" },
-          { gamemode: "Nethop", label: "LT3" }
-        ]
-      }
-    ];
-
-    function renderLeaderboard(highlighted, searchTerm) {
-      const tbody = document.getElementById('rankingBody');
-      tbody.innerHTML = '';
-      const sorted = [...players].sort((a, b) => b.points - a.points);
-      sorted.forEach((p, i) => {
-        const tr = document.createElement('tr');
-        tr.className = "fade-in row-hover";
-        if (highlighted && highlighted === p.name.toLowerCase())
-          tr.className += " highlighted";
-        tr.style.borderRadius = "8px";
-        tr.id = "player-row-" + i;
-        let badgeColor = ['#fbe047', '#e7e7e7', '#d88f24', '#348af7'][i] || '#222e3a';
-        let badgeTextColor = i === 1 ? '#222e3a' : '#fff';
-        tr.innerHTML = `
-          <td style="padding:0 10px;">
-            <div style="background:${badgeColor};color:${badgeTextColor};font-weight:bold;font-size:1.5em;width:56px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:8px 0 0 8px;">
-              ${i + 1}.
-            </div>
-          </td>
-          <td style="padding:0 10px;">
-            <div style="display:flex; align-items:center;">
-              <img src="${p.avatar}" alt="${p.name}" style="width:46px; height:46px; border-radius:8px; margin-right:16px; background:#e3e3e3;">
-              <div>
-                <span style="font-weight:bold; font-size:1.2em; color:#fff;">${highlightText(p.name, searchTerm)}</span>
-                <div style="font-size:1em; color:#cfd8e1; margin-top:2px;">
-                  <span style="font-size:1.1em;">&#11044;</span>
-                  ${p.rank} <span style="color:#8094b9;">(${p.points} points)</span>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td style="padding:0 10px;">
-            <span style="background:${regionColor(p.region)}; color:#fff; border-radius:5px; padding:7px 16px; font-size:1em; font-weight:bold;">${p.region}</span>
-          </td>
-          <td style="padding:0 10px;">
-            <div class="tiers-col" style="display:flex;gap:6px;">
-              ${p.tiers.map((t, ti) => tierBadge(t.gamemode, t.label, ti)).join('')}
-            </div>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-      document.getElementById('emptyMsg').style.display = players.length ? 'none' : '';
-    }
-
-    function regionColor(region) {
-      switch(region) {
-        case "NA": return "#ad3131";
-        case "EU": return "#26b956";
-        case "ASIA": return "#2e7be6";
-        case "OCE": return "#b98f26";
-        case "AS": return "#2e7be6";
-        default: return "#555";
-      }
-    }
-    function highlightText(name, term) {
-      if (!term) return name;
-      const idx = name.toLowerCase().indexOf(term.toLowerCase());
-      if (idx === -1) return name;
-      return name.substring(0, idx) + '<span class="search-mark">' +
-        name.substring(idx, idx + term.length) + '</span>' +
-        name.substring(idx + term.length);
-    }
-    function tierBadge(gamemode, label, idx) {
-      const icon = GAMEMODE_ICONS[gamemode] || "";
-      return `
-        <span class="badge-hover" style="display:inline-flex;align-items:center;flex-direction:column; animation-delay:${(idx*0.05+0.09).toFixed(2)}s;">
-          <span style="display:inline-flex;align-items:center;justify-content:center; width:32px; height:32px; background:#15191f; border-radius:50%; border:2px solid #bfa23c; margin-bottom:2px;">
-            <img src="${icon}" alt="${gamemode}" style="width:20px;height:20px;">
-          </span>
-          <span style="background:#bfa23c; color:#222e3a; border-radius:7px; padding:2px 12px 2px 12px; font-size:.98em; font-weight:bold; margin-top:2px; letter-spacing:1px;">
-            ${label}
-          </span>
-        </span>
-      `;
-    }
-
-function searchPlayer() {
-  const val = document.getElementById('searchInput').value.trim().toLowerCase();
-  let found = false, idx = -1;
-  let exact = null;
-  players.forEach((p,i)=>{
-    if(p.name.toLowerCase() === val && val) {
-      found = true; exact = p.name.toLowerCase(); idx = i;
-    }
+<script>
+  // Search filter
+  const searchInput = document.getElementById('search');
+  const leaderboard = document.getElementById('leaderboard');
+  searchInput.addEventListener('input', () => {
+    const filter = searchInput.value.toLowerCase();
+    Array.from(leaderboard.getElementsByTagName('tr')).forEach(tr => {
+      const player = tr.cells[1].textContent.toLowerCase();
+      tr.style.display = player.includes(filter) ? '' : 'none';
+    });
   });
-  if(!exact && val) {
-    players.forEach((p,i)=>{
-      if(!exact && p.name.toLowerCase().includes(val)) {
-        exact = p.name.toLowerCase(); idx = i; found = true;
-      }
+
+  // Tab switching (currently placeholder)
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      // Future: switch leaderboard data based on tab.dataset.mode
+      console.log('Switch tab to:', tab.dataset.mode);
     });
-  }
-  renderLeaderboard(exact, val);
-  document.getElementById('searchMsg').style.display = found ? 'none' : (val ? '' : 'none');
-  document.getElementById('searchMsg').textContent = found ? '' : (val ? 'Player not found!' : '');
-
-  // Scroll to and highlight if found
-  if (found && idx !== -1) {
-    setTimeout(() => {
-      const row = document.getElementById('player-row-' + idx);
-      if(row) {
-        row.scrollIntoView({ behavior: "smooth", block: "center" });
-        row.classList.add('highlighted');
-        setTimeout(() => row.classList.remove('highlighted'), 1800);
-      }
-    }, 80);
-  }
-}
-    function openModal() {
-      document.getElementById('modal-bg').style.display = '';
-      document.body.style.overflow = 'hidden';
-    }
-    function closeModal() {
-      document.getElementById('modal-bg').style.display = 'none';
-      document.body.style.overflow = '';
-    }
-    function showTab(tab) {
-      document.getElementById('tab-titles').classList.toggle('active', tab==='titles');
-      document.getElementById('tab-points').classList.toggle('active', tab==='points');
-      document.getElementById('content-titles').style.display = tab==='titles' ? '' : 'none';
-      document.getElementById('content-points').style.display = tab==='points' ? '' : 'none';
-    }
-    window.addEventListener('keydown', function(e){
-      if(e.key==="Escape") closeModal();
-    });
-
-    function copyServerIp() {
-      const ip = "mcpvp.club";
-      navigator.clipboard.writeText(ip);
-      const msg = document.getElementById('copiedMsg');
-      msg.classList.add('active');
-      setTimeout(()=>msg.classList.remove('active'), 1200);
-    }
-
-    renderLeaderboard();
-  </script>
+  });
+</script>
 </body>
 </html>
