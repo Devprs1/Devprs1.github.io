@@ -1,209 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NMC Tiers - Leaderboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    background: #111;
-    color: #fff;
-  }
-  .container {
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 20px;
-  }
+  <meta charset="utf-8" />
+  <title>Nmc Tiers - Overall</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!--
+    Nmc Tiers - PvPTiers-style replica
+    - All CSS and JS are inline in this single file.
+    - Replace or edit the player data and DISCORD_WEBHOOK variable below.
+    - Icons used (you provided):
+      https://pvptiers.com/icons/tiers/crystal.png
+      https://pvptiers.com/icons/tiers/sword.png
+      https://pvptiers.com/icons/tiers/overall.png
+      https://pvptiers.com/icons/tiers/uhc.png
+      https://pvptiers.com/icons/tiers/pot.png
+      https://pvptiers.com/icons/tiers/neth_pot.png
+      https://pvptiers.com/icons/tiers/smp.png
+      https://pvptiers.com/icons/tiers/axe.png
+      https://pvptiers.com/icons/tiers/mace.png
+  -->
+  <style>
+    /* ---------- Reset & Base ---------- */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(71,234,255,0.06), transparent),
+                  linear-gradient(135deg,#0f1224 0%, #161824 40%, #1b1630 100%);
+      color:#dfefff;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-  /* Tabs */
-  .tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-  .tab {
-    padding: 10px 15px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .tab.active, .tab:hover {
-    background: rgba(255,255,255,0.2);
-  }
+    /* ---------- Header ---------- */
+    header{
+      padding:22px 18px;
+      text-align:center;
+      border-bottom:1px solid rgba(255,255,255,0.03);
+      box-shadow:0 6px 30px rgba(7,9,20,0.6) inset;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .logo {
+      font-weight:900;
+      font-size:1.9rem;
+      color:#8fe9ff;
+      letter-spacing:1px;
+      text-shadow:0 6px 28px rgba(71,234,255,0.08);
+    }
+    .tagline{
+      color:#a8cfff;
+      font-weight:700;
+      font-size:0.95rem;
+    }
 
-  /* Search */
-  .search-box {
-    margin-bottom: 20px;
-  }
-  .search-box input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    background: rgba(255,255,255,0.05);
-    color: #fff;
-  }
-  .search-box input::placeholder {
-    color: #ccc;
-  }
+    /* ---------- Gamemode Tabs ---------- */
+    .tabs{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .tab{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:28px;
+      padding:8px 12px;
+      cursor:pointer;
+      border:1px solid transparent;
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s;
+      user-select:none;
+    }
+    .tab img{width:20px;height:20px;border-radius:4px;object-fit:cover}
+    .tab strong{font-size:0.95rem}
+    .tab:hover{transform:translateY(-3px)}
+    .tab.active{
+      background:linear-gradient(90deg,#2328ff, #47eaff);
+      box-shadow:0 6px 28px rgba(71,234,255,0.14);
+      border-color:rgba(255,255,255,0.06);
+      color:#001028;
+    }
 
-  /* Leaderboard */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    backdrop-filter: blur(5px);
-  }
-  thead tr {
-    background: rgba(255,255,255,0.05);
-  }
-  th, td {
-    padding: 15px;
-    text-align: left;
-  }
-  tbody tr {
-    background: rgba(255,255,255,0.05);
-    margin-bottom: 10px;
-    border-radius: 10px;
-    display: block;
-    animation: fadeInUp 0.5s ease forwards;
-  }
-  tbody tr:hover {
-    background: rgba(255,255,255,0.15);
-  }
+    /* ---------- Main / Grid ---------- */
+    main{flex:1; padding:26px 6vw 48px}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat( auto-fit, minmax(260px, 1fr) );
+      gap:20px;
+      max-width:1200px;
+      margin:0 auto;
+    }
 
-  /* Progress bar */
-  .progress {
-    background: rgba(255,255,255,0.1);
-    border-radius: 8px;
-    overflow: hidden;
-    height: 12px;
-    width: 100%;
-  }
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #ffcc00, #ff6600);
-    width: 0;
-  }
+    /* ---------- Card ---------- */
+    .card{
+      position:relative;
+      overflow:hidden;
+      border-radius:14px;
+      padding:16px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.02), transparent),
+        linear-gradient(135deg, rgba(35,40,255,0.02), rgba(71,234,255,0.02));
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 30px rgba(6,10,20,0.6);
+      transform-origin:center;
+      transition: transform .22s cubic-bezier(.2,.9,.2,1), box-shadow .22s;
+      cursor:pointer;
+      opacity:0;
+      transform: translateY(18px) scale(.98);
+      will-change:transform,opacity;
+    }
+    .card.show{
+      animation:cardIn .55s cubic-bezier(.2,.9,.2,1) forwards;
+    }
+    @keyframes cardIn{
+      to { opacity:1; transform:translateY(0) scale(1); }
+    }
+    .card:hover{
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 18px 50px rgba(34,40,255,0.12), 0 0 48px rgba(71,234,255,0.06);
+    }
 
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+    .card .top{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .rank{
+      font-size:1.9rem;
+      font-weight:900;
+      width:64px;
+      min-width:64px;
+      text-align:left;
+      background:linear-gradient(90deg,#47eaff,#6b8cff 80%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      filter:drop-shadow(0 4px 12px rgba(71,234,255,0.08));
+    }
+    .player{
+      flex:1;
+    }
+    .player .name{
+      font-weight:800;
+      font-size:1.05rem;
+      color:#ffffff;
+    }
+    .player .meta{
+      font-size:0.83rem;
+      color: #a8c7ff;
+      margin-top:4px;
+    }
+    .gm-icon{
+      width:46px;height:46px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;
+      box-shadow:inset 0 -6px 18px rgba(0,0,0,0.35);
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .gm-icon img{width:34px;height:34px;object-fit:contain;border-radius:6px}
 
-</style>
+    .score-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:14px;
+      gap:12px;
+    }
+    .score{
+      font-weight:900;
+      font-size:1.35rem;
+      background:linear-gradient(90deg,#47eaff,#2328ff);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .actions{
+      display:flex;
+      gap:8px;
+      margin-left:auto;
+    }
+    .btn{
+      background:linear-gradient(90deg, rgba(35,40,255,0.18), rgba(71,234,255,0.08));
+      border:1px solid rgba(255,255,255,0.03);
+      color:#dff6ff;
+      padding:7px 10px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:0.86rem;
+      cursor:pointer;
+      transition:transform .16s,box-shadow .16s,background .16s;
+    }
+    .btn:hover{ transform:translateY(-3px); box-shadow:0 10px 28px rgba(71,234,255,0.08) }
+
+    /* neon accent strip */
+    .accent-strip{
+      position:absolute;
+      inset:auto 0 0 0;
+      height:6px;
+      background:linear-gradient(90deg,#47eaff,#2328ff);
+      opacity:0.14;
+      filter:blur(6px);
+      transition:opacity .2s;
+    }
+    .card:hover .accent-strip{ opacity:0.28 }
+
+    /* toast */
+    .toast{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      background:linear-gradient(90deg,#0b101a,#0f1724);
+      border:1px solid rgba(255,255,255,0.04);
+      color:#dff6ff;
+      padding:12px 16px;
+      border-radius:12px;
+      box-shadow:0 8px 42px rgba(2,6,23,0.6);
+      z-index:9999;
+      transform:translateY(12px);
+      opacity:0;
+      transition:opacity .22s, transform .22s;
+    }
+    .toast.show{ transform:translateY(0); opacity:1 }
+    @media (max-width:520px){
+      .grid{gap:14px}
+      .rank{font-size:1.4rem;width:48px}
+      .gm-icon{width:42px;height:42px}
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <h1>NMC Tiers - Overall 🏆</h1>
+  <header>
+    <div class="brand">
+      <div class="logo">Nmc Tiers</div>
+      <div class="tagline">Competitive Minecraft PvP Rankings — replica</div>
+    </div>
+    <div class="tabs" id="tabs" aria-label="Gamemodes"></div>
+  </header>
 
-  <!-- Tabs -->
-  <div class="tabs">
-    <div class="tab active" data-mode="overall">
-      <img src="https://pvptiers.com/icons/tiers/overall.png" alt="Overall" width="24"> Overall 🏆
-    </div>
-    <div class="tab" data-mode="crystal">
-      <img src="https://pvptiers.com/icons/tiers/crystal.png" alt="Crystal" width="24"> Crystal ✨
-    </div>
-    <div class="tab" data-mode="sword">
-      <img src="https://pvptiers.com/icons/tiers/sword.png" alt="Sword" width="24"> Sword ⚔️
-    </div>
-    <div class="tab" data-mode="uhc">
-      <img src="https://pvptiers.com/icons/tiers/uhc.png" alt="UHC" width="24"> UHC ❤️
-    </div>
-    <div class="tab" data-mode="pot">
-      <img src="https://pvptiers.com/icons/tiers/pot.png" alt="Pot" width="24"> Pot 🧪
-    </div>
-    <div class="tab" data-mode="netherite">
-      <img src="https://pvptiers.com/icons/tiers/neth_pot.png" alt="Netherite Pot" width="24"> Netherite Pot ⬛
-    </div>
-    <div class="tab" data-mode="smp">
-      <img src="https://pvptiers.com/icons/tiers/smp.png" alt="SMP" width="24"> SMP 🔮
-    </div>
-    <div class="tab" data-mode="axe">
-      <img src="https://pvptiers.com/icons/tiers/axe.png" alt="Axe" width="24"> Axe 🪓
-    </div>
-    <div class="tab" data-mode="mace">
-      <img src="https://pvptiers.com/icons/tiers/mace.png" alt="Mace" width="24"> Mace 🔨
-    </div>
-  </div>
+  <main>
+    <div class="grid" id="grid" role="list"></div>
+  </main>
 
-  <!-- Search -->
-  <div class="search-box">
-    <input type="text" id="search" placeholder="Search player...">
-  </div>
+  <div id="toast" class="toast" aria-live="polite" role="status" style="display:none"></div>
 
-  <!-- Leaderboard -->
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Player</th>
-        <th>Score</th>
-      </tr>
-    </thead>
-    <tbody id="leaderboard">
-      <tr>
-        <td>1</td>
-        <td>OoogaBoogaPrs</td>
-        <td>
-          <div class="progress">
-            <div class="progress-bar" style="width: 90%;"></div>
+  <script>
+    /* ==========================
+       CONFIGURATION
+       - Put your Discord webhook here to enable sending notifications.
+       - If left empty, sendToDiscord will alert you the webhook is not set.
+       ========================== */
+    const DISCORD_WEBHOOK = ""; // <-- paste your webhook URL here (string). Keep empty to disable.
+
+    /* ==========================
+       Gamemodes & Icons
+       - Using the exact URLs you provided.
+       - id: the key used by players to reference gamemode.
+       ========================== */
+    const GAMEMODES = [
+      { id: 'overall', name: 'Overall', icon: 'https://pvptiers.com/icons/tiers/overall.png' },
+      { id: 'crystal',  name: 'Crystal',  icon: 'https://pvptiers.com/icons/tiers/crystal.png' },
+      { id: 'sword',    name: 'Sword',    icon: 'https://pvptiers.com/icons/tiers/sword.png' },
+      { id: 'uhc',      name: 'UHC',      icon: 'https://pvptiers.com/icons/tiers/uhc.png' },
+      { id: 'pot',      name: 'Pot',      icon: 'https://pvptiers.com/icons/tiers/pot.png' },
+      { id: 'neth_pot', name: 'Neth Pot', icon: 'https://pvptiers.com/icons/tiers/neth_pot.png' },
+      { id: 'smp',      name: 'SMP',      icon: 'https://pvptiers.com/icons/tiers/smp.png' },
+      { id: 'axe',      name: 'Axe',      icon: 'https://pvptiers.com/icons/tiers/axe.png' },
+      { id: 'mace',     name: 'Mace',     icon: 'https://pvptiers.com/icons/tiers/mace.png' }
+    ];
+
+    /* ==========================
+       Player Data (Dynamic)
+       - Edit or replace these items.
+       - Use gamemode ids above for gamemode property.
+       - This array is used to render cards; dynamic updates will re-render.
+       ========================== */
+    let players = [
+      { id: 'p1', name: 'OoogaBoogaPrs', rank: 1, score: 25342, gamemode: 'overall' },
+      { id: 'p2', name: 'ShadowNmc',      rank: 2, score: 21400, gamemode: 'crystal' },
+      { id: 'p3', name: 'QuickBlade',     rank: 3, score: 19850, gamemode: 'sword' },
+      { id: 'p4', name: 'NetherKing',     rank: 4, score: 18700, gamemode: 'neth_pot' },
+      { id: 'p5', name: 'PotMaster',      rank: 5, score: 17430, gamemode: 'pot' },
+      { id: 'p6', name: 'AxeSmash',       rank: 6, score: 16200, gamemode: 'axe' },
+      { id: 'p7', name: 'MaceMage',       rank: 7, score: 15980, gamemode: 'mace' },
+      { id: 'p8', name: 'UHC_Warlord',    rank: 8, score: 14999, gamemode: 'uhc' },
+      { id: 'p9', name: 'SmpPlayer',      rank: 9, score: 13000, gamemode: 'smp' }
+    ];
+
+    /* ==========================
+       State
+       ========================== */
+    let activeGamemode = 'overall'; // 'overall' shows all players in this replica (you can change behavior)
+    const tabsEl = document.getElementById('tabs');
+    const gridEl = document.getElementById('grid');
+    const toastEl = document.getElementById('toast');
+
+    /* ==========================
+       Utilities
+       ========================== */
+    function showToast(msg, timeout = 3200) {
+      toastEl.textContent = msg;
+      toastEl.style.display = 'block';
+      setTimeout(()=> toastEl.classList.add('show'), 20);
+      clearTimeout(toastEl._t);
+      toastEl._t = setTimeout(()=> {
+        toastEl.classList.remove('show');
+        setTimeout(()=> toastEl.style.display = 'none', 260);
+      }, timeout);
+    }
+
+    function formatNumber(n){
+      return n.toLocaleString();
+    }
+
+    /* Smooth counter animation */
+    function animateCount(el, end, duration = 900) {
+      const start = 0;
+      const startTime = performance.now();
+      function step(now) {
+        const elapsed = now - startTime;
+        const t = Math.min(1, elapsed / duration);
+        const value = Math.round(start + (end - start) * easeOutCubic(t));
+        el.textContent = formatNumber(value);
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+
+    /* Find gamemode metadata */
+    function gmMeta(id){
+      return GAMEMODES.find(g => g.id === id) || { id, name: id, icon: '' };
+    }
+
+    /* ==========================
+       Rendering
+       ========================== */
+    function renderTabs() {
+      tabsEl.innerHTML = '';
+      GAMEMODES.forEach(gm => {
+        const btn = document.createElement('button');
+        btn.className = 'tab' + (gm.id === activeGamemode ? ' active' : '');
+        btn.setAttribute('data-gm', gm.id);
+        btn.innerHTML = `
+          <img src="${gm.icon}" alt="${gm.name}" loading="lazy" />
+          <strong>${gm.name}</strong>
+        `;
+        btn.addEventListener('click', () => {
+          if (activeGamemode === gm.id) return;
+          activeGamemode = gm.id;
+          renderTabs();
+          renderGrid();
+        });
+        tabsEl.appendChild(btn);
+      });
+    }
+
+    function cardHTML(player, delayIndex) {
+      const gm = gmMeta(player.gamemode);
+      // container
+      const wrapper = document.createElement('article');
+      wrapper.className = 'card';
+      // set animation delay for staggered entrance
+      wrapper.style.animationDelay = `${Math.min(0.5, delayIndex * 0.06)}s`;
+      wrapper.innerHTML = `
+        <div class="top">
+          <div class="rank" aria-hidden="true">#${player.rank}</div>
+          <div class="player">
+            <div class="name">${player.name}</div>
+            <div class="meta">Ranked #${player.rank} • ${gm.name}</div>
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>ExamplePlayer</td>
-        <td>
-          <div class="progress">
-            <div class="progress-bar" style="width: 75%;"></div>
+          <div class="gm-icon" title="${gm.name}" aria-hidden="true">
+            <img src="${gm.icon}" alt="${gm.name} icon" loading="lazy" onerror="this.style.opacity=0.6" />
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>AnotherPlayer</td>
-        <td>
-          <div class="progress">
-            <div class="progress-bar" style="width: 60%;"></div>
+        </div>
+
+        <div class="score-row">
+          <div>
+            <div style="font-size:0.76rem;color:#9ab8ff;margin-bottom:6px">Score</div>
+            <div class="score" data-score="${player.score}">0</div>
           </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+          <div class="actions">
+            <button class="btn btn-view" data-id="${player.id}">View</button>
+            <button class="btn btn-discord" data-id="${player.id}">Send</button>
+          </div>
+        </div>
 
-<script>
-  // Search filter
-  const searchInput = document.getElementById('search');
-  const leaderboard = document.getElementById('leaderboard');
-  searchInput.addEventListener('input', () => {
-    const filter = searchInput.value.toLowerCase();
-    Array.from(leaderboard.getElementsByTagName('tr')).forEach(tr => {
-      const player = tr.cells[1].textContent.toLowerCase();
-      tr.style.display = player.includes(filter) ? '' : 'none';
-    });
-  });
+        <div class="accent-strip" aria-hidden="true"></div>
+      `;
+      return wrapper;
+    }
 
-  // Tab switching (currently placeholder)
-  const tabs = document.querySelectorAll('.tab');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      // Future: switch leaderboard data based on tab.dataset.mode
-      console.log('Switch tab to:', tab.dataset.mode);
-    });
-  });
-</script>
+    function renderGrid() {
+      // filter players by gamemode:
+      // For this replica, "overall" shows all players, other tabs show only matching gamemode players.
+      const items = (activeGamemode === 'overall')
+        ? players.slice().sort((a,b)=> a.rank - b.rank)
+        : players.filter(p => p.gamemode === activeGamemode).sort((a,b)=> a.rank - b.rank);
+
+      gridEl.innerHTML = '';
+      items.forEach((p, idx) => {
+        const node = cardHTML(p, idx);
+        gridEl.appendChild(node);
+
+        // after insertion, short timeout to add "show" class and run counter animation
+        setTimeout(()=> {
+          node.classList.add('show');
+
+          // animate score
+          const scoreEl = node.querySelector('.score');
+          animateCount(scoreEl, p.score, 900 + Math.min(500, idx * 60));
+
+          // wire buttons
+          const btnView = node.querySelector('.btn-view');
+          const btnDiscord = node.querySelector('.btn-discord');
+          btnView.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showPlayerDetails(p);
+          });
+          btnDiscord.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sendToDiscord(p);
+          });
+
+          // click card opens details
+          node.addEventListener('click', () => showPlayerDetails(p));
+        }, 40 + idx * 40);
+      });
+
+      if (items.length === 0) {
+        const empty = document.createElement('div');
+        empty.style.textAlign = 'center';
+        empty.style.padding = '28px';
+        empty.style.color = '#9fbfff';
+        empty.innerHTML = `<strong>No players for ${gmMeta(activeGamemode).name}</strong>`;
+        gridEl.appendChild(empty);
+      }
+    }
+
+    /* Simple detail drawer / modal (light) */
+    function showPlayerDetails(p) {
+      const gm = gmMeta(p.gamemode);
+      showToast(`Player: ${p.name} — #${p.rank} — ${formatNumber(p.score)} (${gm.name})`, 2800);
+    }
+
+    /* ==========================
+       Discord Webhook Integration
+       - Will POST player info to DISCORD_WEBHOOK.
+       - NOTE: Discord webhooks may block browser requests due to CORS depending on origin.
+         If you see CORS errors, use a server-side proxy or GitHub Actions to call the webhook.
+       ========================== */
+    async function sendToDiscord(player) {
+      if (!DISCORD_WEBHOOK) {
+        showToast('Discord webhook not set. Configure DISCORD_WEBHOOK in the HTML.');
+        return;
+      }
+      const gm = gmMeta(player.gamemode);
+      const content = `Player update from Nmc Tiers:
+Name: **${player.name}**
+Rank: **#${player.rank}**
+Score: **${player.score.toLocaleString()}**
+Gamemode: **${gm.name}**`;
+
+      const payload = {
+        content: content,
+        embeds: [
+          {
+            title: `${player.name} — Rank #${player.rank}`,
+            description: `Gamemode: **${gm.name}**\nScore: **${player.score.toLocaleString()}**`,
+            color: 3447003,
+            thumbnail: { url: gm.icon || undefined },
+            footer: { text: 'Nmc Tiers' },
+            timestamp: new Date().toISOString()
+          }
+        ]
+      };
+
+      try {
+        const res = await fetch(DISCORD_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) {
+          const txt = await res.text().catch(()=>res.statusText);
+          showToast('Webhook error: ' + (txt || res.status));
+        } else {
+          showToast('Sent update to Discord ✅');
+        }
+      } catch (err) {
+        // network or CORS blocked
+        console.error('sendToDiscord error', err);
+        showToast('Failed to send to Discord (CORS or network issue). See console.');
+      }
+    }
+
+    /* ==========================
+       Live update helpers (example usage)
+       - Example: update a player's score and re-render.
+       - Call updatePlayerScore('p1', 26000) from browser console to test dynamic updates.
+       ========================== */
+    function updatePlayerScore(id, newScore) {
+      const p = players.find(x => x.id === id);
+      if (!p) return false;
+      p.score = newScore;
+      renderGrid();
+      return true;
+    }
+
+    function addPlayer(player) {
+      players.push(player);
+      renderGrid();
+    }
+
+    /* ==========================
+       Initialize
+       ========================== */
+    (function init(){
+      renderTabs();
+      renderGrid();
+
+      // expose helpers for quick debugging from console
+      window.NmcTiers = {
+        players, GAMEMODES, renderGrid, renderTabs, sendToDiscord, updatePlayerScore, addPlayer
+      };
+      // small accessibility hint
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') document.activeElement.blur();
+      });
+    })();
+  </script>
 </body>
 </html>
