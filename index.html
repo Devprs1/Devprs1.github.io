@@ -1,167 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>NMC Tiers</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NMC Tiers – PvPTiers Style Replica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Background with gradient + particles */
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at top left, #0d0d0d, #000);
-      color: #fff;
-      overflow-x: hidden;
+    :root{
+      --bg-1:#090a0f;           /* deep space */
+      --bg-2:#0e1117;           /* panel */
+      --glass:rgba(255,255,255,.06);
+      --glass-strong:rgba(255,255,255,.10);
+      --stroke:rgba(255,255,255,.10);
+      --text:#e7edf3;
+      --muted:#9aa4ad;
+      --cyan:#19e3ff;
+      --cyan-2:#77f5ff;
+      --gold:#ffd166;
+      --red:#ff7272;
+      --green:#66ffb2;
+      --shadow:0 10px 28px rgba(0,0,0,.45);
     }
 
-    /* Container */
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 40px 20px;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:radial-gradient(80vw 80vh at 80% -10%, #162033 0%, transparent 60%),
+                        radial-gradient(70vw 60vh at -10% 110%, #1a2033 0%, transparent 55%),
+                        var(--bg-1);
+      color:var(--text);
+      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
 
-    h1 {
-      text-align: center;
-      font-size: 2.5rem;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 30px;
-      text-shadow: 0 0 15px #00f0ff80;
-    }
+    /* floating particles */
+    .particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+    .dot{position:absolute;width:3px;height:3px;border-radius:50%;background:linear-gradient(180deg,var(--cyan),var(--cyan-2));opacity:.35;filter:blur(.2px);animation:float 18s linear infinite}
+    @keyframes float{0%{transform:translateY(0)} 100%{transform:translateY(-120vh)}}
 
-    /* Tabs */
-    .tabs {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-      gap: 12px;
+    header{
+      position:sticky;top:0;z-index:5; backdrop-filter:saturate(140%) blur(10px);
+      background:linear-gradient(180deg, rgba(10,12,18,.75), rgba(10,12,18,.35));
+      border-bottom:1px solid var(--stroke);
     }
+    .container{max-width:1100px;margin:0 auto;padding:18px 20px;}
+    .topbar{display:flex;gap:14px;align-items:center;justify-content:space-between}
+    .brand{display:flex;gap:10px;align-items:center}
+    .brand h1{font-size:1.05rem;font-weight:700;margin:0;letter-spacing:.3px}
+    .brand .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--stroke);background:var(--glass)}
 
-    .tab {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 8px 14px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 500;
-      font-size: 0.95rem;
-    }
+    /* tabs */
+    .tabs{display:flex;flex-wrap:wrap;gap:10px}
+    .tab{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;border:1px solid var(--stroke);background:var(--glass);cursor:pointer;transition:.2s ease;box-shadow:var(--shadow)}
+    .tab img{width:18px;height:18px;object-fit:contain}
+    .tab:hover{transform:translateY(-1px);border-color:rgba(25,227,255,.6);box-shadow:0 6px 20px rgba(25,227,255,.25)}
+    .tab.active{background:linear-gradient(180deg, rgba(25,227,255,.18), rgba(25,227,255,.06));border-color:rgba(25,227,255,.7)}
 
-    .tab img {
-      width: 20px;
-      height: 20px;
-      object-fit: contain;
-    }
+    /* controls */
+    .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .ctrl{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--stroke);background:var(--glass)}
+    .ctrl input[type="text"]{all:unset;width:220px;color:var(--text)}
+    .select{appearance:none;border:0;background:transparent;color:var(--text);font:inherit;padding-right:16px;cursor:pointer}
 
-    .tab:hover, .tab.active {
-      background: rgba(0,255,255,0.1);
-      border-color: #00f0ff80;
-      box-shadow: 0 0 12px #00f0ff40;
-      transform: translateY(-2px);
-    }
+    main{position:relative;z-index:1}
+    .panel{max-width:1100px;margin:20px auto;padding:16px;border:1px solid var(--stroke);border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));backdrop-filter:blur(10px);box-shadow:var(--shadow)}
 
-    /* Leaderboard */
-    .leaderboard {
-      display: grid;
-      gap: 12px;
-      animation: fadeInUp 0.6s ease;
-    }
+    /* table */
+    .table{width:100%;border-collapse:separate;border-spacing:0 10px}
+    .thead{position:sticky;top:70px;z-index:3}
+    .thead th{font-weight:600;color:var(--muted);text-align:left;font-size:.82rem;padding:10px 12px}
+    .tbody tr{transition:.25s ease;}
+    .tbody td{background:var(--glass);border:1px solid var(--stroke);padding:12px;}
+    .tbody tr td:first-child{border-top-left-radius:12px;border-bottom-left-radius:12px}
+    .tbody tr td:last-child{border-top-right-radius:12px;border-bottom-right-radius:12px}
+    .tbody tr:hover td{background:var(--glass-strong);box-shadow:0 10px 30px rgba(25,227,255,.18)}
 
-    .player-card {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(8px);
-      border-radius: 16px;
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: all 0.3s ease;
-    }
+    .rank{font-weight:700;color:var(--cyan)}
+    .playerCell{display:flex;align-items:center;gap:10px}
+    .playerAvatar{width:26px;height:26px;border-radius:6px;background:linear-gradient(180deg,#2a3347,#1c2233);display:grid;place-items:center;font-size:.7rem;color:#a9c2ff;border:1px solid var(--stroke)}
+    .badge-tier{padding:4px 8px;border-radius:999px;border:1px solid var(--stroke);background:rgba(255,255,255,.06);font-size:.72rem;color:#b9c6d1}
 
-    .player-card:hover {
-      box-shadow: 0 0 15px #00f0ff40;
-      transform: scale(1.02);
-    }
+    /* progress (overall) */
+    .bar{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid var(--stroke)}
+    .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg, #67e8f9 0%, #a5b4fc 55%, #f0abfc 100%);box-shadow:0 0 12px rgba(103,232,249,.6) inset;transition:width .9s cubic-bezier(.2,.8,.2,1)}
 
-    .player-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    /* pagination */
+    .pagination{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:16px}
+    .page-btn{padding:8px 10px;border-radius:10px;border:1px solid var(--stroke);background:var(--glass);cursor:pointer}
+    .page-btn[disabled]{opacity:.4;cursor:not-allowed}
+    .page-num{padding:6px 10px;border-radius:10px;border:1px solid var(--stroke);background:var(--glass);cursor:pointer}
+    .page-num.active{background:linear-gradient(180deg, rgba(25,227,255,.18), rgba(25,227,255,.06));border-color:rgba(25,227,255,.7)}
 
-    .rank {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #00f0ff;
-      width: 30px;
-      text-align: center;
-    }
+    /* modal */
+    dialog{border:1px solid var(--stroke);border-radius:14px;background:linear-gradient(180deg, rgba(12,14,20,.96), rgba(12,14,20,.85));color:var(--text);padding:0;max-width:680px;width:96%;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--stroke)}
+    .modal-body{padding:16px}
+    .close{all:unset;cursor:pointer;padding:6px 10px;border-radius:8px;border:1px solid var(--stroke);background:var(--glass)}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .stat{padding:10px;border:1px solid var(--stroke);border-radius:10px;background:var(--glass)}
 
-    .name {
-      font-weight: 500;
-      font-size: 1rem;
-    }
-
-    .score {
-      font-weight: 600;
-      font-size: 1rem;
-      color: #fff;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
+    @media (max-width:860px){
+      .thead{top:112px}
+      .brand h1{display:none}
+      .ctrl input[type="text"]{width:160px}
+      .grid{grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>NMC Tiers</h1>
+  <!-- animated particles (few for performance) -->
+  <div class="particles" aria-hidden="true"></div>
 
-    <!-- Tabs -->
-    <div class="tabs">
-      <div class="tab active"><img src="https://pvptiers.com/icons/tiers/overall.png"> Overall</div>
-      <div class="tab"><img src="https://pvptiers.com/icons/tiers/crystal.png"> Crystal</div>
-      <div class="tab"><img src="https://pvptiers.com/icons/tiers/sword.png"> Sword</div>
-      <div class="tab"><img src="https://pvptiers.com/icons/tiers/uhc.png"> UHC</div>
-      <div class="tab"><img src="https://pvptiers.com/icons/tiers/pot.png"> Pot</div>
-      <div class="tab"><img src="https://pvptiers.com/icons/tiers/neth_pot.png"> Netherite Pot</div>
-      <div class="tab"><img src="https://pvptiers.com/icons/tiers/smp.png"> SMP</div>
-      <div class="tab"><img src="https://pvptiers.com/icons/tiers/axe.png"> Axe</div>
-      <div class="tab"><img src="https://pvptiers.com/icons/tiers/mace.png"> Mace</div>
-    </div>
-
-    <!-- Leaderboard -->
-    <div class="leaderboard">
-      <div class="player-card">
-        <div class="player-info">
-          <div class="rank">#1</div>
-          <div class="name">OoogaBoogaPrs</div>
-        </div>
-        <div class="score">1520</div>
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <span class="badge"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="overall" width="16" height="16"> <strong>NMC Tiers</strong></span>
+        <h1>Ranking · Overall (Replica)</h1>
       </div>
-      <div class="player-card">
-        <div class="player-info">
-          <div class="rank">#2</div>
-          <div class="name">PlayerTwo</div>
-        </div>
-        <div class="score">1380</div>
-      </div>
-      <div class="player-card">
-        <div class="player-info">
-          <div class="rank">#3</div>
-          <div class="name">PlayerThree</div>
-        </div>
-        <div class="score">1200</div>
+      <div class="controls">
+        <label class="ctrl" title="Search player">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 19a8 8 0 1 1 5.293-14.293A8 8 0 0 1 11 19Zm10 2-5.4-5.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input id="search" type="text" placeholder="Search player..." />
+        </label>
+        <label class="ctrl" title="Timeframe">
+          <span style="color:var(--muted);font-size:.85rem">Time</span>
+          <select id="timeframe" class="select">
+            <option value="all" selected>All‑time</option>
+            <option value="monthly">Monthly</option>
+            <option value="weekly">Weekly</option>
+          </select>
+        </label>
+        <label class="ctrl" title="Rows per page">
+          <span style="color:var(--muted);font-size:.85rem">Rows</span>
+          <select id="pageSize" class="select">
+            <option>10</option>
+            <option selected>25</option>
+            <option>50</option>
+            <option>100</option>
+          </select>
+        </label>
       </div>
     </div>
-  </div>
+    <div class="container" style="padding-top:10px;padding-bottom:16px">
+      <nav class="tabs" id="modes">
+        <button class="tab active" data-mode="overall"><img src="https://pvptiers.com/icons/tiers/overall.png" alt>Overall</button>
+        <button class="tab" data-mode="crystal"><img src="https://pvptiers.com/icons/tiers/crystal.png" alt>Crystal</button>
+        <button class="tab" data-mode="sword"><img src="https://pvptiers.com/icons/tiers/sword.png" alt>Sword</button>
+        <button class="tab" data-mode="uhc"><img src="https://pvptiers.com/icons/tiers/uhc.png" alt>UHC</button>
+        <button class="tab" data-mode="pot"><img src="https://pvptiers.com/icons/tiers/pot.png" alt>Pot</button>
+        <button class="tab" data-mode="netherite_pot"><img src="https://pvptiers.com/icons/tiers/neth_pot.png" alt>Netherite Pot</button>
+        <button class="tab" data-mode="smp"><img src="https://pvptiers.com/icons/tiers/smp.png" alt>SMP</button>
+        <button class="tab" data-mode="axe"><img src="https://pvptiers.com/icons/tiers/axe.png" alt>Axe</button>
+        <button class="tab" data-mode="mace"><img src="https://pvptiers.com/icons/tiers/mace.png" alt>Mace</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <table class="table">
+        <thead class="thead">
+          <tr>
+            <th>#</th>
+            <th>Player</th>
+            <th>Overall</th>
+            <th>Crystal</th>
+            <th>Sword</th>
+            <th>UHC</th>
+            <th>Pot</th>
+            <th>Neth</th>
+            <th>SMP</th>
+            <th>Axe</th>
+            <th>Mace</th>
+            <th>W‑L</th>
+            <th>K/D</th>
+          </tr>
+        </thead>
+        <tbody class="tbody" id="tbody"></tbody>
+      </table>
+      <div class="pagination" id="pager"></div>
+    </section>
+  </main>
+
+  <!-- Player modal -->
+  <dialog id="playerModal">
+    <div class="modal-head">
+      <strong id="pmName">Player</strong>
+      <button class="close" onclick="playerModal.close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <div class="grid" id="pmStats"></div>
+    </div>
+  </dialog>
+
+  <script>
+    /* ----------------------- particles ----------------------- */
+    const P=16, wrap=document.querySelector('.particles');
+    for(let i=0;i<P;i++){const d=document.createElement('i');d.className='dot';d.style.left=(Math.random()*100)+'%';d.style.bottom=(-10+Math.random()*120)+'vh';d.style.animationDelay=(-Math.random()*18)+'s';d.style.opacity=(.15+Math.random()*.35);wrap.appendChild(d)}
+
+    /* ----------------------- data model ---------------------- */
+    // NOTE: Overall on this replica is display-only. If your dataset provides an `overall` value, it is used.
+    // Otherwise, we fallback to an unweighted sum of the visible modes (easily swapped for your formula).
+    const DATA = (()=>{
+      const base=[
+        {name:'OoogaBoogaPrs', crystal:1200,sword:1180,uhc:1090,pot:1040,netherite_pot:980,smp:740,axe:880,mace:860,wins:420,losses:120,kd:2.4},
+        {name:'ExampleSteve',  crystal:990, sword:1020,uhc:980, pot:910, netherite_pot:930,smp:720,axe:810,mace:795,wins:305,losses:180,kd:1.7},
+        {name:'AlexPvP',       crystal:1050,sword:970, uhc:1010,pot:965, netherite_pot:940,smp:730,axe:820,mace:825,wins:332,losses:160,kd:2.0},
+        {name:'CritMaster',    crystal:870, sword:1120,uhc:920, pot:980, netherite_pot:1010,smp:690,axe:950,mace:880,wins:298,losses:140,kd:2.1},
+        {name:'GappleGuru',    crystal:930, sword:980, uhc:940, pot:1005,netherite_pot:990, smp:710,axe:860,mace:840,wins:281,losses:165,kd:1.6},
+      ];
+      // generate some filler players for pagination demo
+      const names=["StrafeLord","BlockHitPro","Sweatyyy","RodGod","LavaBender","PearlFlick","Skeletank","TapTap","AimLocky","LagWizard","Criticool","Bowmaster","SoupPvper","TotemTech","Totemless","AnchorFish","Snowballer","QueueDemon","RecQ","LowPingLion"];
+      names.forEach((n,i)=>{base.push({
+        name:n,
+        crystal:700+Math.floor(Math.random()*450),
+        sword:700+Math.floor(Math.random()*450),
+        uhc:700+Math.floor(Math.random()*450),
+        pot:700+Math.floor(Math.random()*450),
+        netherite_pot:700+Math.floor(Math.random()*450),
+        smp:600+Math.floor(Math.random()*300),
+        axe:650+Math.floor(Math.random()*400),
+        mace:650+Math.floor(Math.random()*400),
+        wins:120+Math.floor(Math.random()*400),
+        losses:80+Math.floor(Math.random()*260),
+        kd:(1+Math.random()*1.8).toFixed(2)*1
+      })});
+      return base;
+    })();
+
+    const modes = ['overall','crystal','sword','uhc','pot','netherite_pot','smp','axe','mace'];
+    let state = { mode:'overall', page:1, pageSize:25, q:'', timeframe:'all', sortKey:'rank', sortDir:'asc' };
+
+    function computeOverall(p){
+      if (typeof p.overall === 'number') return p.overall; // trust provided
+      return (p.crystal+p.sword+p.uhc+p.pot+p.netherite_pot+p.smp+p.axe+p.mace);
+    }
+
+    function toRow(p, idx){
+      const wl = `${p.wins||0}‑${p.losses||0}`;
+      const overall = computeOverall(p);
+      return {
+        rank: idx+1,
+        name: p.name,
+        overall,
+        crystal:p.crystal, sword:p.sword, uhc:p.uhc, pot:p.pot, netherite_pot:p.netherite_pot, smp:p.smp, axe:p.axe, mace:p.mace,
+        wl,
+        kd: p.kd || (p.losses? (p.wins/p.losses).toFixed(2)*1 : p.wins)
+      }
+    }
+
+    function getData(){
+      // filter + sort per mode
+      const filtered = DATA.filter(p=> p.name.toLowerCase().includes(state.q));
+      const scored = filtered.map(p=> ({...p, score: state.mode==='overall'? computeOverall(p) : p[state.mode]||0}));
+      scored.sort((a,b)=> b.score - a.score);
+      return scored.map(toRow);
+    }
+
+    /* ----------------------- render -------------------------- */
+    const tbody = document.getElementById('tbody');
+    const pager = document.getElementById('pager');
+
+    function render(){
+      const rows = getData();
+      const start = (state.page-1)*state.pageSize;
+      const pageRows = rows.slice(start, start+state.pageSize);
+
+      tbody.innerHTML = pageRows.map(r=> `
+        <tr data-name="${r.name}">
+          <td class="rank">${r.rank}</td>
+          <td class="playerCell">
+            <span class="playerAvatar">${r.name.slice(0,2)}</span>
+            <strong class="playerName" style="cursor:pointer">${r.name}</strong>
+            ${r.rank===1?'<span class="badge-tier" title="Top 1">Top 1</span>':''}
+          </td>
+          <td>
+            <div class="bar" aria-label="Overall score">
+              <i style="width:${Math.min(100, (r.overall/ (rows[0]?.overall||1))*100).toFixed(1)}%"></i>
+            </div>
+            <div style="font-size:.8rem;color:var(--muted);margin-top:6px">${r.overall}</div>
+          </td>
+          <td>${r.crystal}</td>
+          <td>${r.sword}</td>
+          <td>${r.uhc}</td>
+          <td>${r.pot}</td>
+          <td>${r.netherite_pot}</td>
+          <td>${r.smp}</td>
+          <td>${r.axe}</td>
+          <td>${r.mace}</td>
+          <td>${r.wl}</td>
+          <td>${r.kd}</td>
+        </tr>
+      `).join('');
+
+      // hook modal open
+      tbody.querySelectorAll('.playerName').forEach(el=>{
+        el.addEventListener('click',()=> openModal(el.closest('tr').dataset.name))
+      })
+
+      // pagination
+      const pages = Math.max(1, Math.ceil(rows.length/state.pageSize));
+      state.page = Math.min(state.page, pages);
+      let html = `<button class="page-btn" ${state.page===1?'disabled':''} data-nav="prev">Prev</button>`;
+      const maxButtons = 7; // compact
+      let startPage = Math.max(1, state.page - Math.floor(maxButtons/2));
+      let endPage = Math.min(pages, startPage + maxButtons - 1);
+      startPage = Math.max(1, endPage - maxButtons + 1);
+      for(let p=startPage; p<=endPage; p++){
+        html += `<button class="page-num ${p===state.page?'active':''}" data-page="${p}">${p}</button>`
+      }
+      html += `<button class="page-btn" ${state.page===pages?'disabled':''} data-nav="next">Next</button>`;
+      pager.innerHTML = html;
+
+      pager.querySelectorAll('[data-page]').forEach(b=> b.onclick = ()=>{state.page=+b.dataset.page; render()});
+      const prev = pager.querySelector('[data-nav="prev"]');
+      const next = pager.querySelector('[data-nav="next"]');
+      if(prev) prev.onclick = ()=>{ if(state.page>1){state.page--; render()} };
+      if(next) next.onclick = ()=>{ if(state.page<pages){state.page++; render()} };
+    }
+
+    function openModal(name){
+      const p = DATA.find(x=>x.name===name); if(!p) return;
+      const pm = document.getElementById('playerModal');
+      document.getElementById('pmName').textContent = name;
+      const items = [
+        ['Crystal', p.crystal], ['Sword', p.sword], ['UHC', p.uhc], ['Pot', p.pot], ['Netherite Pot', p.netherite_pot], ['SMP', p.smp], ['Axe', p.axe], ['Mace', p.mace],
+        ['Overall', computeOverall(p)], ['Wins', p.wins||0], ['Losses', p.losses||0], ['K/D', p.kd||'-']
+      ];
+      document.getElementById('pmStats').innerHTML = items.map(([k,v])=>`<div class="stat"><div style="font-size:.8rem;color:var(--muted)">${k}</div><div style="font-weight:700;margin-top:6px">${v}</div></div>`).join('');
+      pm.showModal();
+    }
+
+    /* ----------------------- interactions -------------------- */
+    document.getElementById('modes').addEventListener('click', (e)=>{
+      const btn = e.target.closest('.tab'); if(!btn) return;
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      btn.classList.add('active');
+      state.mode = btn.dataset.mode;
+      state.page = 1; // reset
+      render();
+    })
+
+    document.getElementById('search').addEventListener('input', (e)=>{
+      state.q = e.target.value.trim().toLowerCase();
+      state.page = 1; render();
+    })
+
+    document.getElementById('pageSize').addEventListener('change', (e)=>{
+      state.pageSize = +e.target.value; state.page = 1; render();
+    })
+
+    document.getElementById('timeframe').addEventListener('change', (e)=>{
+      state.timeframe = e.target.value; // placeholder hook – wire to your data source
+      state.page = 1; render();
+    })
+
+    // initial
+    render();
+  </script>
 </body>
 </html>
