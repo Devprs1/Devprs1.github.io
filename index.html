@@ -1,355 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Nmc Tiers - PvPTiers Replica</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <title>NMC Tiers</title>
   <style>
+    /* Global reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
     body {
-      margin:0;
-      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(71,234,255,0.06), transparent),
-                  linear-gradient(135deg,#0f1224 0%, #161824 40%, #1b1630 100%);
-      color:#dfefff;
-      min-height:100vh;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
     }
-    header{padding:22px 18px 12px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03)}
-    .brand{display:flex;align-items:center;gap:14px;justify-content:center;flex-wrap:wrap}
-    .logo{font-weight:900;font-size:1.9rem;color:#8fe9ff;letter-spacing:1px}
-    .tagline{color:#a8cfff;font-weight:700;font-size:0.95rem}
-    .tabs{margin:16px 0 0 0;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-    .tab{display:flex;gap:10px;align-items:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:28px;padding:8px 12px;cursor:pointer;border:1px solid transparent;transition:transform .18s,box-shadow .18s}
-    .tab.active{border:1.5px solid #30e7ff97;background:linear-gradient(90deg,rgba(53,255,242,0.08),rgba(0,0,0,0));box-shadow:0 2px 16px 0 #27e0ff12;transform:scale(1.06)}
-    .tab img{width:20px;height:20px;filter:drop-shadow(0 0 5px #00e7ff50);}
-    .leaderboard{max-width:820px;margin:40px auto 0;padding:24px 16px 32px;background:rgba(16,19,36,0.98);border-radius:16px;box-shadow:0 2px 40px 0 #01f2ff12;}
-    .leaderboard .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
-    .leaderboard .topbar h2{margin:0;font-size:1.5rem;font-weight:900;letter-spacing:0.5px;}
-    .leaderboard .topbar .search{background:#161b28;border-radius:8px;padding:7px 14px;border:none;color:#fff;font-size:1rem;}
-    .leaderboard .topbar .addbtn{background:#29e0ff;color:#0c1133;font-weight:800;border:0;border-radius:9px;padding:8px 20px;font-size:1rem;cursor:pointer;transition:background 0.14s;}
-    .leaderboard .topbar .addbtn:hover{background:#19b1cb;}
-    .lb-table{width:100%;border-collapse:collapse;}
-    .lb-table th,.lb-table td{padding:8px 7px;text-align:left;}
-    .lb-table th{font-size:0.98rem;color:#5adaff;border-bottom:2px solid #18e3ff32;}
-    .lb-table tbody tr{transition:background 0.13s;}
-    .lb-table tbody tr:hover{background:rgba(44,250,255,0.08);}
-    .lb-rank{width:36px;font-weight:900;font-size:1.1rem;text-align:center;}
-    .lb-avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;background:#121523;border:1.7px solid #0ff3;}
-    .lb-player{font-weight:700;font-size:1.04rem;}
-    .lb-score{font-weight:800;font-size:1.13rem;color:#5efff6;}
-    .lb-bar{height:12px;background:linear-gradient(90deg,#15e2ff,#1d7cff 80%);border-radius:6px;}
-    .empty-msg{margin:32px 0;color:#8ca4b7;font-size:1.13rem;text-align:center;}
-    /* Modal */
-    .modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,22,44,0.88);z-index:99;display:flex;align-items:center;justify-content:center;}
-    .modal{background:#12172c;padding:32px 24px 24px;border-radius:16px;max-width:92vw;box-shadow:0 3px 48px #00f8ff25;min-width:340px;}
-    .modal h2{margin-top:0;margin-bottom:18px;font-size:1.3rem;}
-    .modal label{display:block;font-weight:700;margin:12px 0 4px;}
-    .modal input[type="text"], .modal input[type="number"], .modal select {
-      width:100%;padding:7px 10px;font-size:1rem;border-radius:6px;border:1px solid #25f3ff21;background:#171b28;color:#fff;margin-bottom:4px;
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #00d4ff;
+      text-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
     }
-    .gm-title{font-weight:800;color:#22e1ff;margin:14px 0 5px;font-size:1.11rem;letter-spacing:0.2px;}
-    .tiers-row {
-      display:flex;gap:12px;margin-bottom:8px;align-items:end;
-      flex-wrap:wrap;
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
-    .tier-field {
-      display:flex;flex-direction:column;align-items:center;
+
+    .tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 10px 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
     }
-    .tier-label {font-size:0.85rem;color:#b5f9ff;font-weight:700;}
-    .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:22px;}
-    .modal-actions button{padding:8px 18px;border-radius:8px;border:none;font-weight:800;font-size:1.02rem;cursor:pointer;}
-    .modal-actions .save{background:#22f7ff;color:#15304c;}
-    .modal-actions .cancel{background:#1b253e;color:#99ffff;}
-    @media (max-width:700px){
-      .leaderboard{padding:8px 2vw;}
-      .modal{padding:20px 2vw 14px;}
-      .lb-table th, .lb-table td{padding:6px 3px;}
+
+    .tab img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .tab:hover {
+      background: rgba(0, 212, 255, 0.25);
+      box-shadow: 0 0 12px #00d4ff;
+    }
+
+    .tab.active {
+      background: rgba(0, 212, 255, 0.35);
+      box-shadow: 0 0 15px #00d4ff;
+    }
+
+    /* Leaderboard container */
+    .leaderboard {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    /* Player card */
+    .player-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      backdrop-filter: blur(12px);
+    }
+
+    .player-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+    }
+
+    .player-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rank {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #00d4ff;
+      min-width: 25px;
+      text-align: center;
+    }
+
+    .name {
+      font-size: 1rem;
+    }
+
+    .score {
+      font-weight: bold;
+      color: #ffcc00;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <span class="logo">Nmc Tiers</span>
-    </div>
-    <div class="tagline">PvPTiers Replica — Tier-based Leaderboard System</div>
-  </header>
+  <h1>NMC Tiers</h1>
 
-  <div class="tabs" id="tabs"></div>
-  <div class="leaderboard" id="leaderboard"></div>
-
-  <!-- Modal -->
-  <div id="modal-bg" class="modal-bg" style="display:none;">
-    <div class="modal" id="modal"></div>
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active"><img src="https://pvptiers.com/icons/tiers/overall.png"> Overall</div>
+    <div class="tab"><img src="https://pvptiers.com/icons/tiers/crystal.png"> Crystal</div>
+    <div class="tab"><img src="https://pvptiers.com/icons/tiers/sword.png"> Sword</div>
+    <div class="tab"><img src="https://pvptiers.com/icons/tiers/uhc.png"> UHC</div>
+    <div class="tab"><img src="https://pvptiers.com/icons/tiers/pot.png"> Pot</div>
+    <div class="tab"><img src="https://pvptiers.com/icons/tiers/neth_pot.png"> Netherite Pot</div>
+    <div class="tab"><img src="https://pvptiers.com/icons/tiers/smp.png"> SMP</div>
+    <div class="tab"><img src="https://pvptiers.com/icons/tiers/axe.png"> Axe</div>
+    <div class="tab"><img src="https://pvptiers.com/icons/tiers/mace.png"> Mace</div>
   </div>
 
-  <script>
-const GAMEMODES = [
-  { id: "overall", name: "Overall", icon: "🏆" },
-  { id: "crystal", name: "Crystal", icon: "💎" },
-  { id: "sword", name: "Sword", icon: "⚔️" },
-  { id: "uhc", name: "UHC", icon: "🏹" },
-  { id: "pot", name: "Pot", icon: "🧪" },
-  { id: "nethpot", name: "Neth Pot", icon: "🔥" },
-  { id: "smp", name: "SMP", icon: "🌲" },
-  { id: "axe", name: "Axe", icon: "🪓" },
-  { id: "mace", name: "Mace", icon: "🔨" },
-];
-const TIERS = [
-  { key: "HT1", label: "HT1", color: "#ffe94c", pts: 60 },
-  { key: "LT1", label: "LT1", color: "#ffb84c", pts: 44 },
-  { key: "HT2", label: "HT2", color: "#d7d7d7", pts: 28 },
-  { key: "LT2", label: "LT2", color: "#bdbdbd", pts: 16 },
-  { key: "HT3", label: "HT3", color: "#e88787", pts: 10 },
-  { key: "LT3", label: "LT3", color: "#d87a7a", pts: 6 },
-  { key: "HT4", label: "HT4", color: "#f6c0c0", pts: 4 },
-  { key: "LT4", label: "LT4", color: "#e7b1b1", pts: 3 },
-  { key: "HT5", label: "HT5", color: "#b7d8c7", pts: 2 },
-  { key: "LT5", label: "LT5", color: "#bdbbb1", pts: 1 },
-];
-
-function getDefaultPlayerData(name = "", avatar = "") {
-  const scores = {};
-  for (const gm of GAMEMODES) {
-    if (gm.id === "overall") continue;
-    scores[gm.id] = {};
-    for (const t of TIERS) scores[gm.id][t.key] = 0;
-  }
-  return { name, avatar, scores };
-}
-
-function calculateGamemodeScore(scores, gmId) {
-  if (!scores[gmId]) return 0;
-  let sum = 0;
-  for (const t of TIERS) sum += parseInt(scores[gmId][t.key]||0);
-  return sum;
-}
-function calculateOverallScore(scores) {
-  let sum = 0;
-  for (const gm of GAMEMODES) {
-    if (gm.id === "overall") continue;
-    sum += calculateGamemodeScore(scores, gm.id);
-  }
-  return sum;
-}
-
-function savePlayers(players) {
-  localStorage.setItem("nmc_players", JSON.stringify(players));
-}
-function loadPlayers() {
-  try {
-    return JSON.parse(localStorage.getItem("nmc_players")) || [];
-  } catch(e) { return []; }
-}
-
-let players = loadPlayers();
-let currentTab = "overall";
-let searchTerm = "";
-
-// ---- UI BUILDERS ----
-function renderTabs() {
-  const tabs = document.getElementById("tabs");
-  tabs.innerHTML = "";
-  for (const gm of GAMEMODES) {
-    const el = document.createElement("div");
-    el.className = "tab" + (currentTab===gm.id?" active":"");
-    el.innerHTML = `<span>${gm.icon}</span><span>${gm.name}</span>`;
-    el.onclick = ()=>{currentTab=gm.id;renderTabs();renderLeaderboard();};
-    tabs.appendChild(el);
-  }
-}
-
-function renderLeaderboard() {
-  const lb = document.getElementById("leaderboard");
-  let filtered = players.filter(p => p.name.toLowerCase().includes(searchTerm));
-  let sortFunc;
-  if (currentTab === "overall") {
-    sortFunc = (a,b) => calculateOverallScore(b.scores) - calculateOverallScore(a.scores);
-  } else {
-    sortFunc = (a,b) => calculateGamemodeScore(b.scores, currentTab) - calculateGamemodeScore(a.scores, currentTab);
-  }
-  filtered.sort(sortFunc);
-  lb.innerHTML = `
-    <div class="topbar">
-      <h2>${GAMEMODES.find(g=>g.id===currentTab).name} Leaderboard</h2>
-      <input class="search" id="search" placeholder="Search player..." value="${searchTerm?searchTerm:""}" />
-      <button class="addbtn" id="add-player-btn">+ Add Player</button>
-    </div>
-    ${
-      filtered.length === 0
-        ? `<div class="empty-msg">No players yet. Click <b>+ Add Player</b> to start!</div>`
-        : `<table class="lb-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th></th>
-              <th>Player</th>
-              <th>Score</th>
-              <th style="width:180px">Progress</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${filtered.map((p,i)=>{
-              let score = currentTab==="overall"
-                ? calculateOverallScore(p.scores)
-                : calculateGamemodeScore(p.scores, currentTab);
-              let maxScore = filtered[0]
-                ? (currentTab==="overall"
-                  ? calculateOverallScore(filtered[0].scores)
-                  : calculateGamemodeScore(filtered[0].scores, currentTab)) : 1;
-              let bar = maxScore>0 ? (100*score/maxScore) : 0;
-              return `<tr onclick="NmcTiers.showPlayerModal(${players.indexOf(p)})" style="cursor:pointer;">
-                <td class="lb-rank">#${i+1}</td>
-                <td><img class="lb-avatar" src="${p.avatar||genAvatar(p.name)}" /></td>
-                <td class="lb-player">${p.name}</td>
-                <td class="lb-score">${score}</td>
-                <td><div class="lb-bar" style="width:${bar}%;"></div></td>
-              </tr>`;
-            }).join("")}
-          </tbody>
-        </table>`
-    }
-  `;
-  document.getElementById("search").oninput = e => {
-    searchTerm = e.target.value.trim().toLowerCase();
-    renderLeaderboard();
-  }
-  document.getElementById("add-player-btn").onclick = () => showAddPlayerModal();
-}
-function genAvatar(name) {
-  // Simple placeholder avatar generator (robohash style)
-  return `https://robohash.org/${encodeURIComponent(name)}?set=set3&size=60x60`;
-}
-
-// ---- MODAL ----
-function showAddPlayerModal(editIndex = null) {
-  const isEdit = editIndex !== null && players[editIndex];
-  const pdata = isEdit ? JSON.parse(JSON.stringify(players[editIndex])) : getDefaultPlayerData();
-  const modal = document.getElementById("modal");
-  modal.innerHTML = `
-    <h2>${isEdit ? "Edit Player" : "Add Player"}</h2>
-    <form id="player-form">
-      <label>Player Name</label>
-      <input type="text" required minlength="2" maxlength="20" name="name" value="${pdata.name||""}" autocomplete="off" />
-      <label>Custom Avatar URL (optional)</label>
-      <input type="text" name="avatar" placeholder="https://..." value="${pdata.avatar||""}" autocomplete="off" />
-      ${GAMEMODES.filter(g=>g.id!=="overall").map(gm => `
-        <div class="gm-title">${gm.icon} ${gm.name}</div>
-        <div class="tiers-row">
-          ${TIERS.map(tier => `
-            <div class="tier-field">
-              <div class="tier-label" style="color:${tier.color};">${tier.label}<br><span style="font-size:0.89em;font-weight:400;opacity:0.6;">(${tier.pts} pts)</span></div>
-              <input type="number" min="0" max="${tier.pts}" step="1" name="${gm.id}_${tier.key}" value="${pdata.scores[gm.id][tier.key]||0}" />
-            </div>
-          `).join("")}
-        </div>
-      `).join("")}
-      <div class="modal-actions">
-        <button type="button" class="cancel">Cancel</button>
-        <button type="submit" class="save">${isEdit ? "Save" : "Add"}</button>
+  <!-- Leaderboard -->
+  <div class="leaderboard">
+    <div class="player-card">
+      <div class="player-info">
+        <div class="rank">1</div>
+        <div class="name">OoogaBoogaPrs</div>
       </div>
-    </form>
-  `;
-  document.getElementById("modal-bg").style.display = "";
-  document.querySelector(".modal-actions .cancel").onclick = ()=>{document.getElementById("modal-bg").style.display="none"};
-  document.getElementById("player-form").onsubmit = e => {
-    e.preventDefault();
-    const fd = new FormData(e.target);
-    const name = fd.get("name").trim();
-    if (!name) return alert("Name required!");
-    let avatar = fd.get("avatar")?.trim();
-    let scores = {};
-    for (const gm of GAMEMODES) {
-      if (gm.id==="overall") continue;
-      scores[gm.id] = {};
-      for (const t of TIERS) {
-        let val = parseInt(fd.get(`${gm.id}_${t.key}`))||0;
-        if (val < 0) val = 0;
-        if (val > t.pts) val = t.pts;
-        scores[gm.id][t.key] = val;
-      }
-    }
-    const playerObj = { name, avatar, scores };
-    if (isEdit)
-      players[editIndex] = playerObj;
-    else
-      players.push(playerObj);
-    savePlayers(players);
-    renderLeaderboard();
-    document.getElementById("modal-bg").style.display = "none";
-  }
-}
-function showPlayerModal(idx) {
-  const pdata = players[idx];
-  const modal = document.getElementById("modal");
-  modal.innerHTML = `
-    <h2>Player Details</h2>
-    <div style="display:flex;align-items:center;gap:18px;margin-bottom:12px;">
-      <img src="${pdata.avatar||genAvatar(pdata.name)}" style="width:64px;height:64px;border-radius:50%;border:2px solid #0ff7;" />
-      <span style="font-size:1.28rem;font-weight:800;">${pdata.name}</span>
+      <div class="score">1520</div>
     </div>
-    <div style="margin-bottom:10px;">
-      <b>Overall Score:</b> <span style="color:#4df6ff;font-weight:900;font-size:1.22em;">${calculateOverallScore(pdata.scores)}</span>
-    </div>
-    <div>
-      ${GAMEMODES.filter(g=>g.id!=="overall").map(gm=>`
-        <div style="margin-bottom:9px;">
-          <span style="color:#23e7ff;font-weight:700;">${gm.icon} ${gm.name}</span>:
-          <span style="font-weight:900;color:#eaffad;">${calculateGamemodeScore(pdata.scores, gm.id)}</span>
-          <span style="font-size:0.93em;color:#95d1ff;font-weight:500;">
-            (${TIERS.map(t=>`${t.label}: ${pdata.scores[gm.id][t.key]||0}`).join(" | ")})
-          </span>
-        </div>
-      `).join("")}
-    </div>
-    <div class="modal-actions">
-      <button type="button" class="cancel">Close</button>
-      <button type="button" class="save" id="edit-btn">Edit</button>
-      <button type="button" class="cancel" id="remove-btn" style="background:#ff5e6b;color:#fff;margin-left:8px;">Remove</button>
-    </div>
-  `;
-  document.getElementById("modal-bg").style.display = "";
-  document.querySelector(".modal-actions .cancel").onclick = ()=>{document.getElementById("modal-bg").style.display="none"};
-  document.getElementById("edit-btn").onclick = ()=>{showAddPlayerModal(idx)};
-  document.getElementById("remove-btn").onclick = ()=>{
-    if (confirm("Remove this player?")) {
-      players.splice(idx,1);
-      savePlayers(players);
-      renderLeaderboard();
-      document.getElementById("modal-bg").style.display="none";
-    }
-  };
-}
 
-// ---- API for manual adding ----
-window.NmcTiers = {
-  addPlayer(playerObj) {
-    // playerObj: { name, avatar, scores: { gamemode: {HT1:x, ...}, ... } }
-    if (!playerObj || !playerObj.name) throw new Error("Name required");
-    // Fill missing
-    let scores = {};
-    for (const gm of GAMEMODES) {
-      if (gm.id==="overall") continue;
-      scores[gm.id] = {};
-      for (const t of TIERS) {
-        let val = (playerObj.scores?.[gm.id]?.[t.key])||0;
-        if (val < 0) val = 0;
-        if (val > t.pts) val = t.pts;
-        scores[gm.id][t.key] = val;
-      }
-    }
-    players.push({ name: playerObj.name, avatar: playerObj.avatar||"", scores });
-    savePlayers(players);
-    renderLeaderboard();
-  },
-  showPlayerModal,
-  players,
-  reset: ()=>{if(confirm("Clear all players?")){players=[];savePlayers(players);renderLeaderboard();}},
-};
-// ---- INIT ----
-renderTabs();
-renderLeaderboard();
-  </script>
+    <div class="player-card">
+      <div class="player-info">
+        <div class="rank">2</div>
+        <div class="name">TestPlayer</div>
+      </div>
+      <div class="score">1480</div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-info">
+        <div class="rank">3</div>
+        <div class="name">AnotherOne</div>
+      </div>
+      <div class="score">1420</div>
+    </div>
+  </div>
+
 </body>
 </html>
