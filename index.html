@@ -7,13 +7,16 @@
     <title>PvPTiers - Overall Ranking</title>
     <style>
         :root {
-            --dark-bg: #1a1a2e;
-            --dark-card: #16213e;
+            /* Revised Color Palette - Attempting a different dark theme */
+            --dark-bg: #121212; /* Even darker background */
+            --dark-card: #1e1e1e; /* Slightly lighter card background */
             --text-color: #e0e0e0;
-            --accent-color: #0f3460;
-            --accent-color-rgb: 15, 52, 96; /* RGB for #0f3460 - FIX HERE */
-            --hover-color: #0e294b;
-            --border-color: #0a1122;
+            --accent-color: #8854c4; /* Vibrant purple accent */
+            --accent-color-rgb: 136, 84, 196; /* RGB for the accent color */
+            --hover-color: #6a4099; /* Darker purple for hover states */
+            --border-color: #333333; /* Darker border for separation */
+
+            /* Tier Colors (kept mostly similar, adjusted for new theme contrast) */
             --bronze: #cd7f32;
             --silver: #c0c0c0;
             --gold: #ffd700;
@@ -31,7 +34,7 @@
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
-            padding-bottom: 50px; /* Space for potential footer */
+            padding-bottom: 50px;
         }
 
         .container {
@@ -45,7 +48,7 @@
             padding: 20px 0;
             text-align: center;
             border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
         }
 
         header h1 {
@@ -53,14 +56,15 @@
             color: var(--text-color);
             font-size: 2.5em;
             letter-spacing: 2px;
-            text-shadow: 0 0 5px var(--accent-color);
+            text-shadow: 0 0 8px rgba(var(--accent-color-rgb), 0.6); /* Adjusted shadow */
         }
 
         nav {
-            background-color: var(--accent-color);
+            background-color: var(--dark-card); /* Changed nav background to card color */
             padding: 10px 0;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--border-color); /* Added border */
         }
 
         nav ul {
@@ -73,7 +77,9 @@
         }
 
         nav ul li {
-            margin: 0 15px;
+            margin: 0 10px; /* Slightly reduced margin */
+            display: flex; /* For icon alignment */
+            align-items: center; /* For icon alignment */
         }
 
         nav ul li a {
@@ -82,81 +88,96 @@
             font-weight: bold;
             padding: 8px 15px;
             border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            display: block;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+            display: flex; /* For icon alignment */
+            align-items: center; /* For icon alignment */
+            gap: 8px; /* Space between icon and text */
+            text-shadow: 0 0 2px rgba(0,0,0,0.5); /* Subtle text shadow */
         }
 
         nav ul li a:hover,
         nav ul li a.active {
-            background-color: var(--hover-color);
+            background-color: var(--accent-color); /* Accent color on hover/active */
             transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(var(--accent-color-rgb), 0.4); /* Accent shadow */
+            color: white; /* Ensure text is white on accent background */
+        }
+
+        nav ul li img {
+            height: 20px; /* Icon size */
+            width: 20px;
+            filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); /* Subtle shadow on icon */
         }
 
         .search-bar {
-            margin: 20px auto;
+            margin: 25px auto; /* Increased margin */
             text-align: center;
-            padding: 15px;
+            padding: 20px; /* Increased padding */
             background-color: var(--dark-card);
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 10px; /* More rounded corners */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); /* Stronger shadow */
             display: flex;
             justify-content: center;
             align-items: center;
-            max-width: 600px;
+            max-width: 700px; /* Wider search bar */
+            border: 1px solid var(--border-color);
         }
 
         .search-bar input[type="text"] {
-            width: 70%;
-            padding: 12px 15px;
+            width: 75%; /* Wider input */
+            padding: 14px 18px; /* Larger padding */
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 1em;
+            border-radius: 8px; /* More rounded */
+            font-size: 1.05em; /* Slightly larger font */
             background-color: var(--dark-bg);
             color: var(--text-color);
             outline: none;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .search-bar input[type="text"]::placeholder {
-            color: #aaa;
+            color: #888;
         }
 
         .search-bar input[type="text"]:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 0 8px rgba(var(--accent-color-rgb), 0.5); /* FIX HERE */
+            box-shadow: 0 0 10px rgba(var(--accent-color-rgb), 0.7); /* More prominent focus shadow */
         }
 
         .search-bar button {
             background-color: var(--accent-color);
-            color: var(--text-color);
+            color: white; /* Ensure white text on accent button */
             border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
+            padding: 14px 25px; /* Larger button padding */
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1em;
-            margin-left: 10px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 1.05em;
+            margin-left: 15px; /* Increased margin */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            font-weight: bold;
         }
 
         .search-bar button:hover {
             background-color: var(--hover-color);
-            transform: translateY(-1px);
+            transform: translateY(-2px) scale(1.02); /* More pronounced hover */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
         .leaderboard {
             background-color: var(--dark-card);
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            padding: 25px; /* Increased padding */
+            margin-top: 35px; /* Increased margin */
+            border: 1px solid var(--border-color);
         }
 
         .leaderboard h2 {
             text-align: center;
             color: var(--text-color);
-            margin-bottom: 25px;
-            font-size: 2em;
-            text-shadow: 0 0 3px var(--accent-color);
+            margin-bottom: 30px; /* Increased margin */
+            font-size: 2.2em; /* Slightly larger font */
+            text-shadow: 0 0 8px rgba(var(--accent-color-rgb), 0.6);
         }
 
         .leaderboard table {
@@ -167,60 +188,64 @@
 
         .leaderboard th,
         .leaderboard td {
-            padding: 12px 15px;
+            padding: 15px 18px; /* Increased padding */
             border-bottom: 1px solid var(--border-color);
             vertical-align: middle;
         }
 
         .leaderboard th {
             background-color: var(--accent-color);
-            color: var(--text-color);
+            color: white; /* White text for headers */
             font-weight: bold;
             text-transform: uppercase;
-            font-size: 0.9em;
-            letter-spacing: 0.5px;
+            font-size: 1em; /* Slightly larger font */
+            letter-spacing: 0.8px; /* Increased letter spacing */
+            text-shadow: 0 0 3px rgba(0,0,0,0.5);
         }
 
         .leaderboard tbody tr {
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
         }
 
         .leaderboard tbody tr:nth-child(even) {
-            background-color: #1a2542;
+            background-color: #242424; /* Slightly different even row color */
         }
 
         .leaderboard tbody tr:hover {
             background-color: var(--hover-color);
-            transform: scale(1.01);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px) scale(1.005); /* Subtle lift and scale */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
         }
 
         .leaderboard td a {
             color: var(--text-color);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
         .leaderboard td a:hover {
             color: var(--accent-color);
+            text-shadow: 0 0 5px rgba(var(--accent-color-rgb), 0.7);
         }
 
         .tier-badge {
             display: inline-block;
-            padding: 5px 10px;
-            border-radius: 15px;
+            padding: 6px 12px; /* Adjusted padding */
+            border-radius: 18px; /* More rounded */
             font-weight: bold;
-            font-size: 0.85em;
+            font-size: 0.9em;
             text-transform: capitalize;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow */
             margin-right: 8px;
-            min-width: 70px;
+            min-width: 80px; /* Wider badge */
             text-align: center;
+            letter-spacing: 0.5px;
         }
 
-        .tier-bronze { background-color: var(--bronze); color: black; }
-        .tier-silver { background-color: var(--silver); color: black; }
-        .tier-gold { background-color: var(--gold); color: black; }
+        /* Tier Colors with better contrast against dark background */
+        .tier-bronze { background-color: var(--bronze); color: #333; }
+        .tier-silver { background-color: var(--silver); color: #333; }
+        .tier-gold { background-color: var(--gold); color: #333; }
         .tier-diamond { background-color: var(--diamond); color: #1a1a2e; }
         .tier-master { background-color: var(--master); color: white; }
         .tier-legend { background-color: var(--legend); color: white; }
@@ -229,80 +254,83 @@
 
         .discord-webhook {
             background-color: var(--dark-card);
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            padding: 30px;
-            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            padding: 35px; /* Increased padding */
+            margin-top: 35px;
             text-align: center;
+            border: 1px solid var(--border-color);
         }
 
         .discord-webhook h2 {
             color: var(--text-color);
-            margin-bottom: 20px;
-            font-size: 2em;
-            text-shadow: 0 0 3px var(--accent-color);
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            text-shadow: 0 0 8px rgba(var(--accent-color-rgb), 0.6);
         }
 
         .discord-webhook p {
             font-size: 1.1em;
-            margin-bottom: 25px;
-            color: #ccc;
+            margin-bottom: 30px;
+            color: #bbb;
         }
 
         .discord-webhook form {
             display: flex;
             flex-direction: column;
             align-items: center;
-            max-width: 500px;
+            max-width: 550px;
             margin: 0 auto;
         }
 
         .discord-webhook label {
             width: 100%;
             text-align: left;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: bold;
             color: var(--text-color);
+            font-size: 1.05em;
         }
 
         .discord-webhook input[type="url"],
         .discord-webhook textarea {
             width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 20px;
+            padding: 14px 18px;
+            margin-bottom: 25px;
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 8px;
             background-color: var(--dark-bg);
             color: var(--text-color);
             font-size: 1em;
             outline: none;
             resize: vertical;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .discord-webhook input[type="url"]:focus,
         .discord-webhook textarea:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 0 8px rgba(var(--accent-color-rgb), 0.5); /* FIX HERE */
+            box-shadow: 0 0 10px rgba(var(--accent-color-rgb), 0.7);
         }
 
         .discord-webhook button {
             background-color: var(--accent-color);
-            color: var(--text-color);
+            color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 6px;
+            padding: 16px 35px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1.1em;
+            font-size: 1.15em;
             font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             width: 100%;
-            max-width: 200px;
+            max-width: 250px;
         }
 
         .discord-webhook button:hover {
             background-color: var(--hover-color);
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
         }
     </style>
 </head>
@@ -313,13 +341,15 @@
 
     <nav>
         <ul>
-            <li><a href="index.html" class="active">Overall</a></li>
-            <li><a href="crystal.html">Crystal</a></li>
-            <li><a href="sumo.html">Sumo</a></li>
-            <li><a href="gap.html">Gap</a></li>
-            <li><a href="axe.html">Axe</a></li>
-            <li><a href="soup.html">Soup</a></li>
-            <li><a href="other.html">Other Gamemodes</a></li>
+            <li><a href="index.html" class="active"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Overall Icon">Overall</a></li>
+            <li><a href="crystal.html"><img src="https://pvptiers.com/icons/tiers/crystal.png" alt="Crystal Icon">Crystal</a></li>
+            <li><a href="sumo.html"><img src="https://pvptiers.com/icons/tiers/sword.png" alt="Sumo Icon">Sumo</a></li>
+            <li><a href="axe.html"><img src="https://pvptiers.com/icons/tiers/axe.png" alt="Axe Icon">Axe</a></li>
+            <li><a href="soup.html"><img src="https://pvptiers.com/icons/tiers/pot.png" alt="Soup Icon">Soup</a></li>
+            <li><a href="uhc.html"><img src="https://pvptiers.com/icons/tiers/uhc.png" alt="UHC Icon">UHC</a></li>
+            <li><a href="neth_pot.html"><img src="https://pvptiers.com/icons/tiers/neth_pot.png" alt="Nether Pot Icon">Neth Pot</a></li>
+            <li><a href="smp.html"><img src="https://pvptiers.com/icons/tiers/smp.png" alt="SMP Icon">SMP</a></li>
+            <li><a href="mace.html"><img src="https://pvptiers.com/icons/tiers/mace.png" alt="Mace Icon">Mace</a></li>
         </ul>
     </nav>
 
@@ -337,20 +367,16 @@
                         <th>#</th>
                         <th>Player</th>
                         <th>Tier</th>
-                        <th>Wins</th>
-                        <th>Losses</th>
                         <th>K/D</th>
                         <th>Points</th>
                     </tr>
                 </thead>
                 <tbody id="leaderboardBody">
-                    <!-- Example Player Data -->
+                    <!-- Example Player Data - Wins/Losses Removed -->
                     <tr>
                         <td>1</td>
                         <td><a href="profile.html?player=Notch">Notch</a></td>
                         <td><span class="tier-badge tier-grandmaster">Grandmaster</span></td>
-                        <td>1250</td>
-                        <td>100</td>
                         <td>12.50</td>
                         <td>25000</td>
                     </tr>
@@ -358,8 +384,6 @@
                         <td>2</td>
                         <td><a href="profile.html?player=Jeb_">Jeb_</a></td>
                         <td><span class="tier-badge tier-master">Master</span></td>
-                        <td>1000</td>
-                        <td>150</td>
                         <td>6.67</td>
                         <td>20000</td>
                     </tr>
@@ -367,8 +391,6 @@
                         <td>3</td>
                         <td><a href="profile.html?player=PlayerThree">PlayerThree</a></td>
                         <td><span class="tier-badge tier-diamond">Diamond</span></td>
-                        <td>800</td>
-                        <td>200</td>
                         <td>4.00</td>
                         <td>15000</td>
                     </tr>
@@ -376,8 +398,6 @@
                         <td>4</td>
                         <td><a href="profile.html?player=GamerFour">GamerFour</a></td>
                         <td><span class="tier-badge tier-gold">Gold</span></td>
-                        <td>600</td>
-                        <td>250</td>
                         <td>2.40</td>
                         <td>10000</td>
                     </tr>
@@ -385,8 +405,6 @@
                         <td>5</td>
                         <td><a href="profile.html?player=FifthPlayer">FifthPlayer</a></td>
                         <td><span class="tier-badge tier-silver">Silver</span></td>
-                        <td>400</td>
-                        <td>300</td>
                         <td>1.33</td>
                         <td>7500</td>
                     </tr>
@@ -394,8 +412,6 @@
                         <td>6</td>
                         <td><a href="profile.html?player=SixthSense">SixthSense</a></td>
                         <td><span class="tier-badge tier-bronze">Bronze</span></td>
-                        <td>200</td>
-                        <td>400</td>
                         <td>0.50</td>
                         <td>5000</td>
                     </tr>
