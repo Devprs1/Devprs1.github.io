@@ -11,6 +11,7 @@
             --dark-card: #16213e;
             --text-color: #e0e0e0;
             --accent-color: #0f3460;
+            --accent-color-rgb: 15, 52, 96; /* RGB for #0f3460 - FIX HERE */
             --hover-color: #0e294b;
             --border-color: #0a1122;
             --bronze: #cd7f32;
@@ -122,7 +123,7 @@
 
         .search-bar input[type="text"]:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 0 8px rgba(var(--accent-color), 0.5);
+            box-shadow: 0 0 8px rgba(var(--accent-color-rgb), 0.5); /* FIX HERE */
         }
 
         .search-bar button {
@@ -282,7 +283,7 @@
         .discord-webhook input[type="url"]:focus,
         .discord-webhook textarea:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 0 8px rgba(var(--accent-color), 0.5);
+            box-shadow: 0 0 8px rgba(var(--accent-color-rgb), 0.5); /* FIX HERE */
         }
 
         .discord-webhook button {
@@ -420,7 +421,12 @@
 
     <script>
         function searchPlayer() {
-            const searchTerm = document.getElementById('playerSearch').value.toLowerCase();
+            const playerSearchInput = document.getElementById('playerSearch');
+            if (!playerSearchInput) {
+                console.error("Error: 'playerSearch' element not found.");
+                return;
+            }
+            const searchTerm = playerSearchInput.value.toLowerCase();
             if (searchTerm) {
                 window.location.href = `profile.html?player=${encodeURIComponent(searchTerm)}`;
             } else {
@@ -431,17 +437,23 @@
         function handleWebhookSubmit(event) {
             event.preventDefault(); // Prevent default form submission
 
-            const webhookUrl = document.getElementById('webhookUrl').value;
-            const webhookMessage = document.getElementById('webhookMessage').value;
+            const webhookUrlInput = document.getElementById('webhookUrl');
+            const webhookMessageInput = document.getElementById('webhookMessage');
+
+            if (!webhookUrlInput || !webhookMessageInput) {
+                console.error("Error: Webhook URL or Message element not found.");
+                alert("An internal error occurred. Please try again or check the console.");
+                return;
+            }
+
+            const webhookUrl = webhookUrlInput.value;
+            const webhookMessage = webhookMessageInput.value;
 
             if (!webhookUrl) {
                 alert('Please enter a Discord Webhook URL.');
                 return;
             }
 
-            // In a real application, you would send this data to a backend
-            // or directly attempt to send a test message to the webhook URL.
-            // For a purely static HTML site, we can only simulate this.
             console.log('Attempting to configure webhook:');
             console.log('URL:', webhookUrl);
             console.log('Message:', webhookMessage || 'No test message provided.');
