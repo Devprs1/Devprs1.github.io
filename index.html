@@ -20,7 +20,7 @@
             --accent-gold-rgb: 255, 184, 0; /* RGB for rgba() uses */
             --glow-color: #ffb800;
             --hover-dark: #2a2a2a;
-            --focus-glow: 0 0 15px rgba(var(--accent-gold-rgb), 0.8);
+            --focus-glow: 0 0 20px rgba(var(--accent-gold-rgb), 0.9); /* Stronger focus glow */
 
             /* Tier Colors */
             --tier-combatmaster: #8854c4;
@@ -30,8 +30,10 @@
 
         /* --- Particle Background Animation --- */
         @keyframes dropParticles {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(100vh); } /* Animate falling down */
+            0% { transform: translateY(-100vh); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
         }
 
         #particle-container {
@@ -40,48 +42,64 @@
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Hide particles outside view */
-            z-index: 0; /* Behind content */
-            pointer-events: none; /* Allow clicking through */
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+            perspective: 1000px; /* For 3D effect if needed, but mainly for z-index layering */
         }
 
         .particle {
             position: absolute;
             width: 100%;
-            height: 100%; /* Cover entire screen */
-            top: -100vh; /* Start above the screen */
+            height: 100%;
+            top: 0;
             left: 0;
+            background-repeat: repeat;
             animation: dropParticles linear infinite;
         }
 
-        /* Particle Layer 1 (Slowest, largest, faintest) */
+        /* Particle Layer 1 (Slowest, largest, faintest) - more like glowing dust/embers */
         .particle1 {
-            background-image: radial-gradient(circle at 20% 10%, rgba(var(--accent-gold-rgb), 0.1) 1px, transparent 2px),
-                            radial-gradient(circle at 80% 30%, rgba(var(--accent-gold-rgb), 0.1) 1px, transparent 2px),
-                            radial-gradient(circle at 50% 70%, rgba(var(--accent-gold-rgb), 0.08) 2px, transparent 3px);
-            background-size: 300px 300px;
-            animation-duration: 40s;
-            opacity: 0.8;
+            background-image: radial-gradient(circle at 15% 10%, rgba(var(--accent-gold-rgb), 0.1) 1px, transparent 2px),
+                            radial-gradient(circle at 85% 90%, rgba(var(--accent-gold-rgb), 0.1) 1px, transparent 2px);
+            background-size: 400px 400px, 350px 350px;
+            animation-duration: 60s;
+            opacity: 0.7;
+            filter: blur(0.5px) drop-shadow(0 0 3px rgba(var(--accent-gold-rgb), 0.3)); /* Subtle blur and glow */
+            animation-delay: -10s; /* Offset start time */
         }
 
         /* Particle Layer 2 (Medium speed, medium size) */
         .particle2 {
-            background-image: radial-gradient(circle at 30% 50%, rgba(var(--accent-gold-rgb), 0.15) 1px, transparent 2px),
-                            radial-gradient(circle at 90% 80%, rgba(var(--accent-gold-rgb), 0.12) 1px, transparent 2px),
-                            radial-gradient(circle at 10% 40%, rgba(var(--accent-gold-rgb), 0.15) 1px, transparent 2px);
-            background-size: 200px 200px;
-            animation-duration: 25s;
-            animation-delay: -5s; /* Offset start time */
+            background-image: radial-gradient(circle at 25% 70%, rgba(var(--accent-gold-rgb), 0.15) 1px, transparent 1.5px),
+                            radial-gradient(circle at 70% 30%, rgba(var(--accent-gold-rgb), 0.15) 1px, transparent 1.5px);
+            background-size: 250px 250px, 280px 280px;
+            animation-duration: 45s;
+            animation-delay: -20s;
             opacity: 0.9;
+            filter: blur(0.2px) drop-shadow(0 0 5px rgba(var(--accent-gold-rgb), 0.4)); /* Stronger glow */
         }
 
-        /* Particle Layer 3 (Fastest, smallest, brightest) */
+        /* Particle Layer 3 (Faster, smaller, brighter) */
         .particle3 {
-            background-image: radial-gradient(circle at 40% 60%, rgba(var(--accent-gold-rgb), 0.2) 1px, transparent 1px),
-                            radial-gradient(circle at 70% 20%, rgba(var(--accent-gold-rgb), 0.2) 1px, transparent 1px);
-            background-size: 100px 100px;
-            animation-duration: 15s;
-            animation-delay: -10s;
+            background-image: radial-gradient(circle at 40% 20%, rgba(var(--accent-gold-rgb), 0.2) 1px, transparent 1px),
+                            radial-gradient(circle at 60% 80%, rgba(var(--accent-gold-rgb), 0.2) 1px, transparent 1px);
+            background-size: 150px 150px, 180px 180px;
+            animation-duration: 30s;
+            animation-delay: -30s;
+            opacity: 1;
+            filter: drop-shadow(0 0 8px rgba(var(--accent-gold-rgb), 0.5)); /* Most prominent glow */
+        }
+
+        /* Particle Layer 4 (Fastest, smallest, brightest) - additional layer */
+        .particle4 {
+            background-image: radial-gradient(circle at 5% 5%, rgba(var(--accent-gold-rgb), 0.25) 1px, transparent 1px),
+                            radial-gradient(circle at 95% 95%, rgba(var(--accent-gold-rgb), 0.25) 1px, transparent 1px);
+            background-size: 80px 80px, 120px 120px;
+            animation-duration: 20s;
+            animation-delay: -40s;
+            opacity: 1;
+            filter: drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.6));
         }
         /* --- End Particle Background Animation --- */
 
@@ -109,12 +127,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 40px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8); /* Stronger shadow */
         }
 
         .top-header .logo img {
             height: 40px;
-            filter: drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.5));
+            filter: drop-shadow(0 0 12px rgba(var(--accent-gold-rgb), 0.6)); /* Stronger glow */
         }
 
         .top-header .server-ip {
@@ -127,20 +145,20 @@
             font-size: 0.9em;
             color: var(--text-dark);
             border: 1px solid var(--border-color-light);
-            box-shadow: 0 0 8px rgba(0,0,0,0.4);
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Stronger shadow */
         }
 
         .top-header .server-ip span {
             color: var(--accent-gold);
             font-weight: 600;
-            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.7);
+            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.8); /* Stronger glow */
         }
 
         .main-nav-bar {
             background-color: var(--header-bg-color);
             border-bottom: 1px solid var(--border-color-dark);
             padding: 10px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.7); /* Stronger shadow */
         }
 
         .main-nav-bar ul {
@@ -158,33 +176,33 @@
             font-weight: 600;
             padding: 10px 15px;
             border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, color 0.3s ease;
+            transition: all 0.3s ease; /* All properties transition */
             display: flex;
             align-items: center;
             gap: 8px;
-            text-shadow: 0 0 5px rgba(0,0,0,0.7);
+            text-shadow: 0 0 6px rgba(0,0,0,0.8); /* Enhanced text shadow */
             font-size: 0.95em;
         }
 
         .main-nav-bar ul li a img {
             height: 20px;
-            filter: brightness(0.7) drop-shadow(0 0 3px rgba(0,0,0,0.5));
+            filter: brightness(0.7) drop-shadow(0 0 4px rgba(0,0,0,0.6)); /* Initial subtle filter */
             transition: filter 0.3s ease;
         }
 
         .main-nav-bar ul li a:hover,
         .main-nav-bar ul li a.active {
-            background-color: var(--hover-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.6), 0 5px 15px rgba(0,0,0,0.6);
+            background-color: #333333; /* Slightly lighter hover for contrast */
+            transform: translateY(-4px); /* More pronounced lift */
+            box-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.7), 0 8px 20px rgba(0,0,0,0.7); /* Stronger glow + lift shadow */
             color: var(--accent-gold);
             border: 1px solid var(--accent-gold);
-            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.8);
+            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.9); /* Stronger gold text glow */
         }
 
         .main-nav-bar ul li a:hover img,
         .main-nav-bar ul li a.active img {
-            filter: brightness(1) drop-shadow(0 0 8px rgba(var(--accent-gold-rgb), 0.7));
+            filter: brightness(1) drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.8)); /* Full color + glowing icon */
         }
 
         .container {
@@ -198,7 +216,7 @@
             font-weight: 700;
             color: var(--text-light);
             margin-bottom: 25px;
-            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.8), 0 0 15px rgba(var(--accent-gold-rgb), 0.6);
+            text-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 0.9), 0 0 20px rgba(var(--accent-gold-rgb), 0.7); /* More intense glow */
             letter-spacing: 2px;
             text-align: left;
         }
@@ -218,7 +236,7 @@
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); /* Stronger shadow */
             gap: 5px;
         }
 
@@ -232,18 +250,18 @@
             font-size: 0.85em;
             font-weight: 600;
             border-radius: 6px;
-            transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            transition: all 0.2s ease;
             border: 1px solid transparent;
             min-width: 70px;
             box-sizing: border-box;
-            text-shadow: 0 0 2px rgba(0,0,0,0.5);
+            text-shadow: 0 0 3px rgba(0,0,0,0.6);
         }
 
         .gamemode-nav a img {
             width: 30px;
             height: 30px;
             margin-bottom: 5px;
-            filter: grayscale(80%) brightness(0.8) drop-shadow(0 0 3px rgba(0,0,0,0.5));
+            filter: grayscale(80%) brightness(0.8) drop-shadow(0 0 4px rgba(0,0,0,0.6));
             transition: filter 0.2s ease;
             image-rendering: pixelated;
         }
@@ -251,27 +269,27 @@
         .gamemode-nav a:hover {
             background-color: var(--card-bg-color);
             color: var(--text-light);
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
-            transform: translateY(-1px);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+            transform: translateY(-2px);
         }
 
         .gamemode-nav a.active {
             background-color: var(--card-bg-color);
             color: var(--accent-gold);
             border-color: var(--accent-gold);
-            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.7);
-            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.8); /* Stronger glow for active */
+            transform: translateY(-3px); /* More pronounced active lift */
         }
 
         .gamemode-nav a.active img,
         .gamemode-nav a:hover img {
-            filter: grayscale(0%) brightness(1) drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.8));
+            filter: grayscale(0%) brightness(1) drop-shadow(0 0 12px rgba(var(--accent-gold-rgb), 0.9)); /* Glowing color icon */
         }
 
         .leaderboard-section {
             background-color: var(--card-bg-color);
             border-radius: 8px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); /* Stronger shadow */
             padding: 20px;
             border: 1px solid var(--border-color-dark);
         }
@@ -284,7 +302,7 @@
             border-radius: 6px;
             margin-bottom: 10px;
             padding: 10px 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.6);
         }
 
         .leaderboard-table-header > div {
@@ -325,14 +343,14 @@
             border-radius: 6px;
             margin-bottom: 10px;
             padding: 10px 15px;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth cubic bezier transition */
         }
         .player-row:hover {
-            background-color: var(--hover-dark);
+            background-color: #2e2e2e; /* Slightly different hover dark */
             border-color: var(--accent-gold);
-            box-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.7), 0 6px 20px rgba(0,0,0,0.6); /* Enhanced lift and glow */
-            transform: translateY(-5px) scale(1.01); /* Enhanced lift effect */
-            z-index: 10; /* Bring hovered item to front */
+            box-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 0.8), 0 8px 25px rgba(0,0,0,0.8); /* Intense lift and glow */
+            transform: translateY(-7px) scale(1.015); /* More pronounced lift effect */
+            z-index: 10;
         }
 
         .player-row > div {
@@ -358,13 +376,14 @@
             font-weight: 700;
             color: var(--text-light);
             z-index: 1;
+            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.5); /* Rank number glow */
         }
         .rank-emblem {
             width: 25px;
             height: auto;
             position: absolute;
             opacity: 0.7;
-            filter: drop-shadow(0 0 5px rgba(var(--accent-gold-rgb), 0.5));
+            filter: drop-shadow(0 0 8px rgba(var(--accent-gold-rgb), 0.7)); /* Stronger glow on emblem */
         }
 
         .player-info-col {
@@ -381,7 +400,7 @@
             border-radius: 4px;
             border: 1px solid var(--border-color-light);
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 0 8px rgba(0,0,0,0.6)); /* Stronger shadow */
         }
 
         .player-details {
@@ -395,13 +414,13 @@
             color: var(--text-light);
             font-size: 1.1em;
             font-weight: 700;
-            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.3);
+            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.5); /* Stronger player name glow */
             transition: color 0.2s ease, text-shadow 0.2s ease;
             cursor: pointer;
         }
         .player-details a:hover {
             color: var(--accent-gold);
-            text-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.7);
+            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.9);
         }
 
         .player-tier-points-label {
@@ -422,8 +441,8 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 0 8px rgba(0,0,0,0.5);
-            text-shadow: 0 0 3px rgba(0,0,0,0.5);
+            box-shadow: 0 0 10px rgba(0,0,0,0.6); /* Stronger shadow */
+            text-shadow: 0 0 4px rgba(0,0,0,0.6);
         }
 
         .player-region-col {
@@ -439,10 +458,10 @@
             font-weight: 700;
             color: white;
             text-transform: uppercase;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.6); /* Stronger shadow */
             min-width: 40px;
             text-align: center;
-            text-shadow: 0 0 3px rgba(0,0,0,0.5);
+            text-shadow: 0 0 4px rgba(0,0,0,0.6);
         }
         .region-na { background-color: var(--tier-nr); }
         .region-eu { background-color: var(--tier-eu); }
@@ -455,7 +474,7 @@
             font-weight: 600;
             color: var(--text-light);
             margin-right: 20px;
-            text-shadow: 0 0 5px rgba(var(--accent-gold-rgb), 0.3);
+            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.5); /* Stronger points glow */
         }
 
         .player-items-col {
@@ -487,13 +506,13 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Stronger shadow */
             font-size: 0.7em;
             font-weight: 700;
             color: var(--text-light);
             text-transform: uppercase;
-            text-shadow: 0 0 3px rgba(0,0,0,0.5);
-            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+            text-shadow: 0 0 4px rgba(0,0,0,0.6);
+            filter: drop-shadow(0 0 8px rgba(0,0,0,0.4)); /* Stronger item icon glow */
         }
         .item-icon[data-item-type="crystal"] { background-image: url('https://pvptiers.com/icons/tiers/crystal.png'); }
         .item-icon[data-item-type="sword"] { background-image: url('https://pvptiers.com/icons/tiers/sword.png'); }
@@ -517,7 +536,7 @@
             white-space: nowrap;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            box-shadow: 0 1px 8px rgba(0,0,0,0.5);
             transform: translateY(50%);
         }
 
@@ -534,7 +553,7 @@
             border: 1px solid var(--border-color-dark);
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7); /* Stronger shadow */
         }
 
         .info-card .info-button {
@@ -549,14 +568,14 @@
             border-radius: 6px;
             text-decoration: none;
             transition: all 0.2s ease;
-            text-shadow: 0 0 8px rgba(0,0,0,0.6);
+            text-shadow: 0 0 10px rgba(0,0,0,0.7);
             gap: 10px;
             border: 1px solid var(--border-color-light);
         }
 
         .info-card .info-button:hover {
-            background-color: var(--hover-dark);
-            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.5), 0 5px 15px rgba(0,0,0,0.5);
+            background-color: #333333;
+            box-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.6), 0 8px 20px rgba(0,0,0,0.6);
             color: var(--accent-gold);
             transform: translateY(-2px);
         }
@@ -565,7 +584,7 @@
             content: 'ⓘ';
             font-size: 1.2em;
             vertical-align: middle;
-            text-shadow: 0 0 5px rgba(var(--accent-gold-rgb), 0.5);
+            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.5);
         }
 
         .search-card .search-input {
@@ -614,7 +633,7 @@
             color: var(--text-light);
             margin-bottom: 15px;
             text-align: center;
-            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.4);
+            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.5);
         }
         .discord-webhook-sidebar p {
             font-size: 0.9em;
@@ -652,11 +671,11 @@
             border-radius: 5px;
             font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+            transition: all 0.2s ease;
         }
         .discord-webhook-sidebar button:hover {
             background-color: #ffd24c;
-            box-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.6);
+            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.8);
             transform: translateY(-2px);
         }
 
@@ -667,7 +686,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
+            background-color: rgba(0, 0, 0, 0.9); /* Even darker overlay */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -686,14 +705,14 @@
             background-color: var(--header-bg-color);
             border: 1px solid var(--border-color-light);
             border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.95); /* Even stronger shadow */
             width: 450px;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
             padding: 20px;
-            transform: scale(0.8);
-            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transform: scale(0.7); /* Start smaller for more dramatic effect */
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* More pronounced bounce effect */
         }
         .profile-modal-overlay.active .profile-modal {
             transform: scale(1);
@@ -713,7 +732,7 @@
             font-size: 1.8em;
             font-weight: 700;
             color: var(--text-light);
-            text-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.6);
+            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.8); /* Stronger glow */
             letter-spacing: 0.5px;
         }
 
@@ -723,11 +742,11 @@
             color: var(--text-dark);
             font-size: 1.8em;
             cursor: pointer;
-            transition: color 0.2s ease, transform 0.2s ease;
+            transition: all 0.2s ease;
         }
         .profile-modal-close-btn:hover {
             color: var(--accent-gold);
-            transform: rotate(90deg) scale(1.1);
+            transform: rotate(90deg) scale(1.2); /* More dramatic close button */
         }
 
         .modal-player-overview {
@@ -746,13 +765,13 @@
         .modal-player-meta .region-badge {
             font-size: 0.9em;
             padding: 6px 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.6);
         }
         .modal-player-meta .player-tier-badge {
             font-size: 0.9em;
             padding: 6px 12px;
             background-color: var(--tier-combatmaster);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.6);
         }
         .modal-player-meta .overall-points-display {
             display: flex;
@@ -765,13 +784,13 @@
             font-size: 0.9em;
             font-weight: 600;
             color: var(--text-light);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            text-shadow: 0 0 5px rgba(var(--accent-gold-rgb), 0.3);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+            text-shadow: 0 0 6px rgba(var(--accent-gold-rgb), 0.4);
         }
         .modal-player-meta .overall-points-display img {
             width: 20px;
             height: 20px;
-            filter: drop-shadow(0 0 8px rgba(var(--accent-gold-rgb), 0.6));
+            filter: drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.7));
         }
         .modal-player-meta .overall-points-display span {
             color: var(--accent-gold);
@@ -783,24 +802,24 @@
             width: 120px;
             height: auto;
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 20px rgba(0,0,0,0.7));
+            filter: drop-shadow(0 0 25px rgba(0,0,0,0.8));
             margin-bottom: 20px;
             transition: transform 0.3s ease;
         }
         .modal-player-skin:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
 
         .modal-rank-badge {
             width: 70px;
             height: auto;
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.7));
+            filter: drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 0.8));
             margin-bottom: 20px;
             transition: transform 0.3s ease;
         }
         .modal-rank-badge:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
         .namemc-button {
@@ -816,12 +835,12 @@
             font-weight: 600;
             font-size: 0.95em;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.6);
         }
         .namemc-button:hover {
-            background-color: var(--hover-dark);
-            box-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.6);
-            transform: translateY(-2px);
+            background-color: #333333;
+            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.7);
+            transform: translateY(-3px);
             color: var(--accent-gold);
         }
         .namemc-button::before {
@@ -829,7 +848,7 @@
             font-size: 1.2em;
             vertical-align: middle;
             line-height: 1;
-            text-shadow: 0 0 5px rgba(var(--accent-gold-rgb), 0.5);
+            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.5);
         }
 
         .modal-section-title {
@@ -840,7 +859,7 @@
             margin: 30px 0 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            text-shadow: 0 0 8px rgba(0,0,0,0.5);
+            text-shadow: 0 0 10px rgba(0,0,0,0.6);
         }
 
         .modal-tiers-grid, .modal-retired-grid {
@@ -870,18 +889,31 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
             font-size: 0.7em;
             font-weight: 700;
             color: var(--text-light);
             text-transform: uppercase;
-            text-shadow: 0 0 3px rgba(0,0,0,0.5);
-            filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+            text-shadow: 0 0 4px rgba(0,0,0,0.6);
+            filter: drop-shadow(0 0 8px rgba(0,0,0,0.4));
+            transition: all 0.2s ease;
         }
+        .modal-tier-icon:hover, .modal-retired-icon:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.7));
+            border-color: var(--accent-gold);
+        }
+
 
         /* Grayscale filter for locked tiers */
         .modal-tier-icon.locked {
-            filter: grayscale(100%) brightness(0.7);
+            filter: grayscale(100%) brightness(0.5) drop-shadow(0 0 5px rgba(0,0,0,0.3)); /* Dimmer and less glow for locked */
+            border-color: #444;
+        }
+        .modal-tier-icon.locked:hover {
+            transform: none; /* No scaling for locked items on hover */
+            filter: grayscale(100%) brightness(0.6) drop-shadow(0 0 8px rgba(0,0,0,0.4)); /* Slightly brighter on hover */
+            border-color: #666;
         }
 
         .modal-retired-item .item-label {
@@ -890,7 +922,7 @@
             transform: none;
             font-size: 0.7em;
             padding: 2px 5px;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            box-shadow: 0 1px 8px rgba(0,0,0,0.5);
         }
     </style>
 </head>
@@ -899,6 +931,7 @@
         <div class="particle particle1"></div>
         <div class="particle particle2"></div>
         <div class="particle particle3"></div>
+        <div class="particle particle4"></div>
     </div>
 
     <div class="page-wrapper">
@@ -1238,7 +1271,6 @@
 
     <script>
         // --- Mock Data Structure ---
-        // Defines all possible gamemodes and individual player data.
         const allGamemodes = [
             { id: 'crystal', name: 'Crystal', iconUrl: 'https://pvptiers.com/icons/tiers/crystal.png' },
             { id: 'sword', name: 'Sword', iconUrl: 'https://pvptiers.com/icons/tiers/sword.png' },
@@ -1253,39 +1285,40 @@
         const mockPlayerData = {
             'itzrealme': {
                 name: 'ItzRealMe', rank: 1, region: 'NA', tier: 'COMBATMASTER', points: 300,
-                rankBadgeUrl: 'https://i.imgur.com/sS475yU.png',
-                leaderboardItems: [
+                rankBadgeUrl: 'https://i.imgur.com/sS475yU.png', // Gold badge for modal
+                unlockedTiers: ['crystal', 'sword', 'axe', 'pot', 'smp', 'uhc'], // IDs of gamemodes this player has tiers in
+                retiredItems: [
                     { type: 'crystal', label: 'HT1' }, { type: 'sword', label: 'HT1' }, { type: 'heart', label: 'HT1' },
                     { type: 'pot', label: 'HT1' }, { type: 'neth_block', label: 'HT2' }, { type: 'axe', label: 'LT2' }, { type: 'question', label: '?' }
-                ],
-                unlockedTiers: ['crystal', 'sword', 'axe', 'pot'] // List of unlocked gamemode IDs
+                ]
             },
             'marlowww': {
                 name: 'Marlowww', rank: 2, region: 'NA', tier: 'COMBATMASTER', points: 284,
-                rankBadgeUrl: 'https://i.imgur.com/yU4eYwP.png',
-                leaderboardItems: [
-                    { type: 'crystal', label: 'HT1' }, { type: 'sword', label: 'LT1' }, { type: 'heart', label: 'LT1' },
-                    { type: 'pot', label: 'LT1' }, { type: 'neth_block', label: 'LT2' }, { type: 'axe', label: 'LT2' }
-                ],
-                unlockedTiers: ['crystal', 'sword', 'uhc', 'smp']
+                rankBadgeUrl: 'https://i.imgur.com/yU4eYwP.png', // Silver badge for modal
+                unlockedTiers: ['crystal', 'sword', 'uhc', 'smp', 'neth_pot'],
+                retiredItems: [
+                    { type: 'crystal', label: 'HT1' }, { type: 'smp', label: 'HT1' }, { type: 'sword', label: 'LT1' },
+                    { type: 'heart', label: 'LT1' }, { type: 'pot', label: 'LT1' }, { type: 'axe', label: 'LT2' },
+                    { type: 'neth_block', label: 'LT2' }, { type: 'question', label: '?' }
+                ]
             },
             'swight': {
                 name: 'Swight', rank: 3, region: 'NA', tier: 'COMBATMASTER', points: 220,
-                rankBadgeUrl: 'https://i.imgur.com/D4s6LgQ.png',
-                leaderboardItems: [
+                rankBadgeUrl: 'https://i.imgur.com/D4s6LgQ.png', // Bronze badge for modal
+                unlockedTiers: ['crystal', 'sword', 'uhc', 'axe'],
+                retiredItems: [
                     { type: 'crystal', label: 'HT3' }, { type: 'sword', label: 'HT3' }, { type: 'heart', label: 'HT3' },
-                    { type: 'pot', label: 'LT3' }, { type: 'neth_block', label: 'HT1' }, { type: 'smp', label: 'HT1' }
-                ],
-                unlockedTiers: ['crystal', 'sword']
+                    { type: 'pot', label: 'LT3' }, { type: 'neth_block', label: 'HT1' }, { type: 'smp', label: 'HT1' }, { type: 'question', label: '?' }
+                ]
             },
             'coldified': {
                 name: 'coldified', rank: 4, region: 'EU', tier: 'COMBATMASTER', points: 208,
-                rankBadgeUrl: '',
-                leaderboardItems: [
+                rankBadgeUrl: '', // No specific badge for rank > 3
+                unlockedTiers: ['crystal', 'pot', 'smp', 'mace'],
+                retiredItems: [
                     { type: 'crystal', label: 'HT2' }, { type: 'sword', label: 'LT2' }, { type: 'heart', label: 'LT3' },
-                    { type: 'pot', label: 'HT1' }, { type: 'neth_block', label: 'HT1' }, { type: 'smp', label: 'HT2' }
-                ],
-                unlockedTiers: ['crystal', 'pot', 'smp']
+                    { type: 'pot', label: 'HT1' }, { type: 'neth_block', label: 'HT1' }, { type: 'smp', label: 'HT2' }, { type: 'question', label: '?' }
+                ]
             }
         };
 
@@ -1298,6 +1331,7 @@
                 case 'sword': return 'Sw';
                 case 'heart': return 'He';
                 case 'pot': return 'Po';
+                case 'neth_pot': return 'Ne';
                 case 'neth_block': return 'Ne';
                 case 'smp': return 'Sm';
                 case 'axe': return 'Ax';
@@ -1307,13 +1341,20 @@
             }
         }
 
-        function populateModal(playerName) {
-            const playerData = mockPlayerData[playerName.toLowerCase()] || {
-                name: playerName, rank: 'N/A', region: 'N/A', tier: 'Unranked', points: 0,
-                rankBadgeUrl: '', unlockedTiers: [], leaderboardItems: []
-            };
+        function getGamemodeIconUrl(id) {
+            const gamemode = allGamemodes.find(gm => gm.id === id);
+            return gamemode ? gamemode.iconUrl : 'https://pvptiers.com/icons/gamemodes/question.png';
+        }
 
-            // Populate static info
+        function populateModal(playerName) {
+            const playerData = mockPlayerData[playerName.toLowerCase()];
+            
+            // Handle player not found
+            if (!playerData) {
+                alert(`Player '${playerName}' not found in mock data.`);
+                return;
+            }
+
             document.getElementById('modalPlayerName').textContent = playerData.name;
             const modalPlayerRegion = document.getElementById('modalPlayerRegion');
             modalPlayerRegion.textContent = playerData.region;
@@ -1332,14 +1373,15 @@
 
             document.getElementById('namemcLink').href = `https://namemc.com/profile/${playerData.name}`;
 
-            // --- Populate Modal Tiers Grid (Using real icons) ---
+            // --- Populate Modal Tiers Grid (Using real icons from allGamemodes) ---
             const modalPlayerTiersContainer = document.getElementById('modalPlayerTiers');
             modalPlayerTiersContainer.innerHTML = '';
             allGamemodes.forEach(gamemode => {
                 const isUnlocked = playerData.unlockedTiers.includes(gamemode.id);
                 modalPlayerTiersContainer.innerHTML += `
                     <div class="modal-tier-item">
-                        <div class="modal-tier-icon ${isUnlocked ? '' : 'locked'}" style="background-image: url('${isUnlocked ? gamemode.iconUrl : 'https://pvptiers.com/icons/gamemodes/question.png'}');">
+                        <div class="modal-tier-icon ${isUnlocked ? '' : 'locked'}"
+                             style="background-image: url('${isGamemodeDefined(gamemode.id) ? getGamemodeIconUrl(gamemode.id) : 'https://pvptiers.com/icons/gamemodes/question.png'}');">
                         </div>
                     </div>
                 `;
@@ -1348,10 +1390,11 @@
             // --- Populate Modal Retired Items Grid ---
             const modalPlayerRetiredItemsContainer = document.getElementById('modalPlayerRetiredItems');
             modalPlayerRetiredItemsContainer.innerHTML = '';
-            playerData.leaderboardItems.forEach(item => {
+            playerData.retiredItems.forEach(item => {
                 modalPlayerRetiredItemsContainer.innerHTML += `
                     <div class="modal-retired-item">
-                        <div class="modal-retired-icon" data-item-type="${item.type || 'question'}">
+                        <div class="modal-retired-icon" data-item-type="${item.type || 'question'}"
+                             style="background-image: url('${getGamemodeIconUrl(item.type || 'question')}');">
                             ${getItemIconText(item.type || 'question')}
                         </div>
                         <span class="item-label">${item.label}</span>
@@ -1359,11 +1402,19 @@
                 `;
             });
         }
+        
+        // Check if a gamemode ID is defined in allGamemodes
+        function isGamemodeDefined(id) {
+            return allGamemodes.some(gm => gm.id === id);
+        }
 
         function openPlayerProfileModal(event, playerName) {
-            event.preventDefault();
+            if (event) event.preventDefault(); // Only prevent default if event object exists
             populateModal(playerName);
-            document.getElementById('playerProfileModalOverlay').classList.add('active');
+            // Only show modal if populateModal didn't alert about player not found
+            if (mockPlayerData[playerName.toLowerCase()]) {
+                document.getElementById('playerProfileModalOverlay').classList.add('active');
+            }
         }
 
         function closePlayerProfileModal() {
@@ -1372,10 +1423,14 @@
 
         function searchPlayer() {
             const playerSearchInput = document.getElementById('playerSearch');
-            if (!playerSearchInput) return;
+            if (!playerSearchInput) {
+                console.error("Error: 'playerSearch' element not found.");
+                return;
+            }
             const searchTerm = playerSearchInput.value.trim();
             if (searchTerm) {
-                openPlayerProfileModal(event, searchTerm);
+                // Call openPlayerProfileModal directly without an event object if triggered by button
+                openPlayerProfileModal(null, searchTerm); 
             } else {
                 alert('Please enter a player name to search.');
             }
@@ -1383,6 +1438,7 @@
 
         document.getElementById('playerSearch').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent default form submission if input is within a form
                 searchPlayer();
             }
         });
@@ -1398,21 +1454,10 @@
             alert('Webhook configuration simulated.');
         }
 
-        // --- Data-driven item icon initialization ---
-        // Set background image for leaderboard icons based on data-item-type attribute
+        // --- Initial setup for leaderboard item icons ---
         document.querySelectorAll('.item-icon[data-item-type]').forEach(iconElement => {
             const itemType = iconElement.getAttribute('data-item-type');
-            let iconUrl = '';
-            switch(itemType) {
-                case 'crystal': iconUrl = 'https://pvptiers.com/icons/tiers/crystal.png'; break;
-                case 'sword': iconUrl = 'https://pvptiers.com/icons/tiers/sword.png'; break;
-                case 'heart': iconUrl = 'https://pvptiers.com/icons/tiers/uhc.png'; break;
-                case 'pot': iconUrl = 'https://pvptiers.com/icons/tiers/pot.png'; break;
-                case 'neth_block': iconUrl = 'https://pvptiers.com/icons/tiers/neth_pot.png'; break;
-                case 'smp': iconUrl = 'https://pvptiers.com/icons/tiers/smp.png'; break;
-                case 'axe': iconUrl = 'https://pvptiers.com/icons/tiers/axe.png'; break;
-                case 'question': iconUrl = 'https://pvptiers.com/icons/gamemodes/question.png'; break;
-            }
+            const iconUrl = getGamemodeIconUrl(itemType);
             if (iconUrl) {
                 iconElement.style.backgroundImage = `url('${iconUrl}')`;
             }
