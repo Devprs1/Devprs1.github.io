@@ -24,7 +24,7 @@
             --accent-purple: #8854c4; /* For combatmaster badge */
             
             --hover-dark: #3a3a3a; /* More distinct hover background */
-            --focus-glow: 0 0 30px rgba(var(--accent-gold-rgb), 1); /* Intense focus glow */
+            --focus-glow: 0 0 35px rgba(var(--accent-gold-rgb), 1); /* Even stronger focus glow */
 
             /* Tier Colors */
             --tier-combatmaster: var(--accent-purple);
@@ -64,43 +64,43 @@
 
         /* Red, Black, Gold particles */
         .particle1 {
-            background-image: radial-gradient(circle at 15% 10%, rgba(var(--accent-red-glow-rgb), 0.15) 1px, transparent 2px),
-                            radial-gradient(circle at 85% 90%, rgba(var(--accent-gold-rgb), 0.1) 1px, transparent 2px);
-            background-size: 400px 400px, 350px 350px;
-            animation-duration: 70s;
-            opacity: 0.6;
-            filter: blur(0.8px) drop-shadow(0 0 7px rgba(var(--accent-red-glow-rgb), 0.5));
+            background-image: radial-gradient(circle at 15% 10%, rgba(var(--accent-red-glow-rgb), 0.18) 1px, transparent 2.5px),
+                            radial-gradient(circle at 85% 90%, rgba(var(--accent-gold-rgb), 0.15) 1px, transparent 2.5px);
+            background-size: 450px 450px, 400px 400px;
+            animation-duration: 75s;
+            opacity: 0.7;
+            filter: blur(0.8px) drop-shadow(0 0 10px rgba(var(--accent-red-glow-rgb), 0.6));
             animation-delay: -10s;
         }
 
         .particle2 {
-            background-image: radial-gradient(circle at 25% 70%, rgba(var(--accent-gold-rgb), 0.2) 1px, transparent 1.5px),
-                            radial-gradient(circle at 70% 30%, rgba(var(--accent-red-glow-rgb), 0.18) 1px, transparent 1.5px);
-            background-size: 280px 280px, 320px 320px;
-            animation-duration: 55s;
+            background-image: radial-gradient(circle at 25% 70%, rgba(var(--accent-gold-rgb), 0.25) 1px, transparent 2px),
+                            radial-gradient(circle at 70% 30%, rgba(var(--accent-red-glow-rgb), 0.22) 1px, transparent 2px);
+            background-size: 300px 300px, 350px 350px;
+            animation-duration: 60s;
             animation-delay: -25s;
-            opacity: 0.8;
-            filter: blur(0.5px) drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.6));
+            opacity: 0.85;
+            filter: blur(0.5px) drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.7));
         }
 
         .particle3 {
-            background-image: radial-gradient(circle at 40% 20%, rgba(var(--accent-red-glow-rgb), 0.25) 1px, transparent 1px),
-                            radial-gradient(circle at 60% 80%, rgba(var(--accent-gold-rgb), 0.25) 1px, transparent 1px);
-            background-size: 180px 180px, 220px 220px;
-            animation-duration: 40s;
+            background-image: radial-gradient(circle at 40% 20%, rgba(var(--accent-red-glow-rgb), 0.3) 1px, transparent 1.5px),
+                            radial-gradient(circle at 60% 80%, rgba(var(--accent-gold-rgb), 0.3) 1px, transparent 1.5px);
+            background-size: 200px 200px, 250px 250px;
+            animation-duration: 45s;
             animation-delay: -40s;
-            opacity: 0.9;
-            filter: drop-shadow(0 0 15px rgba(var(--accent-red-glow-rgb), 0.7));
+            opacity: 0.95;
+            filter: drop-shadow(0 0 20px rgba(var(--accent-red-glow-rgb), 0.8));
         }
 
         .particle4 {
-            background-image: radial-gradient(circle at 5% 5%, rgba(var(--accent-gold-rgb), 0.3) 1px, transparent 1px),
-                            radial-gradient(circle at 95% 95%, rgba(var(--accent-red-glow-rgb), 0.3) 1px, transparent 1px);
-            background-size: 100px 100px, 150px 150px;
-            animation-duration: 30s;
+            background-image: radial-gradient(circle at 5% 5%, rgba(var(--accent-gold-rgb), 0.35) 1px, transparent 1px),
+                            radial-gradient(circle at 95% 95%, rgba(var(--accent-red-glow-rgb), 0.35) 1px, transparent 1px);
+            background-size: 120px 120px, 180px 180px;
+            animation-duration: 35s;
             animation-delay: -55s;
             opacity: 1;
-            filter: drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 0.8));
+            filter: drop-shadow(0 0 25px rgba(var(--accent-gold-rgb), 0.9));
         }
         /* --- End Particle Background Animation --- */
 
@@ -111,9 +111,9 @@
             background-color: var(--main-bg-color);
             /* Subtle background gradients for base theme */
             background-image:
-                radial-gradient(circle at 10% 90%, rgba(var(--accent-red-glow-rgb), 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 10%, rgba(var(--accent-gold-rgb), 0.08) 0%, transparent 50%),
-                linear-gradient(to bottom, #120d0d, #080808); /* Dark red-black gradient */
+                radial-gradient(circle at 10% 90%, rgba(var(--accent-red-glow-rgb), 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 10%, rgba(var(--accent-gold-rgb), 0.12) 0%, transparent 50%),
+                linear-gradient(to bottom, #150a0a, #0a0a0a); /* Dark red-black gradient */
             background-size: cover;
             color: var(--text-light);
             line-height: 1.6;
@@ -133,12 +133,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 40px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 1); /* Very strong shadow */
+            box-shadow: 0 4px 35px rgba(0, 0, 0, 1);
         }
 
         .top-header .logo img {
             height: 40px;
-            filter: drop-shadow(0 0 18px rgba(var(--accent-gold-rgb), 0.8)); /* Intense glow */
+            filter: drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 0.9));
         }
 
         .top-header .server-ip {
@@ -151,20 +151,20 @@
             font-size: 0.9em;
             color: var(--text-dark);
             border: 1px solid var(--border-color-light);
-            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+            box-shadow: 0 0 18px rgba(0,0,0,0.9);
         }
 
         .top-header .server-ip span {
             color: var(--accent-gold);
             font-weight: 600;
-            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 1); /* Intense glow */
+            text-shadow: 0 0 18px rgba(var(--accent-gold-rgb), 1);
         }
 
         .main-nav-bar {
             background-color: var(--header-bg-color);
             border-bottom: 1px solid var(--border-color-dark);
             padding: 10px 0;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 2px 25px rgba(0, 0, 0, 1);
         }
 
         .main-nav-bar ul {
@@ -186,29 +186,29 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            text-shadow: 0 0 10px rgba(0,0,0,1); /* Darker, more defined text shadow */
+            text-shadow: 0 0 12px rgba(0,0,0,1);
             font-size: 0.95em;
         }
 
         .main-nav-bar ul li a img {
             height: 20px;
-            filter: brightness(0.7) drop-shadow(0 0 7px rgba(0,0,0,0.8)); /* Initial subtle filter */
+            filter: brightness(0.7) drop-shadow(0 0 8px rgba(0,0,0,0.9));
             transition: filter 0.3s ease;
         }
 
         .main-nav-bar ul li a:hover,
         .main-nav-bar ul li a.active {
             background-color: var(--hover-dark);
-            transform: translateY(-6px); /* More pronounced lift */
-            box-shadow: 0 0 40px rgba(var(--accent-gold-rgb), 0.95), 0 12px 30px rgba(0,0,0,0.9); /* Intense glow + lift shadow */
+            transform: translateY(-7px);
+            box-shadow: 0 0 50px rgba(var(--accent-gold-rgb), 1), 0 15px 40px rgba(0,0,0,1);
             color: var(--accent-gold);
             border: 1px solid var(--accent-gold);
-            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 1); /* Intense gold text glow */
+            text-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 1);
         }
 
         .main-nav-bar ul li a:hover img,
         .main-nav-bar ul li a.active img {
-            filter: brightness(1) drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 1)); /* Full color + glowing icon */
+            filter: brightness(1) drop-shadow(0 0 25px rgba(var(--accent-gold-rgb), 1));
         }
 
         .container {
@@ -222,7 +222,7 @@
             font-weight: 700;
             color: var(--text-light);
             margin-bottom: 25px;
-            text-shadow: 0 0 50px rgba(var(--accent-gold-rgb), 1), 0 0 30px rgba(var(--accent-gold-rgb), 0.9); /* More intense glow */
+            text-shadow: 0 0 60px rgba(var(--accent-gold-rgb), 1), 0 0 40px rgba(var(--accent-red-glow-rgb), 0.9); /* Mixed intense glow */
             letter-spacing: 2px;
             text-align: left;
         }
@@ -242,7 +242,7 @@
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 4px 35px rgba(0, 0, 0, 1);
             gap: 5px;
         }
 
@@ -260,14 +260,14 @@
             border: 1px solid transparent;
             min-width: 70px;
             box-sizing: border-box;
-            text-shadow: 0 0 5px rgba(0,0,0,0.8);
+            text-shadow: 0 0 6px rgba(0,0,0,0.9);
         }
 
         .gamemode-nav a img {
             width: 30px;
             height: 30px;
             margin-bottom: 5px;
-            filter: grayscale(80%) brightness(0.7) drop-shadow(0 0 7px rgba(0,0,0,0.8));
+            filter: grayscale(80%) brightness(0.6) drop-shadow(0 0 10px rgba(0,0,0,0.9));
             transition: filter 0.2s ease;
             image-rendering: pixelated;
         }
@@ -275,27 +275,27 @@
         .gamemode-nav a:hover {
             background-color: var(--card-bg-color);
             color: var(--text-light);
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
-            transform: translateY(-4px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+            transform: translateY(-5px);
         }
 
         .gamemode-nav a.active {
             background-color: var(--card-bg-color);
             color: var(--accent-gold);
             border-color: var(--accent-gold);
-            box-shadow: 0 0 35px rgba(var(--accent-gold-rgb), 1);
-            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(var(--accent-gold-rgb), 1);
+            transform: translateY(-6px);
         }
 
         .gamemode-nav a.active img,
         .gamemode-nav a:hover img {
-            filter: grayscale(0%) brightness(1) drop-shadow(0 0 18px rgba(var(--accent-gold-rgb), 1));
+            filter: grayscale(0%) brightness(1) drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 1));
         }
 
         .leaderboard-section {
             background-color: var(--card-bg-color);
             border-radius: 8px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 1); /* Max shadow */
+            box-shadow: 0 15px 60px rgba(0, 0, 0, 1);
             padding: 20px;
             border: 1px solid var(--border-color-dark);
         }
@@ -308,7 +308,7 @@
             border-radius: 6px;
             margin-bottom: 10px;
             padding: 10px 15px;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.9);
+            box-shadow: 0 2px 25px rgba(0,0,0,1);
         }
 
         .leaderboard-table-header > div {
@@ -344,39 +344,40 @@
         .player-row {
             display: flex;
             align-items: center;
-            background-color: var(--card-bg-color);
+            background: linear-gradient(to right, #201a0a, #352c0e); /* Golden/brownish background */
             border: 1px solid var(--border-color-dark);
             border-radius: 6px;
             margin-bottom: 10px;
             padding: 10px 15px;
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8); /* Base shadow for the row */
         }
         .player-row:hover {
-            background-color: var(--hover-dark);
+            background: linear-gradient(to right, #2e260f, #453b15); /* Slightly brighter on hover */
             border-color: var(--accent-gold);
-            box-shadow: 0 0 50px rgba(var(--accent-gold-rgb), 1), 0 15px 40px rgba(0,0,0,1); /* Max intense lift and glow */
-            transform: translateY(-10px) scale(1.03); /* More pronounced lift effect */
+            box-shadow: 0 0 60px rgba(var(--accent-gold-rgb), 1), 0 18px 50px rgba(0,0,0,1); /* Max intense lift and glow */
+            transform: translateY(-12px) scale(1.03); /* More pronounced lift effect */
             z-index: 10;
         }
         .player-row:hover::before {
             content: '';
             position: absolute;
-            top: -3px; /* Slightly larger border effect */
+            top: -3px;
             left: -3px;
             right: -3px;
             bottom: -3px;
-            background: linear-gradient(45deg, rgba(var(--accent-red-glow-rgb), 0.5), var(--accent-gold), rgba(var(--accent-red-glow-rgb), 0.5));
+            background: linear-gradient(45deg, rgba(var(--accent-red-glow-rgb), 0.6), var(--accent-gold), rgba(var(--accent-red-glow-rgb), 0.6));
             z-index: -1;
-            border-radius: 9px; /* Match row border radius + extra for blur */
-            box-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 1), 0 0 25px rgba(var(--accent-red-glow-rgb), 1); /* Mixed glow */
-            filter: blur(7px); /* Softer, wider glow */
-            opacity: 0.9;
-            animation: borderGlow 1.8s infinite alternate; /* Slightly slower animation */
+            border-radius: 9px;
+            box-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 1), 0 0 30px rgba(var(--accent-red-glow-rgb), 1);
+            filter: blur(8px); /* Wider, softer glow */
+            opacity: 1; /* Always fully opaque on hover */
+            animation: borderGlow 1.5s infinite alternate; /* Subtle animation */
         }
 
         @keyframes borderGlow {
-            0% { transform: scale(1); opacity: 0.9; }
+            0% { transform: scale(1); opacity: 1; }
             100% { transform: scale(1.015); opacity: 1; }
         }
 
@@ -399,10 +400,10 @@
         }
 
         .rank-number {
-            font-size: 1.3em; /* Slightly larger */
+            font-size: 1.3em;
             font-weight: 700;
             color: var(--text-light);
-            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 1); /* Intense glow for rank number */
+            text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1); /* Intense glow for rank number */
         }
         /* --- END LEADERBOARD RANK NUMBER STYLES --- */
 
@@ -421,7 +422,7 @@
             border-radius: 4px;
             border: 1px solid var(--border-color-light);
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 10px rgba(0,0,0,0.8)); /* Stronger shadow */
+            filter: drop-shadow(0 0 12px rgba(0,0,0,0.9)); /* Stronger shadow */
         }
 
         .player-details {
@@ -434,19 +435,19 @@
         .player-details a {
             text-decoration: none;
             color: var(--text-light);
-            font-size: 1.4em; /* Even larger name */
+            font-size: 1.4em;
             font-weight: 700;
-            text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1); /* Stronger player name glow */
+            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 1); /* Stronger player name glow */
             transition: color 0.2s ease, text-shadow 0.2s ease;
             cursor: pointer;
         }
         .player-details a:hover {
             color: var(--accent-gold);
-            text-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 1);
+            text-shadow: 0 0 40px rgba(var(--accent-gold-rgb), 1);
         }
 
         .player-tier-points-label {
-            font-size: 0.9em; /* Slightly larger */
+            font-size: 0.9em;
             color: var(--text-dark);
             display: flex;
             align-items: center;
@@ -463,8 +464,8 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.8);
-            text-shadow: 0 0 7px rgba(0,0,0,0.8);
+            box-shadow: 0 0 18px rgba(0,0,0,0.9);
+            text-shadow: 0 0 10px rgba(0,0,0,0.9);
         }
 
         .player-region-col {
@@ -486,13 +487,13 @@
             color: white;
             text-transform: uppercase;
             background-color: var(--tier-nr);
-            box-shadow: 0 2px 18px rgba(0,0,0,0.8);
-            text-shadow: 0 0 8px rgba(0,0,0,0.8);
-            filter: drop-shadow(0 0 12px rgba(var(--accent-gold-rgb), 0.8));
+            box-shadow: 0 2px 20px rgba(0,0,0,0.9);
+            text-shadow: 0 0 10px rgba(0,0,0,0.9);
+            filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.9));
             transition: filter 0.2s ease;
         }
         .player-row:hover .region-badge {
-            filter: drop-shadow(0 0 25px rgba(var(--accent-gold-rgb), 1));
+            filter: drop-shadow(0 0 30px rgba(var(--accent-gold-rgb), 1));
         }
         .region-na { background-color: var(--tier-nr); }
         .region-eu { background-color: var(--tier-eu); }
@@ -501,23 +502,23 @@
             font-size: 0.7em;
             color: var(--text-dark);
             cursor: pointer;
-            text-shadow: 0 0 6px rgba(0,0,0,0.8);
+            text-shadow: 0 0 8px rgba(0,0,0,0.9);
             transition: color 0.2s ease, transform 0.2s ease;
         }
         .region-info-icon:hover {
             color: var(--accent-gold);
-            transform: scale(1.3); /* More pronounced */
+            transform: scale(1.4);
         }
 
 
         .player-points-col {
             width: 100px;
             text-align: right;
-            font-size: 1.2em; /* Slightly larger */
+            font-size: 1.2em;
             font-weight: 600;
             color: var(--text-light);
             margin-right: 20px;
-            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.9); /* Stronger glow */
+            text-shadow: 0 0 18px rgba(var(--accent-gold-rgb), 1);
         }
 
         /* --- ITEM KITS STYLES (HEXAGONAL with separate labels) --- */
@@ -547,27 +548,15 @@
             background-repeat: no-repeat;
             clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
             border: 1px solid #333;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.8);
-            filter: drop-shadow(0 0 15px rgba(0,0,0,0.7)); /* Initial glow */
+            box-shadow: 0 2px 18px rgba(0,0,0,0.9);
+            filter: drop-shadow(0 0 18px rgba(0,0,0,0.8));
             transition: all 0.2s ease;
         }
         .player-row:hover .item-icon-hex {
-             filter: drop-shadow(0 0 25px rgba(var(--accent-gold-rgb), 1));
-             transform: translateY(-4px) scale(1.1); /* Lift and scale on hover */
+             filter: drop-shadow(0 0 30px rgba(var(--accent-gold-rgb), 1));
+             transform: translateY(-5px) scale(1.1);
              border-color: var(--accent-gold);
         }
-
-        /* Specific item icon backgrounds (gamemode tiers.png for better quality) */
-        .item-icon-hex[data-item-type="crystal"] { background-image: url('https://pvptiers.com/icons/tiers/crystal.png'); }
-        .item-icon-hex[data-item-type="sword"] { background-image: url('https://pvptiers.com/icons/tiers/sword.png'); }
-        .item-icon-hex[data-item-type="uhc"] { background-image: url('https://pvptiers.com/icons/tiers/uhc.png'); }
-        .item-icon-hex[data-item-type="pot"] { background-image: url('https://pvptiers.com/icons/tiers/pot.png'); }
-        .item-icon-hex[data-item-type="neth_pot"] { background-image: url('https://pvptiers.com/icons/tiers/neth_pot.png'); }
-        .item-icon-hex[data-item-type="smp"] { background-image: url('https://pvptiers.com/icons/tiers/smp.png'); }
-        .item-icon-hex[data-item-type="axe"] { background-image: url('https://pvptiers.com/icons/tiers/axe.png'); }
-        .item-icon-hex[data-item-type="mace"] { background-image: url('https://pvptiers.com/icons/tiers/mace.png'); }
-        .item-icon-hex[data-item-type="question"] { background-image: url('https://pvptiers.com/icons/gamemodes/question.png'); }
-
 
         .item-label-box {
             background-color: var(--accent-gold);
@@ -579,13 +568,13 @@
             white-space: nowrap;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 1px 12px rgba(0,0,0,0.8);
+            box-shadow: 0 1px 15px rgba(0,0,0,0.9);
             min-width: 35px;
             text-align: center;
             transition: all 0.2s ease;
         }
         .player-row:hover .item-label-box {
-            box-shadow: 0 1px 18px rgba(var(--accent-gold-rgb), 1);
+            box-shadow: 0 1px 25px rgba(var(--accent-gold-rgb), 1);
         }
         /* --- END ITEM KITS STYLES --- */
 
@@ -602,7 +591,7 @@
             border: 1px solid var(--border-color-dark);
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.95);
         }
 
         .info-card .info-button {
@@ -624,16 +613,16 @@
 
         .info-card .info-button:hover {
             background-color: var(--hover-dark);
-            box-shadow: 0 0 35px rgba(var(--accent-gold-rgb), 0.8), 0 12px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 0 40px rgba(var(--accent-gold-rgb), 0.9), 0 15px 35px rgba(0,0,0,0.9);
             color: var(--accent-gold);
-            transform: translateY(-4px);
+            transform: translateY(-5px);
         }
 
         .info-card .info-button::before {
             content: 'ⓘ';
             font-size: 1.2em;
             vertical-align: middle;
-            text-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.7);
+            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.8);
         }
 
         .search-card .search-input {
@@ -670,7 +659,7 @@
             color: var(--text-dark);
             font-size: 1.1em;
             pointer-events: none;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            text-shadow: 0 0 10px rgba(0,0,0,0.9);
         }
         .search-card .search-input {
             padding-left: 35px;
@@ -682,7 +671,7 @@
             color: var(--text-light);
             margin-bottom: 15px;
             text-align: center;
-            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.7);
+            text-shadow: 0 0 18px rgba(var(--accent-gold-rgb), 0.8);
         }
         .discord-webhook-sidebar p {
             font-size: 0.9em;
@@ -724,8 +713,8 @@
         }
         .discord-webhook-sidebar button:hover {
             background-color: #ffd24c;
-            box-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 1);
-            transform: translateY(-4px);
+            box-shadow: 0 0 35px rgba(var(--accent-gold-rgb), 1);
+            transform: translateY(-5px);
         }
 
         /* Profile Modal Styles */
@@ -735,7 +724,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.98); /* Max darker overlay */
+            background-color: rgba(0, 0, 0, 0.98);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -754,14 +743,14 @@
             background-color: var(--header-bg-color);
             border: 1px solid var(--border-color-light);
             border-radius: 10px;
-            box-shadow: 0 10px 70px rgba(0, 0, 0, 1); /* Max shadow */
+            box-shadow: 0 10px 70px rgba(0, 0, 0, 1);
             width: 450px;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
             padding: 20px;
-            transform: scale(0.5); /* Start even smaller for max dramatic effect */
-            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* More pronounced bounce effect */
+            transform: scale(0.5);
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
         .profile-modal-overlay.active .profile-modal {
             transform: scale(1);
@@ -781,7 +770,7 @@
             font-size: 1.8em;
             font-weight: 700;
             color: var(--text-light);
-            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 1); /* Stronger glow */
+            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 1);
             letter-spacing: 0.5px;
         }
 
@@ -795,7 +784,7 @@
         }
         .profile-modal-close-btn:hover {
             color: var(--accent-gold);
-            transform: rotate(180deg) scale(1.4); /* More dramatic close button */
+            transform: rotate(180deg) scale(1.4);
         }
 
         .modal-player-overview {
@@ -950,7 +939,7 @@
 
         .modal-tier-icon.locked {
             filter: grayscale(100%) brightness(0.3) drop-shadow(0 0 10px rgba(0,0,0,0.7));
-            border-color: #4a4a4a; /* Darker border for locked */
+            border-color: #4a4a4a;
         }
         .modal-tier-icon.locked:hover {
             transform: none;
