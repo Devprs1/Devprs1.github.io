@@ -41,15 +41,30 @@
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
-            background: var(--main-bg-color);
-            background: radial-gradient(circle at 10% 90%, rgba(50, 20, 0, 0.2) 0%, transparent 40%),
-                        radial-gradient(circle at 90% 10%, rgba(0, 30, 50, 0.1) 0%, transparent 50%),
-                        var(--main-bg-color);
+            background-color: var(--main-bg-color);
             color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
+            /* Animated background for particle-like effect */
+            background-image:
+                radial-gradient(circle at 10% 90%, rgba(50, 20, 0, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 90% 10%, rgba(0, 30, 50, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(var(--accent-gold-rgb), 0.05) 0%, transparent 60%),
+                radial-gradient(circle at 20% 20%, rgba(var(--accent-gold-rgb), 0.08) 0%, transparent 70%);
+            background-size: 200% 200%, 180% 180%, 150% 150%, 100% 100%; /* Different sizes for parallax */
+            background-position: 0% 0%, 50% 50%, 100% 100%, 75% 25%;
+            animation: animateBackground 60s linear infinite;
         }
+
+        @keyframes animateBackground {
+            0% { background-position: 0% 0%, 50% 50%, 100% 100%, 75% 25%; }
+            25% { background-position: 25% 10%, 60% 60%, 90% 90%, 80% 30%; }
+            50% { background-position: 50% 20%, 70% 70%, 80% 80%, 85% 35%; }
+            75% { background-position: 75% 30%, 80% 80%, 70% 70%, 90% 40%; }
+            100% { background-position: 0% 0%, 50% 50%, 100% 100%, 75% 25%; }
+        }
+
 
         .top-header {
             background-color: var(--header-bg-color);
@@ -58,12 +73,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 40px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7); /* Enhanced shadow */
         }
 
         .top-header .logo img {
-            height: 40px; /* Adjust as needed */
-            filter: drop-shadow(0 0 5px rgba(var(--accent-gold-rgb), 0.3));
+            height: 40px;
+            filter: drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.5)); /* Stronger glow */
         }
 
         .top-header .server-ip {
@@ -76,12 +91,13 @@
             font-size: 0.9em;
             color: var(--text-dark);
             border: 1px solid var(--border-color-light);
+            box-shadow: 0 0 8px rgba(0,0,0,0.4);
         }
 
         .top-header .server-ip span {
             color: var(--accent-gold);
             font-weight: 600;
-            text-shadow: 0 0 5px rgba(var(--accent-gold-rgb), 0.5);
+            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.7); /* Stronger glow */
         }
 
         /* Main Nav Bar (Home, Community) */
@@ -89,7 +105,7 @@
             background-color: var(--header-bg-color);
             border-bottom: 1px solid var(--border-color-dark);
             padding: 10px 0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); /* Enhanced shadow */
         }
 
         .main-nav-bar ul {
@@ -107,51 +123,54 @@
             font-weight: 600;
             padding: 10px 15px;
             border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, color 0.3s ease;
             display: flex;
             align-items: center;
             gap: 8px;
-            text-shadow: 0 0 3px rgba(0,0,0,0.5);
+            text-shadow: 0 0 5px rgba(0,0,0,0.7); /* Subtle text shadow */
             font-size: 0.95em;
         }
 
         .main-nav-bar ul li a img {
             height: 20px;
-            filter: brightness(0.8);
+            filter: brightness(0.7) drop-shadow(0 0 3px rgba(0,0,0,0.5)); /* Initial subtle filter */
             transition: filter 0.3s ease;
         }
 
         .main-nav-bar ul li a:hover,
         .main-nav-bar ul li a.active {
-            background-color: var(--card-bg-color);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.4);
-            color: var(--accent-gold);
+            background-color: var(--hover-dark); /* Darker hover background */
+            transform: translateY(-3px); /* More pronounced lift */
+            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.6), 0 5px 15px rgba(0,0,0,0.6); /* Stronger glow + lift shadow */
+            color: var(--accent-gold); /* Gold text on hover/active */
+            border: 1px solid var(--accent-gold); /* Gold border */
+            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.8); /* Gold text glow */
         }
 
-        .main-nav-bar ul li a:hover img {
-            filter: brightness(1); /* Restore full brightness on hover */
+        .main-nav-bar ul li a:hover img,
+        .main-nav-bar ul li a.active img {
+            filter: brightness(1) drop-shadow(0 0 8px rgba(var(--accent-gold-rgb), 0.7)); /* Full color + glowing icon */
         }
 
         .container {
-            max-width: 1400px; /* Wider container */
+            max-width: 1400px;
             margin: 30px auto;
             padding: 0 20px;
         }
 
         h1.rankings-title {
-            font-size: 3.5em; /* Larger title */
+            font-size: 3.5em;
             font-weight: 700;
             color: var(--text-light);
             margin-bottom: 25px;
-            text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.6), 0 0 10px rgba(var(--accent-gold-rgb), 0.4);
+            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.8), 0 0 15px rgba(var(--accent-gold-rgb), 0.6); /* Stronger glow */
             letter-spacing: 2px;
-            text-align: left; /* Align to left */
+            text-align: left;
         }
 
         .main-content-grid {
             display: grid;
-            grid-template-columns: 1fr 280px; /* Main content and right sidebar */
+            grid-template-columns: 1fr 280px;
             gap: 30px;
         }
 
@@ -163,10 +182,10 @@
             padding: 10px 15px;
             margin-bottom: 30px;
             display: flex;
-            justify-content: flex-start; /* Start from left */
+            justify-content: flex-start;
             flex-wrap: wrap;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            gap: 5px; /* Gap between buttons */
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6); /* Stronger shadow */
+            gap: 5px;
         }
 
         .gamemode-nav a {
@@ -179,10 +198,10 @@
             font-size: 0.85em;
             font-weight: 600;
             border-radius: 6px;
-            transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-            border: 1px solid transparent; /* Default transparent border */
-            min-width: 70px; /* Ensure uniform width */
-            box-sizing: border-box; /* Include padding/border in width */
+            transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            border: 1px solid transparent;
+            min-width: 70px;
+            box-sizing: border-box;
             text-shadow: 0 0 2px rgba(0,0,0,0.5);
         }
 
@@ -190,34 +209,36 @@
             width: 30px;
             height: 30px;
             margin-bottom: 5px;
-            filter: grayscale(80%) brightness(0.8);
+            filter: grayscale(80%) brightness(0.8) drop-shadow(0 0 3px rgba(0,0,0,0.5));
             transition: filter 0.2s ease;
-            image-rendering: pixelated; /* Keep pixel art crisp */
+            image-rendering: pixelated;
         }
 
         .gamemode-nav a:hover {
             background-color: var(--card-bg-color);
             color: var(--text-light);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+            transform: translateY(-1px);
         }
 
         .gamemode-nav a.active {
             background-color: var(--card-bg-color);
             color: var(--accent-gold);
             border-color: var(--accent-gold);
-            box-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.6);
+            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.7); /* Stronger glow for active */
+            transform: translateY(-2px);
         }
 
         .gamemode-nav a.active img,
         .gamemode-nav a:hover img {
-            filter: grayscale(0%) brightness(1); /* Full color on active/hover */
+            filter: grayscale(0%) brightness(1) drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.8)); /* Glowing color icon */
         }
 
-        /* Leaderboard Table */
+        /* Leaderboard Section */
         .leaderboard-section {
             background-color: var(--card-bg-color);
             border-radius: 8px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7); /* Stronger shadow */
             padding: 20px;
             border: 1px solid var(--border-color-dark);
         }
@@ -230,6 +251,7 @@
             border-radius: 6px;
             margin-bottom: 10px;
             padding: 10px 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .leaderboard-table-header > div {
@@ -254,7 +276,7 @@
             position: relative;
         }
         .leaderboard-table-header .region-th::after {
-            content: 'ⓘ'; /* Info icon */
+            content: 'ⓘ';
             margin-left: 5px;
             font-size: 0.8em;
             color: var(--text-dark);
@@ -270,12 +292,14 @@
             border-radius: 6px;
             margin-bottom: 10px;
             padding: 10px 15px;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease; /* Longer transition */
         }
         .player-row:hover {
             background-color: var(--hover-dark);
             border-color: var(--accent-gold);
-            box-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.5);
+            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.7), 0 5px 15px rgba(0,0,0,0.6); /* Stronger glow and lift */
+            transform: translateY(-5px) scale(1.005); /* More pronounced lift */
+            z-index: 1; /* Bring hovered item to front */
         }
 
         .player-row > div {
@@ -285,7 +309,6 @@
             text-overflow: ellipsis;
         }
 
-        /* New styles for player rank and info as per screenshot */
         .player-rank-col {
             width: 60px;
             text-align: center;
@@ -293,51 +316,51 @@
             font-weight: 700;
             color: var(--text-light);
             position: relative;
-            display: flex; /* Changed to flex for proper centering of number/badge */
+            display: flex;
             justify-content: center;
             align-items: center;
-            gap: 5px; /* Space between badge and number if badge exists */
         }
         .rank-number {
             font-size: 1.2em;
             font-weight: 700;
             color: var(--text-light);
-            z-index: 1; /* Ensure number is above potential badge image */
+            z-index: 1;
         }
-        .rank-emblem { /* For ranks 1-3 with an emblem */
-            width: 25px; /* Smaller emblem */
+        .rank-emblem {
+            width: 25px;
             height: auto;
-            position: absolute; /* Position behind the number */
+            position: absolute;
             opacity: 0.7;
-            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 0 5px rgba(var(--accent-gold-rgb), 0.5)); /* Glow on emblem */
         }
 
         .player-info-col {
             flex-grow: 1;
             display: flex;
-            align-items: center; /* Align avatar and text horizontally */
-            gap: 10px; /* Space between avatar and name */
-            padding-left: 0; /* No extra padding here */
+            align-items: center;
+            gap: 10px;
+            padding-left: 0;
         }
 
         .player-avatar {
-            width: 32px; /* Smaller avatar for leaderboard */
+            width: 32px;
             height: 32px;
-            border-radius: 4px; /* Slightly rounded corners for avatar */
+            border-radius: 4px;
             border: 1px solid var(--border-color-light);
             image-rendering: pixelated;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); /* Shadow on avatar */
         }
 
         .player-details {
             display: flex;
             flex-direction: column;
-            gap: 3px; /* Space between name and tier/points */
+            gap: 3px;
         }
 
         .player-details a {
             text-decoration: none;
             color: var(--text-light);
-            font-size: 1.1em; /* Slightly smaller name in leaderboard */
+            font-size: 1.1em;
             font-weight: 700;
             text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.3);
             transition: color 0.2s ease, text-shadow 0.2s ease;
@@ -345,7 +368,7 @@
         }
         .player-details a:hover {
             color: var(--accent-gold);
-            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.6);
+            text-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.7); /* Stronger hover glow */
         }
 
         .player-tier-points-label {
@@ -358,7 +381,7 @@
 
         .player-tier-badge {
             display: inline-block;
-            background-color: var(--tier-combatmaster); /* Example tier color */
+            background-color: var(--tier-combatmaster);
             color: white;
             padding: 3px 8px;
             border-radius: 4px;
@@ -366,7 +389,8 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+            box-shadow: 0 0 8px rgba(0,0,0,0.5);
+            text-shadow: 0 0 3px rgba(0,0,0,0.5);
         }
 
         .player-region-col {
@@ -382,12 +406,13 @@
             font-weight: 700;
             color: white;
             text-transform: uppercase;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
             min-width: 40px;
             text-align: center;
+            text-shadow: 0 0 3px rgba(0,0,0,0.5);
         }
-        .region-na { background-color: var(--tier-nr); } /* Reddish orange */
-        .region-eu { background-color: var(--tier-eu); } /* Bluish */
+        .region-na { background-color: var(--tier-nr); }
+        .region-eu { background-color: var(--tier-eu); }
 
 
         .player-points-col {
@@ -397,6 +422,7 @@
             font-weight: 600;
             color: var(--text-light);
             margin-right: 20px;
+            text-shadow: 0 0 5px rgba(var(--accent-gold-rgb), 0.3);
         }
 
         /* Item icons as per new screenshot */
@@ -422,29 +448,21 @@
             border: 1px solid #333;
             border-radius: 4px;
             background-color: #222;
-            background-size: 80% 80%; /* Fit icon image within the div */
+            background-size: 80% 80%;
             background-position: center;
             background-repeat: no-repeat;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            font-size: 0.7em; /* Text inside icon */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            font-size: 0.7em;
             font-weight: 700;
-            color: var(--text-light); /* Color for text inside icon */
+            color: var(--text-light);
             text-transform: uppercase;
+            text-shadow: 0 0 3px rgba(0,0,0,0.5);
+            filter: drop_shadow(0 0 5px rgba(0,0,0,0.5));
         }
-        /* Specific item icon backgrounds - using generic placeholders */
-        .item-icon[data-item-type="crystal"] { background-image: url('https://pvptiers.com/icons/gamemodes/crystal.png'); }
-        .item-icon[data-item-type="sword"] { background-image: url('https://pvptiers.com/icons/gamemodes/sword.png'); }
-        .item-icon[data-item-type="heart"] { background-image: url('https://pvptiers.com/icons/gamemodes/heart.png'); }
-        .item-icon[data-item-type="pot"] { background-image: url('https://pvptiers.com/icons/gamemodes/potion_red.png'); }
-        .item-icon[data-item-type="neth_block"] { background-image: url('https://pvptiers.com/icons/gamemodes/netherite_block.png'); }
-        .item-icon[data-item-type="smp"] { background-image: url('https://pvptiers.com/icons/gamemodes/smp.png'); }
-        .item-icon[data-item-type="axe"] { background-image: url('https://pvptiers.com/icons/gamemodes/axe.png'); }
-        .item-icon[data-item-type="question"] { background-image: url('https://pvptiers.com/icons/gamemodes/question.png'); }
-
 
         .item-label {
             position: absolute;
@@ -458,7 +476,7 @@
             white-space: nowrap;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
             transform: translateY(50%);
         }
 
@@ -475,7 +493,7 @@
             border: 1px solid var(--border-color-dark);
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); /* Stronger shadow */
         }
 
         .info-card .info-button {
@@ -489,21 +507,24 @@
             padding: 12px 20px;
             border-radius: 6px;
             text-decoration: none;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
-            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+            text-shadow: 0 0 8px rgba(0,0,0,0.6);
             gap: 10px;
+            border: 1px solid var(--border-color-light);
         }
 
         .info-card .info-button:hover {
             background-color: var(--hover-dark);
-            box-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.4);
+            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.5), 0 5px 15px rgba(0,0,0,0.5);
             color: var(--accent-gold);
+            transform: translateY(-2px);
         }
 
         .info-card .info-button::before {
             content: 'ⓘ';
             font-size: 1.2em;
             vertical-align: middle;
+            text-shadow: 0 0 5px rgba(var(--accent-gold-rgb), 0.5);
         }
 
         .search-card .search-input {
@@ -534,15 +555,16 @@
         }
 
         .search-card .search-input-wrapper::before {
-            content: '🔎'; /* Magnifying glass icon */
+            content: '🔎';
             position: absolute;
             left: 10px;
             color: var(--text-dark);
             font-size: 1.1em;
             pointer-events: none;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
         .search-card .search-input {
-            padding-left: 35px; /* Make space for the icon */
+            padding-left: 35px;
         }
 
 
@@ -551,7 +573,7 @@
             color: var(--text-light);
             margin-bottom: 15px;
             text-align: center;
-            text-shadow: 0 0 5px rgba(var(--accent-gold-rgb), 0.3);
+            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.4);
         }
         .discord-webhook-sidebar p {
             font-size: 0.9em;
@@ -589,11 +611,12 @@
             border-radius: 5px;
             font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
         }
         .discord-webhook-sidebar button:hover {
             background-color: #ffd24c;
-            box-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.6);
+            box-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.6);
+            transform: translateY(-2px);
         }
 
         /* Profile Modal Styles */
@@ -603,7 +626,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -619,17 +642,17 @@
         }
 
         .profile-modal {
-            background-color: var(--header-bg-color); /* Darker background for modal */
+            background-color: var(--header-bg-color);
             border: 1px solid var(--border-color-light);
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            width: 450px; /* Fixed width as seen in screenshot */
-            max-height: 90vh; /* Max height to prevent overflow */
-            overflow-y: auto; /* Scroll if content is too long */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9); /* Stronger shadow */
+            width: 450px;
+            max-height: 90vh;
+            overflow-y: auto;
             position: relative;
             padding: 20px;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
+            transform: scale(0.8); /* Start smaller */
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bounce effect */
         }
         .profile-modal-overlay.active .profile-modal {
             transform: scale(1);
@@ -649,7 +672,7 @@
             font-size: 1.8em;
             font-weight: 700;
             color: var(--text-light);
-            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.5);
+            text-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.6); /* Stronger glow */
             letter-spacing: 0.5px;
         }
 
@@ -663,7 +686,7 @@
         }
         .profile-modal-close-btn:hover {
             color: var(--accent-gold);
-            transform: rotate(90deg);
+            transform: rotate(90deg) scale(1.1); /* Rotate and slight scale */
         }
 
         .modal-player-overview {
@@ -677,16 +700,18 @@
             align-items: center;
             gap: 10px;
             margin-bottom: 20px;
-            flex-wrap: wrap; /* Allow wrapping for smaller screens */
+            flex-wrap: wrap;
         }
         .modal-player-meta .region-badge {
             font-size: 0.9em;
             padding: 6px 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         .modal-player-meta .player-tier-badge {
             font-size: 0.9em;
             padding: 6px 12px;
             background-color: var(--tier-combatmaster);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         .modal-player-meta .overall-points-display {
             display: flex;
@@ -699,12 +724,13 @@
             font-size: 0.9em;
             font-weight: 600;
             color: var(--text-light);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            text-shadow: 0 0 5px rgba(var(--accent-gold-rgb), 0.3);
         }
         .modal-player-meta .overall-points-display img {
             width: 20px;
             height: 20px;
-            filter: drop-shadow(0 0 5px rgba(var(--accent-gold-rgb), 0.5));
+            filter: drop-shadow(0 0 8px rgba(var(--accent-gold-rgb), 0.6)); /* Stronger glow */
         }
         .modal-player-meta .overall-points-display span {
             color: var(--accent-gold);
@@ -713,19 +739,27 @@
 
 
         .modal-player-skin {
-            width: 120px; /* Larger skin */
+            width: 120px;
             height: auto;
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.7)); /* Stronger shadow */
             margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        .modal-player-skin:hover {
+            transform: scale(1.05); /* Slight grow on hover */
         }
 
         .modal-rank-badge {
-            width: 70px; /* Size of rank badge */
+            width: 70px;
             height: auto;
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.5));
+            filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.7)); /* Stronger glow */
             margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        .modal-rank-badge:hover {
+            transform: scale(1.1);
         }
 
         .namemc-button {
@@ -740,18 +774,21 @@
             color: var(--text-light);
             font-weight: 600;
             font-size: 0.95em;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         .namemc-button:hover {
             background-color: var(--hover-dark);
-            box-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.4);
+            box-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.6);
+            transform: translateY(-2px);
+            color: var(--accent-gold);
         }
         .namemc-button::before {
-            content: '⊓'; /* Placeholder for NameMC icon */
+            content: '⊓';
             font-size: 1.2em;
             vertical-align: middle;
             line-height: 1;
+            text-shadow: 0 0 5px rgba(var(--accent-gold-rgb), 0.5);
         }
 
         .modal-section-title {
@@ -762,12 +799,12 @@
             margin: 30px 0 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            text-shadow: 0 0 5px rgba(0,0,0,0.3);
+            text-shadow: 0 0 8px rgba(0,0,0,0.5);
         }
 
         .modal-tiers-grid, .modal-retired-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); /* Auto-fit for smaller icons */
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
             gap: 10px;
             justify-items: center;
             margin-bottom: 30px;
@@ -780,30 +817,33 @@
         }
 
         .modal-tier-icon, .modal-retired-icon {
-            width: 40px; /* Small icon size */
+            width: 40px;
             height: 40px;
             border: 1px solid var(--border-color-dark);
             border-radius: 5px;
             background-color: #222;
-            background-size: 80% 80%; /* Fit icon image within the div */
+            background-size: 80% 80%;
             background-position: center;
             background-repeat: no-repeat;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
             font-size: 0.7em;
             font-weight: 700;
             color: var(--text-light);
             text-transform: uppercase;
+            text-shadow: 0 0 3px rgba(0,0,0,0.5);
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
         }
         .modal-retired-item .item-label {
-            position: static; /* Adjust label for modal grid */
+            position: static;
             margin-top: 5px;
             transform: none;
             font-size: 0.7em;
             padding: 2px 5px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
         }
     </style>
 </head>
@@ -1241,11 +1281,12 @@
                 ],
                 retiredItems: [
                     { type: 'crystal', label: 'HT1' },
+                    { type: 'smp', label: 'HT1' },
                     { type: 'sword', label: 'LT1' },
                     { type: 'heart', label: 'LT1' },
                     { type: 'pot', label: 'LT1' },
-                    { type: 'neth_block', label: 'LT2' },
                     { type: 'axe', label: 'LT2' },
+                    { type: 'neth_block', label: 'LT2' },
                     { type: 'question', label: '?' },
                 ]
             },
