@@ -15,7 +15,7 @@
             --border-color-dark: #1a1a1a; /* Dark gray for borders */
             --border-color-light: #333;
             --text-light: #ffffff; /* Pure white for main text */
-            --text-dark: #bbbbbb; /* Lighter dark text for contrast */
+            --text-dark: #bbbbbb; /* Lighter dark text */
 
             --accent-gold: #ffb800; /* Main accent color */
             --accent-gold-rgb: 255, 184, 0; /* RGB for rgba() uses */
@@ -306,8 +306,8 @@
             background-color: var(--header-bg-color);
             border: 1px solid var(--border-color-dark);
             border-radius: 6px;
-            margin-bottom: 15px; /* More space below header */
-            padding: 8px 15px; /* Slightly smaller padding */
+            margin-bottom: 15px;
+            padding: 8px 15px;
             box-shadow: 0 2px 30px rgba(0,0,0,1);
         }
 
@@ -347,8 +347,8 @@
             background: linear-gradient(to right, #101010, #151515); /* Darker row background for consistency */
             border: 1px solid var(--border-color-dark);
             border-radius: 6px;
-            margin-bottom: 15px; /* More space between rows */
-            padding: 5px 15px; /* Smaller padding for compact row height */
+            margin-bottom: 18px; /* More space between rows for distinctness */
+            padding: 4px 10px; /* Smaller padding for compact row height */
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
             box-shadow: 0 5px 25px rgba(0,0,0,1); /* Stronger base shadow for the row */
@@ -357,7 +357,7 @@
             background: linear-gradient(to right, #101010, #151515); /* Maintain dark background on hover */
             border-color: var(--accent-gold); /* Keep gold border for actual row element */
             box-shadow: 0 0 5px rgba(0,0,0,0.5); /* Subtle shadow for row itself */
-            transform: translateY(-15px) scale(1.04); /* More pronounced lift effect */
+            transform: translateY(-15px) scale(1.03); /* More pronounced lift effect */
             z-index: 10;
         }
         .player-row::before { /* Default subtle golden outline, always present */
@@ -407,7 +407,7 @@
             font-size: 1.2em; /* Adjusted for smaller row */
             font-weight: 700;
             color: var(--text-light);
-            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 1);
+            text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1);
         }
         /* --- END LEADERBOARD RANK NUMBER STYLES --- */
 
@@ -530,7 +530,7 @@
             flex-shrink: 0;
             display: flex;
             gap: 3px; /* Smaller gap */
-            width: 250px; /* Adjusted width */
+            width: 280px; /* Adjusted width to fit 8 items x (30px width + 3px gap) */
             justify-content: flex-end;
             flex-wrap: wrap;
         }
@@ -573,7 +573,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             box-shadow: 0 1px 20px rgba(0,0,0,1);
-            min-width: 30px;
+            min-width: 30px; /* Adjusted minimum width */
             text-align: center;
             transition: all 0.2s ease;
         }
@@ -923,7 +923,7 @@
             height: 40px;
             border: 1px solid var(--border-color-dark);
             border-radius: 5px;
-            background-color: #1a1a1a; /* Darker background for icons */
+            background-color: #1a1a1a;
             background-size: 80% 80%;
             background-position: center;
             background-repeat: no-repeat;
@@ -942,7 +942,7 @@
         }
 
         .modal-tier-icon.locked {
-            filter: grayscale(100%) brightness(0.2) drop-shadow(0 0 12px rgba(0,0,0,0.9)); /* Even darker locked */
+            filter: grayscale(100%) brightness(0.2) drop-shadow(0 0 12px rgba(0,0,0,0.9));
             border-color: #3a3a3a;
         }
         .modal-tier-icon.locked:hover {
