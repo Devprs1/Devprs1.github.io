@@ -22,21 +22,69 @@
             --hover-dark: #2a2a2a;
             --focus-glow: 0 0 15px rgba(var(--accent-gold-rgb), 0.8);
 
-            /* Tier Colors - Adjusted slightly for new theme */
-            --tier-combatmaster: #8854c4; /* Purple as seen in screenshot for CombatMaster */
-            --tier-nr: #c45a54; /* Red-orange for NA/NR */
-            --tier-eu: #548cc4; /* Blue for EU */
-
-            /* Badges */
-            --bronze: #cd7f32;
-            --silver: #c0c0c0;
-            --gold: #ffd700;
-            --diamond: #b9f2ff;
-            --master: #8a2be2;
-            --legend: #ff4500;
-            --grandmaster: #e74c3c;
-            --challenger: #3498db;
+            /* Tier Colors */
+            --tier-combatmaster: #8854c4;
+            --tier-nr: #c45a54;
+            --tier-eu: #548cc4;
         }
+
+        /* --- Particle Background Animation --- */
+        @keyframes dropParticles {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(100vh); } /* Animate falling down */
+        }
+
+        #particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Hide particles outside view */
+            z-index: 0; /* Behind content */
+            pointer-events: none; /* Allow clicking through */
+        }
+
+        .particle {
+            position: absolute;
+            width: 100%;
+            height: 100%; /* Cover entire screen */
+            top: -100vh; /* Start above the screen */
+            left: 0;
+            animation: dropParticles linear infinite;
+        }
+
+        /* Particle Layer 1 (Slowest, largest, faintest) */
+        .particle1 {
+            background-image: radial-gradient(circle at 20% 10%, rgba(var(--accent-gold-rgb), 0.1) 1px, transparent 2px),
+                            radial-gradient(circle at 80% 30%, rgba(var(--accent-gold-rgb), 0.1) 1px, transparent 2px),
+                            radial-gradient(circle at 50% 70%, rgba(var(--accent-gold-rgb), 0.08) 2px, transparent 3px);
+            background-size: 300px 300px;
+            animation-duration: 40s;
+            opacity: 0.8;
+        }
+
+        /* Particle Layer 2 (Medium speed, medium size) */
+        .particle2 {
+            background-image: radial-gradient(circle at 30% 50%, rgba(var(--accent-gold-rgb), 0.15) 1px, transparent 2px),
+                            radial-gradient(circle at 90% 80%, rgba(var(--accent-gold-rgb), 0.12) 1px, transparent 2px),
+                            radial-gradient(circle at 10% 40%, rgba(var(--accent-gold-rgb), 0.15) 1px, transparent 2px);
+            background-size: 200px 200px;
+            animation-duration: 25s;
+            animation-delay: -5s; /* Offset start time */
+            opacity: 0.9;
+        }
+
+        /* Particle Layer 3 (Fastest, smallest, brightest) */
+        .particle3 {
+            background-image: radial-gradient(circle at 40% 60%, rgba(var(--accent-gold-rgb), 0.2) 1px, transparent 1px),
+                            radial-gradient(circle at 70% 20%, rgba(var(--accent-gold-rgb), 0.2) 1px, transparent 1px);
+            background-size: 100px 100px;
+            animation-duration: 15s;
+            animation-delay: -10s;
+        }
+        /* --- End Particle Background Animation --- */
+
 
         body {
             font-family: 'Montserrat', sans-serif;
@@ -46,25 +94,13 @@
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
-            /* Animated background for particle-like effect */
-            background-image:
-                radial-gradient(circle at 10% 90%, rgba(50, 20, 0, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 90% 10%, rgba(0, 30, 50, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(var(--accent-gold-rgb), 0.05) 0%, transparent 60%),
-                radial-gradient(circle at 20% 20%, rgba(var(--accent-gold-rgb), 0.08) 0%, transparent 70%);
-            background-size: 200% 200%, 180% 180%, 150% 150%, 100% 100%; /* Different sizes for parallax */
-            background-position: 0% 0%, 50% 50%, 100% 100%, 75% 25%;
-            animation: animateBackground 60s linear infinite;
         }
 
-        @keyframes animateBackground {
-            0% { background-position: 0% 0%, 50% 50%, 100% 100%, 75% 25%; }
-            25% { background-position: 25% 10%, 60% 60%, 90% 90%, 80% 30%; }
-            50% { background-position: 50% 20%, 70% 70%, 80% 80%, 85% 35%; }
-            75% { background-position: 75% 30%, 80% 80%, 70% 70%, 90% 40%; }
-            100% { background-position: 0% 0%, 50% 50%, 100% 100%, 75% 25%; }
+        /* All content must be above particles */
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
         }
-
 
         .top-header {
             background-color: var(--header-bg-color);
@@ -73,12 +109,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 40px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7); /* Enhanced shadow */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
         }
 
         .top-header .logo img {
             height: 40px;
-            filter: drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.5)); /* Stronger glow */
+            filter: drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.5));
         }
 
         .top-header .server-ip {
@@ -97,15 +133,14 @@
         .top-header .server-ip span {
             color: var(--accent-gold);
             font-weight: 600;
-            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.7); /* Stronger glow */
+            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.7);
         }
 
-        /* Main Nav Bar (Home, Community) */
         .main-nav-bar {
             background-color: var(--header-bg-color);
             border-bottom: 1px solid var(--border-color-dark);
             padding: 10px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); /* Enhanced shadow */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
         }
 
         .main-nav-bar ul {
@@ -127,29 +162,29 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            text-shadow: 0 0 5px rgba(0,0,0,0.7); /* Subtle text shadow */
+            text-shadow: 0 0 5px rgba(0,0,0,0.7);
             font-size: 0.95em;
         }
 
         .main-nav-bar ul li a img {
             height: 20px;
-            filter: brightness(0.7) drop-shadow(0 0 3px rgba(0,0,0,0.5)); /* Initial subtle filter */
+            filter: brightness(0.7) drop-shadow(0 0 3px rgba(0,0,0,0.5));
             transition: filter 0.3s ease;
         }
 
         .main-nav-bar ul li a:hover,
         .main-nav-bar ul li a.active {
-            background-color: var(--hover-dark); /* Darker hover background */
-            transform: translateY(-3px); /* More pronounced lift */
-            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.6), 0 5px 15px rgba(0,0,0,0.6); /* Stronger glow + lift shadow */
-            color: var(--accent-gold); /* Gold text on hover/active */
-            border: 1px solid var(--accent-gold); /* Gold border */
-            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.8); /* Gold text glow */
+            background-color: var(--hover-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.6), 0 5px 15px rgba(0,0,0,0.6);
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.8);
         }
 
         .main-nav-bar ul li a:hover img,
         .main-nav-bar ul li a.active img {
-            filter: brightness(1) drop-shadow(0 0 8px rgba(var(--accent-gold-rgb), 0.7)); /* Full color + glowing icon */
+            filter: brightness(1) drop-shadow(0 0 8px rgba(var(--accent-gold-rgb), 0.7));
         }
 
         .container {
@@ -163,7 +198,7 @@
             font-weight: 700;
             color: var(--text-light);
             margin-bottom: 25px;
-            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.8), 0 0 15px rgba(var(--accent-gold-rgb), 0.6); /* Stronger glow */
+            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.8), 0 0 15px rgba(var(--accent-gold-rgb), 0.6);
             letter-spacing: 2px;
             text-align: left;
         }
@@ -174,7 +209,6 @@
             gap: 30px;
         }
 
-        /* Gamemode Navigation */
         .gamemode-nav {
             background-color: var(--header-bg-color);
             border: 1px solid var(--border-color-dark);
@@ -184,7 +218,7 @@
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6); /* Stronger shadow */
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
             gap: 5px;
         }
 
@@ -225,20 +259,19 @@
             background-color: var(--card-bg-color);
             color: var(--accent-gold);
             border-color: var(--accent-gold);
-            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.7); /* Stronger glow for active */
+            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.7);
             transform: translateY(-2px);
         }
 
         .gamemode-nav a.active img,
         .gamemode-nav a:hover img {
-            filter: grayscale(0%) brightness(1) drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.8)); /* Glowing color icon */
+            filter: grayscale(0%) brightness(1) drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.8));
         }
 
-        /* Leaderboard Section */
         .leaderboard-section {
             background-color: var(--card-bg-color);
             border-radius: 8px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7); /* Stronger shadow */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
             padding: 20px;
             border: 1px solid var(--border-color-dark);
         }
@@ -292,14 +325,14 @@
             border-radius: 6px;
             margin-bottom: 10px;
             padding: 10px 15px;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease; /* Longer transition */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
         }
         .player-row:hover {
             background-color: var(--hover-dark);
             border-color: var(--accent-gold);
-            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.7), 0 5px 15px rgba(0,0,0,0.6); /* Stronger glow and lift */
-            transform: translateY(-5px) scale(1.005); /* More pronounced lift */
-            z-index: 1; /* Bring hovered item to front */
+            box-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.7), 0 6px 20px rgba(0,0,0,0.6); /* Enhanced lift and glow */
+            transform: translateY(-5px) scale(1.01); /* Enhanced lift effect */
+            z-index: 10; /* Bring hovered item to front */
         }
 
         .player-row > div {
@@ -331,7 +364,7 @@
             height: auto;
             position: absolute;
             opacity: 0.7;
-            filter: drop-shadow(0 0 5px rgba(var(--accent-gold-rgb), 0.5)); /* Glow on emblem */
+            filter: drop-shadow(0 0 5px rgba(var(--accent-gold-rgb), 0.5));
         }
 
         .player-info-col {
@@ -348,7 +381,7 @@
             border-radius: 4px;
             border: 1px solid var(--border-color-light);
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); /* Shadow on avatar */
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
         }
 
         .player-details {
@@ -368,7 +401,7 @@
         }
         .player-details a:hover {
             color: var(--accent-gold);
-            text-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.7); /* Stronger hover glow */
+            text-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.7);
         }
 
         .player-tier-points-label {
@@ -425,7 +458,6 @@
             text-shadow: 0 0 5px rgba(var(--accent-gold-rgb), 0.3);
         }
 
-        /* Item icons as per new screenshot */
         .player-items-col {
             flex-shrink: 0;
             display: flex;
@@ -461,8 +493,17 @@
             color: var(--text-light);
             text-transform: uppercase;
             text-shadow: 0 0 3px rgba(0,0,0,0.5);
-            filter: drop_shadow(0 0 5px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
         }
+        .item-icon[data-item-type="crystal"] { background-image: url('https://pvptiers.com/icons/tiers/crystal.png'); }
+        .item-icon[data-item-type="sword"] { background-image: url('https://pvptiers.com/icons/tiers/sword.png'); }
+        .item-icon[data-item-type="heart"] { background-image: url('https://pvptiers.com/icons/tiers/uhc.png'); }
+        .item-icon[data-item-type="pot"] { background-image: url('https://pvptiers.com/icons/tiers/pot.png'); }
+        .item-icon[data-item-type="neth_block"] { background-image: url('https://pvptiers.com/icons/tiers/neth_pot.png'); }
+        .item-icon[data-item-type="smp"] { background-image: url('https://pvptiers.com/icons/tiers/smp.png'); }
+        .item-icon[data-item-type="axe"] { background-image: url('https://pvptiers.com/icons/tiers/axe.png'); }
+        .item-icon[data-item-type="question"] { background-image: url('https://pvptiers.com/icons/gamemodes/question.png'); }
+
 
         .item-label {
             position: absolute;
@@ -493,7 +534,7 @@
             border: 1px solid var(--border-color-dark);
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); /* Stronger shadow */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
         }
 
         .info-card .info-button {
@@ -507,7 +548,7 @@
             padding: 12px 20px;
             border-radius: 6px;
             text-decoration: none;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+            transition: all 0.2s ease;
             text-shadow: 0 0 8px rgba(0,0,0,0.6);
             gap: 10px;
             border: 1px solid var(--border-color-light);
@@ -626,7 +667,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
+            background-color: rgba(0, 0, 0, 0.85);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -645,14 +686,14 @@
             background-color: var(--header-bg-color);
             border: 1px solid var(--border-color-light);
             border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9); /* Stronger shadow */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
             width: 450px;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
             padding: 20px;
-            transform: scale(0.8); /* Start smaller */
-            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bounce effect */
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
         .profile-modal-overlay.active .profile-modal {
             transform: scale(1);
@@ -672,7 +713,7 @@
             font-size: 1.8em;
             font-weight: 700;
             color: var(--text-light);
-            text-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.6); /* Stronger glow */
+            text-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.6);
             letter-spacing: 0.5px;
         }
 
@@ -686,7 +727,7 @@
         }
         .profile-modal-close-btn:hover {
             color: var(--accent-gold);
-            transform: rotate(90deg) scale(1.1); /* Rotate and slight scale */
+            transform: rotate(90deg) scale(1.1);
         }
 
         .modal-player-overview {
@@ -730,7 +771,7 @@
         .modal-player-meta .overall-points-display img {
             width: 20px;
             height: 20px;
-            filter: drop-shadow(0 0 8px rgba(var(--accent-gold-rgb), 0.6)); /* Stronger glow */
+            filter: drop-shadow(0 0 8px rgba(var(--accent-gold-rgb), 0.6));
         }
         .modal-player-meta .overall-points-display span {
             color: var(--accent-gold);
@@ -742,19 +783,19 @@
             width: 120px;
             height: auto;
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 20px rgba(0,0,0,0.7)); /* Stronger shadow */
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.7));
             margin-bottom: 20px;
             transition: transform 0.3s ease;
         }
         .modal-player-skin:hover {
-            transform: scale(1.05); /* Slight grow on hover */
+            transform: scale(1.05);
         }
 
         .modal-rank-badge {
             width: 70px;
             height: auto;
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.7)); /* Stronger glow */
+            filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.7));
             margin-bottom: 20px;
             transition: transform 0.3s ease;
         }
@@ -774,7 +815,7 @@
             color: var(--text-light);
             font-weight: 600;
             font-size: 0.95em;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+            transition: all 0.2s ease;
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         .namemc-button:hover {
@@ -837,6 +878,12 @@
             text-shadow: 0 0 3px rgba(0,0,0,0.5);
             filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
         }
+
+        /* Grayscale filter for locked tiers */
+        .modal-tier-icon.locked {
+            filter: grayscale(100%) brightness(0.7);
+        }
+
         .modal-retired-item .item-label {
             position: static;
             margin-top: 5px;
@@ -848,301 +895,309 @@
     </style>
 </head>
 <body>
-    <div class="top-header">
-        <div class="logo">
-            <!-- Placeholder for PvPTiers Logo -->
-            <img src="https://i.imgur.com/example_logo.png" alt="PvPTiers Logo">
-        </div>
-        <div class="server-ip">
-            SERVER IP: <span>pvptiers.com</span>
-        </div>
+    <div id="particle-container">
+        <div class="particle particle1"></div>
+        <div class="particle particle2"></div>
+        <div class="particle particle3"></div>
     </div>
 
-    <nav class="main-nav-bar">
-        <ul>
-            <li><a href="index.html" class="active"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Home Icon">HOME</a></li>
-            <li><a href="#"><img src="https://pvptiers.com/icons/tiers/smp.png" alt="Community Icon">COMMUNITY</a></li>
-        </ul>
-    </nav>
-
-    <div class="container">
-        <h1 class="rankings-title">Rankings</h1>
-
-        <div class="gamemode-nav">
-            <a href="index.html" class="active">
-                <img src="https://pvptiers.com/icons/tiers/overall.png" alt="Overall Icon">
-                OVERALL
-            </a>
-            <a href="crystal.html">
-                <img src="https://pvptiers.com/icons/tiers/crystal.png" alt="Crystal Icon">
-                CRYSTAL
-            </a>
-            <a href="sumo.html">
-                <img src="https://pvptiers.com/icons/tiers/sword.png" alt="Sumo Icon">
-                SWORD
-            </a>
-            <a href="uhc.html">
-                <img src="https://pvptiers.com/icons/tiers/uhc.png" alt="UHC Icon">
-                UHC
-            </a>
-            <a href="soup.html">
-                <img src="https://pvptiers.com/icons/tiers/pot.png" alt="Pot Icon">
-                POT
-            </a>
-            <a href="neth_pot.html">
-                <img src="https://pvptiers.com/icons/tiers/neth_pot.png" alt="Nether Pot Icon">
-                NETHERITE POT
-            </a>
-            <a href="smp.html">
-                <img src="https://pvptiers.com/icons/tiers/smp.png" alt="SMP Icon">
-                SMP
-            </a>
-            <a href="axe.html">
-                <img src="https://pvptiers.com/icons/tiers/axe.png" alt="Axe Icon">
-                AXE
-            </a>
-            <a href="mace.html">
-                <img src="https://pvptiers.com/icons/tiers/mace.png" alt="Mace Icon">
-                MACE
-            </a>
+    <div class="page-wrapper">
+        <div class="top-header">
+            <div class="logo">
+                <!-- Placeholder for PvPTiers Logo -->
+                <img src="https://i.imgur.com/example_logo.png" alt="PvPTiers Logo">
+            </div>
+            <div class="server-ip">
+                SERVER IP: <span>pvptiers.com</span>
+            </div>
         </div>
 
-        <div class="main-content-grid">
-            <div class="leaderboard-section">
-                <div class="leaderboard-table-header player-row">
-                    <div class="player-rank-col">#</div>
-                    <div class="player-info-col">PLAYER</div>
-                    <div class="player-region-col region-th">REGION</div>
-                    <div class="player-points-col">POINTS</div>
-                    <div class="player-items-col"></div> <!-- Empty for header alignment -->
-                </div>
+        <nav class="main-nav-bar">
+            <ul>
+                <li><a href="index.html" class="active"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Home Icon">HOME</a></li>
+                <li><a href="#"><img src="https://pvptiers.com/icons/tiers/smp.png" alt="Community Icon">COMMUNITY</a></li>
+            </ul>
+        </nav>
 
-                <div id="leaderboardBody">
-                    <!-- Player Entry 1 -->
-                    <div class="player-row">
-                        <div class="player-rank-col">
-                            <img src="https://i.imgur.com/e5k0T7t.png" alt="Rank Emblem" class="rank-emblem"> <!-- Small emblem for top ranks -->
-                            <span class="rank-number">1</span>
-                        </div>
-                        <div class="player-info-col">
-                            <img src="https://mc-heads.net/avatar/ItzRealMe/32" alt="ItzRealMe Skin" class="player-avatar">
-                            <div class="player-details">
-                                <a href="#" data-player-name="ItzRealMe" onclick="openPlayerProfileModal(event, 'ItzRealMe')">ItzRealMe</a>
-                                <span class="player-tier-points-label">
-                                    <span class="player-tier-badge">COMBATMASTER</span>
-                                    <span>300 Points</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="player-region-col">
-                            <span class="region-badge region-na">NA</span>
-                        </div>
-                        <div class="player-points-col">
-                            300
-                        </div>
-                        <div class="player-items-col">
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="crystal">Cr</div>
-                                <span class="item-label">HT1</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="sword">Sw</div>
-                                <span class="item-label">HT1</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="heart">He</div>
-                                <span class="item-label">HT1</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="pot">Po</div>
-                                <span class="item-label">HT1</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="neth_block">Ne</div>
-                                <span class="item-label">HT2</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="axe">Ax</div>
-                                <span class="item-label">LT2</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="question">?</div>
-                                <span class="item-label">?</span>
-                            </div>
-                        </div>
-                    </div>
+        <div class="container">
+            <h1 class="rankings-title">Rankings</h1>
 
-                    <!-- Player Entry 2 -->
-                    <div class="player-row">
-                        <div class="player-rank-col">
-                            <img src="https://i.imgur.com/e5k0T7t.png" alt="Rank Emblem" class="rank-emblem">
-                            <span class="rank-number">2</span>
-                        </div>
-                        <div class="player-info-col">
-                            <img src="https://mc-heads.net/avatar/Marlowww/32" alt="Marlowww Skin" class="player-avatar">
-                            <div class="player-details">
-                                <a href="#" data-player-name="Marlowww" onclick="openPlayerProfileModal(event, 'Marlowww')">Marlowww</a>
-                                <span class="player-tier-points-label">
-                                    <span class="player-tier-badge">COMBATMASTER</span>
-                                    <span>284 Points</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="player-region-col">
-                            <span class="region-badge region-na">NA</span>
-                        </div>
-                        <div class="player-points-col">
-                            284
-                        </div>
-                        <div class="player-items-col">
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="crystal">Cr</div>
-                                <span class="item-label">HT1</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="sword">Sw</div>
-                                <span class="item-label">LT1</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="heart">He</div>
-                                <span class="item-label">LT1</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="pot">Po</div>
-                                <span class="item-label">LT1</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="neth_block">Ne</div>
-                                <span class="item-label">LT2</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="axe">Ax</div>
-                                <span class="item-label">LT2</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Player Entry 3 -->
-                    <div class="player-row">
-                        <div class="player-rank-col">
-                            <img src="https://i.imgur.com/e5k0T7t.png" alt="Rank Emblem" class="rank-emblem">
-                            <span class="rank-number">3</span>
-                        </div>
-                        <div class="player-info-col">
-                            <img src="https://mc-heads.net/avatar/Swight/32" alt="Swight Skin" class="player-avatar">
-                            <div class="player-details">
-                                <a href="#" data-player-name="Swight" onclick="openPlayerProfileModal(event, 'Swight')">Swight</a>
-                                <span class="player-tier-points-label">
-                                    <span class="player-tier-badge">COMBATMASTER</span>
-                                    <span>220 Points</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="player-region-col">
-                            <span class="region-badge region-na">NA</span>
-                        </div>
-                        <div class="player-points-col">
-                            220
-                        </div>
-                        <div class="player-items-col">
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="crystal">Cr</div>
-                                <span class="item-label">HT3</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="sword">Sw</div>
-                                <span class="item-label">HT3</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="heart">He</div>
-                                <span class="item-label">HT3</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="pot">Po</div>
-                                <span class="item-label">LT3</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="neth_block">Ne</div>
-                                <span class="item-label">HT1</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="smp">Sm</div>
-                                <span class="item-label">HT1</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Player Entry 4 -->
-                    <div class="player-row">
-                        <div class="player-rank-col">
-                            <span class="rank-number">4</span>
-                        </div>
-                        <div class="player-info-col">
-                            <img src="https://mc-heads.net/avatar/coldified/32" alt="coldified Skin" class="player-avatar">
-                            <div class="player-details">
-                                <a href="#" data-player-name="coldified" onclick="openPlayerProfileModal(event, 'coldified')">coldified</a>
-                                <span class="player-tier-points-label">
-                                    <span class="player-tier-badge">COMBATMASTER</span>
-                                    <span>208 Points</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="player-region-col">
-                            <span class="region-badge region-eu">EU</span>
-                        </div>
-                        <div class="player-points-col">
-                            208
-                        </div>
-                        <div class="player-items-col">
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="crystal">Cr</div>
-                                <span class="item-label">HT2</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="sword">Sw</div>
-                                <span class="item-label">LT2</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="heart">He</div>
-                                <span class="item-label">LT3</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="pot">Po</div>
-                                <span class="item-label">HT1</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="neth_block">Ne</div>
-                                <span class="item-label">HT1</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon" data-item-type="smp">Sm</div>
-                                <span class="item-label">HT2</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- More players -->
-                </div>
+            <div class="gamemode-nav">
+                <a href="index.html" class="active">
+                    <img src="https://pvptiers.com/icons/tiers/overall.png" alt="Overall Icon">
+                    OVERALL
+                </a>
+                <a href="crystal.html">
+                    <img src="https://pvptiers.com/icons/tiers/crystal.png" alt="Crystal Icon">
+                    CRYSTAL
+                </a>
+                <a href="sumo.html">
+                    <img src="https://pvptiers.com/icons/tiers/sword.png" alt="Sumo Icon">
+                    SWORD
+                </a>
+                <a href="uhc.html">
+                    <img src="https://pvptiers.com/icons/tiers/uhc.png" alt="UHC Icon">
+                    UHC
+                </a>
+                <a href="soup.html">
+                    <img src="https://pvptiers.com/icons/tiers/pot.png" alt="Pot Icon">
+                    POT
+                </a>
+                <a href="neth_pot.html">
+                    <img src="https://pvptiers.com/icons/tiers/neth_pot.png" alt="Nether Pot Icon">
+                    NETHERITE POT
+                </a>
+                <a href="smp.html">
+                    <img src="https://pvptiers.com/icons/tiers/smp.png" alt="SMP Icon">
+                    SMP
+                </a>
+                <a href="axe.html">
+                    <img src="https://pvptiers.com/icons/tiers/axe.png" alt="Axe Icon">
+                    AXE
+                </a>
+                <a href="mace.html">
+                    <img src="https://pvptiers.com/icons/tiers/mace.png" alt="Mace Icon">
+                    MACE
+                </a>
             </div>
 
-            <div class="right-sidebar">
-                <div class="info-card">
-                    <a href="#" class="info-button">Info</a>
-                </div>
+            <div class="main-content-grid">
+                <div class="leaderboard-section">
+                    <div class="leaderboard-table-header player-row">
+                        <div class="player-rank-col">#</div>
+                        <div class="player-info-col">PLAYER</div>
+                        <div class="player-region-col region-th">REGION</div>
+                        <div class="player-points-col">POINTS</div>
+                        <div class="player-items-col"></div> <!-- Empty for header alignment -->
+                    </div>
 
-                <div class="search-card">
-                    <div class="search-input-wrapper">
-                        <input type="text" id="playerSearch" placeholder="SEARCH...">
+                    <div id="leaderboardBody">
+                        <!-- Player Entry 1 -->
+                        <div class="player-row">
+                            <div class="player-rank-col">
+                                <img src="https://i.imgur.com/e5k0T7t.png" alt="Rank Emblem" class="rank-emblem"> <!-- Small emblem for top ranks -->
+                                <span class="rank-number">1</span>
+                            </div>
+                            <div class="player-info-col">
+                                <img src="https://mc-heads.net/avatar/ItzRealMe/32" alt="ItzRealMe Skin" class="player-avatar">
+                                <div class="player-details">
+                                    <a href="#" data-player-name="ItzRealMe" onclick="openPlayerProfileModal(event, 'ItzRealMe')">ItzRealMe</a>
+                                    <span class="player-tier-points-label">
+                                        <span class="player-tier-badge">COMBATMASTER</span>
+                                        <span>300 Points</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="player-region-col">
+                                <span class="region-badge region-na">NA</span>
+                            </div>
+                            <div class="player-points-col">
+                                300
+                            </div>
+                            <div class="player-items-col">
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="crystal">Cr</div>
+                                    <span class="item-label">HT1</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="sword">Sw</div>
+                                    <span class="item-label">HT1</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="heart">He</div>
+                                    <span class="item-label">HT1</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="pot">Po</div>
+                                    <span class="item-label">HT1</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="neth_block">Ne</div>
+                                    <span class="item-label">HT2</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="axe">Ax</div>
+                                    <span class="item-label">LT2</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="question">?</div>
+                                    <span class="item-label">?</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Player Entry 2 -->
+                        <div class="player-row">
+                            <div class="player-rank-col">
+                                <img src="https://i.imgur.com/e5k0T7t.png" alt="Rank Emblem" class="rank-emblem">
+                                <span class="rank-number">2</span>
+                            </div>
+                            <div class="player-info-col">
+                                <img src="https://mc-heads.net/avatar/Marlowww/32" alt="Marlowww Skin" class="player-avatar">
+                                <div class="player-details">
+                                    <a href="#" data-player-name="Marlowww" onclick="openPlayerProfileModal(event, 'Marlowww')">Marlowww</a>
+                                    <span class="player-tier-points-label">
+                                        <span class="player-tier-badge">COMBATMASTER</span>
+                                        <span>284 Points</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="player-region-col">
+                                <span class="region-badge region-na">NA</span>
+                            </div>
+                            <div class="player-points-col">
+                                284
+                            </div>
+                            <div class="player-items-col">
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="crystal">Cr</div>
+                                    <span class="item-label">HT1</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="sword">Sw</div>
+                                    <span class="item-label">LT1</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="heart">He</div>
+                                    <span class="item-label">LT1</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="pot">Po</div>
+                                    <span class="item-label">LT1</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="neth_block">Ne</div>
+                                    <span class="item-label">LT2</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="axe">Ax</div>
+                                    <span class="item-label">LT2</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Player Entry 3 -->
+                        <div class="player-row">
+                            <div class="player-rank-col">
+                                <img src="https://i.imgur.com/e5k0T7t.png" alt="Rank Emblem" class="rank-emblem">
+                                <span class="rank-number">3</span>
+                            </div>
+                            <div class="player-info-col">
+                                <img src="https://mc-heads.net/avatar/Swight/32" alt="Swight Skin" class="player-avatar">
+                                <div class="player-details">
+                                    <a href="#" data-player-name="Swight" onclick="openPlayerProfileModal(event, 'Swight')">Swight</a>
+                                    <span class="player-tier-points-label">
+                                        <span class="player-tier-badge">COMBATMASTER</span>
+                                        <span>220 Points</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="player-region-col">
+                                <span class="region-badge region-na">NA</span>
+                            </div>
+                            <div class="player-points-col">
+                                220
+                            </div>
+                            <div class="player-items-col">
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="crystal">Cr</div>
+                                    <span class="item-label">HT3</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="sword">Sw</div>
+                                    <span class="item-label">HT3</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="heart">He</div>
+                                    <span class="item-label">HT3</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="pot">Po</div>
+                                    <span class="item-label">LT3</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="neth_block">Ne</div>
+                                    <span class="item-label">HT1</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="smp">Sm</div>
+                                    <span class="item-label">HT1</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Player Entry 4 -->
+                        <div class="player-row">
+                            <div class="player-rank-col">
+                                <span class="rank-number">4</span>
+                            </div>
+                            <div class="player-info-col">
+                                <img src="https://mc-heads.net/avatar/coldified/32" alt="coldified Skin" class="player-avatar">
+                                <div class="player-details">
+                                    <a href="#" data-player-name="coldified" onclick="openPlayerProfileModal(event, 'coldified')">coldified</a>
+                                    <span class="player-tier-points-label">
+                                        <span class="player-tier-badge">COMBATMASTER</span>
+                                        <span>208 Points</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="player-region-col">
+                                <span class="region-badge region-eu">EU</span>
+                            </div>
+                            <div class="player-points-col">
+                                208
+                            </div>
+                            <div class="player-items-col">
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="crystal">Cr</div>
+                                    <span class="item-label">HT2</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="sword">Sw</div>
+                                    <span class="item-label">LT2</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="heart">He</div>
+                                    <span class="item-label">LT3</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="pot">Po</div>
+                                    <span class="item-label">HT1</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="neth_block">Ne</div>
+                                    <span class="item-label">HT1</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="smp">Sm</div>
+                                    <span class="item-label">HT2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- More players -->
                     </div>
                 </div>
 
-                <div class="discord-webhook-sidebar">
-                    <h3>Discord Webhook Integration</h3>
-                    <p>Get live updates!</p>
-                    <form onsubmit="handleWebhookSubmit(event)">
-                        <input type="url" id="webhookUrl" placeholder="Webhook URL" required>
-                        <textarea id="webhookMessage" rows="3" placeholder="Test Message (Optional)"></textarea>
-                        <button type="submit">Test & Save</button>
-                    </form>
+                <div class="right-sidebar">
+                    <div class="info-card">
+                        <a href="#" class="info-button">Info</a>
+                    </div>
+
+                    <div class="search-card">
+                        <div class="search-input-wrapper">
+                            <input type="text" id="playerSearch" placeholder="SEARCH...">
+                        </div>
+                    </div>
+
+                    <div class="discord-webhook-sidebar">
+                        <h3>Discord Webhook Integration</h3>
+                        <p>Get live updates!</p>
+                        <form onsubmit="handleWebhookSubmit(event)">
+                            <input type="url" id="webhookUrl" placeholder="Webhook URL" required>
+                            <textarea id="webhookMessage" rows="3" placeholder="Test Message (Optional)"></textarea>
+                            <button type="submit">Test & Save</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1171,197 +1226,79 @@
                 <h3 class="modal-section-title">Tiers</h3>
                 <div class="modal-tiers-grid" id="modalPlayerTiers">
                     <!-- Dynamic Tier Icons Go Here -->
-                    <!-- Example for Marlowww -->
-                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="crystal">Cr</div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="sword">Sw</div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="pot">Po</div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="axe">Ax</div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="smp">Sm</div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="uhc">He</div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="neth_pot">Ne</div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="mace">Ma</div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="question">?</div></div>
                 </div>
 
                 <h3 class="modal-section-title">Retired</h3>
                 <div class="modal-retired-grid" id="modalPlayerRetiredItems">
                     <!-- Dynamic Retired Items Go Here -->
-                    <!-- Example for Marlowww -->
-                    <div class="modal-retired-item">
-                        <div class="modal-retired-icon" data-item-type="crystal">Cr</div>
-                        <span class="item-label">HT1</span>
-                    </div>
-                    <div class="modal-retired-item">
-                        <div class="modal-retired-icon" data-item-type="smp">Sm</div>
-                        <span class="item-label">HT1</span>
-                    </div>
-                    <div class="modal-retired-item">
-                        <div class="modal-retired-icon" data-item-type="sword">Sw</div>
-                        <span class="item-label">LT1</span>
-                    </div>
-                    <div class="modal-retired-item">
-                        <div class="modal-retired-icon" data-item-type="heart">He</div>
-                        <span class="item-label">LT1</span>
-                    </div>
-                    <div class="modal-retired-item">
-                        <div class="modal-retired-icon" data-item-type="pot">Po</div>
-                        <span class="item-label">LT1</span>
-                    </div>
-                    <div class="modal-retired-item">
-                        <div class="modal-retired-icon" data-item-type="axe">Ax</div>
-                        <span class="item-label">LT2</span>
-                    </div>
-                    <div class="modal-retired-item">
-                        <div class="modal-retired-icon" data-item-type="neth_block">Ne</div>
-                        <span class="item-label">LT2</span>
-                    </div>
-                    <div class="modal-retired-item">
-                        <div class="modal-retired-icon" data-item-type="question">?</div>
-                        <span class="item-label">?</span>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Mock Player Data (Centralized for modal and leaderboard)
+        // --- Mock Data Structure ---
+        // Defines all possible gamemodes and individual player data.
+        const allGamemodes = [
+            { id: 'crystal', name: 'Crystal', iconUrl: 'https://pvptiers.com/icons/tiers/crystal.png' },
+            { id: 'sword', name: 'Sword', iconUrl: 'https://pvptiers.com/icons/tiers/sword.png' },
+            { id: 'uhc', name: 'UHC', iconUrl: 'https://pvptiers.com/icons/tiers/uhc.png' },
+            { id: 'pot', name: 'Pot', iconUrl: 'https://pvptiers.com/icons/tiers/pot.png' },
+            { id: 'neth_pot', name: 'Neth Pot', iconUrl: 'https://pvptiers.com/icons/tiers/neth_pot.png' },
+            { id: 'smp', name: 'SMP', iconUrl: 'https://pvptiers.com/icons/tiers/smp.png' },
+            { id: 'axe', name: 'Axe', iconUrl: 'https://pvptiers.com/icons/tiers/axe.png' },
+            { id: 'mace', name: 'Mace', iconUrl: 'https://pvptiers.com/icons/tiers/mace.png' },
+        ];
+
         const mockPlayerData = {
             'itzrealme': {
-                name: 'ItzRealMe',
-                rank: 1,
-                rankEmblem: true, // true if rank 1-3, false otherwise
-                rankBadgeUrl: 'https://i.imgur.com/sS475yU.png', // Gold badge for modal
-                region: 'NA',
-                tier: 'COMBATMASTER',
-                points: 300,
-                skinUrl: 'https://mc-heads.net/avatar/ItzRealMe/100', // For modal larger skin
-                avatarUrl: 'https://mc-heads.net/avatar/ItzRealMe/32', // For leaderboard smaller avatar
-                tiers: [
-                    { type: 'crystal', label: 'Cr' },
-                    { type: 'sword', label: 'Sw' },
-                    { type: 'pot', label: 'Po' },
-                    { type: 'axe', label: 'Ax' },
-                    { type: 'smp', label: 'Sm' },
-                    { type: 'uhc', label: 'He' },
-                    { type: 'neth_pot', label: 'Ne' },
-                    { type: 'mace', label: 'Ma' },
-                    { type: 'question', label: '?' },
+                name: 'ItzRealMe', rank: 1, region: 'NA', tier: 'COMBATMASTER', points: 300,
+                rankBadgeUrl: 'https://i.imgur.com/sS475yU.png',
+                leaderboardItems: [
+                    { type: 'crystal', label: 'HT1' }, { type: 'sword', label: 'HT1' }, { type: 'heart', label: 'HT1' },
+                    { type: 'pot', label: 'HT1' }, { type: 'neth_block', label: 'HT2' }, { type: 'axe', label: 'LT2' }, { type: 'question', label: '?' }
                 ],
-                retiredItems: [
-                    { type: 'crystal', label: 'HT1' },
-                    { type: 'sword', label: 'HT1' },
-                    { type: 'heart', label: 'HT1' },
-                    { type: 'pot', label: 'HT1' },
-                    { type: 'neth_block', label: 'HT2' },
-                    { type: 'axe', label: 'LT2' },
-                    { type: 'question', label: '?' },
-                ]
+                unlockedTiers: ['crystal', 'sword', 'axe', 'pot'] // List of unlocked gamemode IDs
             },
             'marlowww': {
-                name: 'Marlowww',
-                rank: 2,
-                rankEmblem: true,
-                rankBadgeUrl: 'https://i.imgur.com/yU4eYwP.png', // Silver badge for modal
-                region: 'NA',
-                tier: 'COMBATMASTER',
-                points: 284,
-                skinUrl: 'https://mc-heads.net/avatar/Marlowww/100',
-                avatarUrl: 'https://mc-heads.net/avatar/Marlowww/32',
-                 tiers: [
-                    { type: 'crystal', label: 'Cr' },
-                    { type: 'sword', label: 'Sw' },
-                    { type: 'pot', label: 'Po' },
-                    { type: 'axe', label: 'Ax' },
-                    { type: 'smp', label: 'Sm' },
-                    { type: 'uhc', label: 'He' },
-                    { type: 'neth_pot', label: 'Ne' },
-                    { type: 'mace', label: 'Ma' },
-                    { type: 'question', label: '?' },
+                name: 'Marlowww', rank: 2, region: 'NA', tier: 'COMBATMASTER', points: 284,
+                rankBadgeUrl: 'https://i.imgur.com/yU4eYwP.png',
+                leaderboardItems: [
+                    { type: 'crystal', label: 'HT1' }, { type: 'sword', label: 'LT1' }, { type: 'heart', label: 'LT1' },
+                    { type: 'pot', label: 'LT1' }, { type: 'neth_block', label: 'LT2' }, { type: 'axe', label: 'LT2' }
                 ],
-                retiredItems: [
-                    { type: 'crystal', label: 'HT1' },
-                    { type: 'smp', label: 'HT1' },
-                    { type: 'sword', label: 'LT1' },
-                    { type: 'heart', label: 'LT1' },
-                    { type: 'pot', label: 'LT1' },
-                    { type: 'axe', label: 'LT2' },
-                    { type: 'neth_block', label: 'LT2' },
-                    { type: 'question', label: '?' },
-                ]
+                unlockedTiers: ['crystal', 'sword', 'uhc', 'smp']
             },
             'swight': {
-                name: 'Swight',
-                rank: 3,
-                rankEmblem: true,
-                rankBadgeUrl: 'https://i.imgur.com/D4s6LgQ.png', // Bronze badge for modal
-                region: 'NA',
-                tier: 'COMBATMASTER',
-                points: 220,
-                skinUrl: 'https://mc-heads.net/avatar/Swight/100',
-                avatarUrl: 'https://mc-heads.net/avatar/Swight/32',
-                tiers: [
-                    { type: 'crystal', label: 'Cr' },
-                    { type: 'sword', label: 'Sw' },
-                    { type: 'pot', label: 'Po' },
-                    { type: 'axe', label: 'Ax' },
-                    { type: 'smp', label: 'Sm' },
-                    { type: 'uhc', label: 'He' },
-                    { type: 'neth_pot', label: 'Ne' },
-                    { type: 'mace', label: 'Ma' },
-                    { type: 'question', label: '?' },
+                name: 'Swight', rank: 3, region: 'NA', tier: 'COMBATMASTER', points: 220,
+                rankBadgeUrl: 'https://i.imgur.com/D4s6LgQ.png',
+                leaderboardItems: [
+                    { type: 'crystal', label: 'HT3' }, { type: 'sword', label: 'HT3' }, { type: 'heart', label: 'HT3' },
+                    { type: 'pot', label: 'LT3' }, { type: 'neth_block', label: 'HT1' }, { type: 'smp', label: 'HT1' }
                 ],
-                retiredItems: [
-                    { type: 'crystal', label: 'HT3' },
-                    { type: 'sword', label: 'HT3' },
-                    { type: 'heart', label: 'HT3' },
-                    { type: 'pot', label: 'LT3' },
-                    { type: 'neth_block', label: 'HT1' },
-                    { type: 'smp', label: 'HT1' },
-                    { type: 'question', label: '?' },
-                ]
+                unlockedTiers: ['crystal', 'sword']
             },
             'coldified': {
-                name: 'coldified',
-                rank: 4,
-                rankEmblem: false,
-                rankBadgeUrl: '', // No specific badge for rank > 3
-                region: 'EU',
-                tier: 'COMBATMASTER',
-                points: 208,
-                skinUrl: 'https://mc-heads.net/avatar/coldified/100',
-                avatarUrl: 'https://mc-heads.net/avatar/coldified/32',
-                tiers: [
-                    { type: 'crystal', label: 'Cr' },
-                    { type: 'sword', label: 'Sw' },
-                    { type: 'pot', label: 'Po' },
-                    { type: 'axe', label: 'Ax' },
-                    { type: 'smp', label: 'Sm' },
-                    { type: 'uhc', label: 'He' },
-                    { type: 'neth_pot', label: 'Ne' },
-                    { type: 'mace', label: 'Ma' },
-                    { type: 'question', label: '?' },
+                name: 'coldified', rank: 4, region: 'EU', tier: 'COMBATMASTER', points: 208,
+                rankBadgeUrl: '',
+                leaderboardItems: [
+                    { type: 'crystal', label: 'HT2' }, { type: 'sword', label: 'LT2' }, { type: 'heart', label: 'LT3' },
+                    { type: 'pot', label: 'HT1' }, { type: 'neth_block', label: 'HT1' }, { type: 'smp', label: 'HT2' }
                 ],
-                retiredItems: [
-                    { type: 'crystal', label: 'HT2' },
-                    { type: 'sword', label: 'LT2' },
-                    { type: 'heart', label: 'LT3' },
-                    { type: 'pot', label: 'HT1' },
-                    { type: 'neth_block', label: 'HT1' },
-                    { type: 'smp', label: 'HT2' },
-                ]
+                unlockedTiers: ['crystal', 'pot', 'smp']
             }
         };
 
-        // Helper function to get text for item icon based on type
+        // --- Helper Functions ---
+
+        // Helper function to get text for leaderboard item icon based on type
         function getItemIconText(type) {
             switch(type) {
                 case 'crystal': return 'Cr';
                 case 'sword': return 'Sw';
                 case 'heart': return 'He';
                 case 'pot': return 'Po';
-                case 'neth_pot': return 'Ne';
-                case 'neth_block': return 'Ne'; // Use same for Netherite Pot/Block
+                case 'neth_block': return 'Ne';
                 case 'smp': return 'Sm';
                 case 'axe': return 'Ax';
                 case 'mace': return 'Ma';
@@ -1372,119 +1309,20 @@
 
         function populateModal(playerName) {
             const playerData = mockPlayerData[playerName.toLowerCase()] || {
-                name: playerName,
-                rank: 'N/A',
-                rankEmblem: false,
-                rankBadgeUrl: '',
-                region: 'N/A',
-                tier: 'Unranked',
-                points: 0,
-                skinUrl: `https://mc-heads.net/avatar/${playerName}/100`,
-                avatarUrl: `https://mc-heads.net/avatar/${playerName}/32`,
-                tiers: Array(9).fill({ type: 'question', label: '?' }),
-                retiredItems: []
+                name: playerName, rank: 'N/A', region: 'N/A', tier: 'Unranked', points: 0,
+                rankBadgeUrl: '', unlockedTiers: [], leaderboardItems: []
             };
 
+            // Populate static info
             document.getElementById('modalPlayerName').textContent = playerData.name;
             const modalPlayerRegion = document.getElementById('modalPlayerRegion');
             modalPlayerRegion.textContent = playerData.region;
             modalPlayerRegion.className = `region-badge region-${playerData.region.toLowerCase()}`;
-
             document.getElementById('modalPlayerTier').textContent = playerData.tier;
             document.getElementById('modalPlayerPoints').textContent = playerData.points;
-            document.getElementById('modalPlayerSkin').src = playerData.skinUrl;
+            document.getElementById('modalPlayerSkin').src = `https://mc-heads.net/avatar/${playerName}/100`;
 
             const modalPlayerRankBadge = document.getElementById('modalPlayerRankBadge');
             if (playerData.rankBadgeUrl) {
                 modalPlayerRankBadge.src = playerData.rankBadgeUrl;
                 modalPlayerRankBadge.style.display = 'block';
-            } else {
-                modalPlayerRankBadge.style.display = 'none';
-            }
-
-            document.getElementById('namemcLink').href = `https://namemc.com/profile/${playerData.name}`;
-
-            // Populate Tiers grid in modal
-            const modalPlayerTiersContainer = document.getElementById('modalPlayerTiers');
-            modalPlayerTiersContainer.innerHTML = '';
-            playerData.tiers.forEach(item => {
-                modalPlayerTiersContainer.innerHTML += `
-                    <div class="modal-tier-item">
-                        <div class="modal-tier-icon" data-item-type="${item.type}">${getItemIconText(item.type)}</div>
-                    </div>
-                `;
-            });
-
-            // Populate Retired Items grid in modal
-            const modalPlayerRetiredItemsContainer = document.getElementById('modalPlayerRetiredItems');
-            modalPlayerRetiredItemsContainer.innerHTML = '';
-            playerData.retiredItems.forEach(item => {
-                modalPlayerRetiredItemsContainer.innerHTML += `
-                    <div class="modal-retired-item">
-                        <div class="modal-retired-icon" data-item-type="${item.type || 'question'}">${getItemIconText(item.type || 'question')}</div>
-                        <span class="item-label">${item.label}</span>
-                    </div>
-                `;
-            });
-        }
-
-
-        function openPlayerProfileModal(event, playerName) {
-            event.preventDefault();
-            populateModal(playerName);
-            document.getElementById('playerProfileModalOverlay').classList.add('active');
-        }
-
-        function closePlayerProfileModal() {
-            document.getElementById('playerProfileModalOverlay').classList.remove('active');
-        }
-
-        function searchPlayer() {
-            const playerSearchInput = document.getElementById('playerSearch');
-            if (!playerSearchInput) {
-                console.error("Error: 'playerSearch' element not found.");
-                return;
-            }
-            const searchTerm = playerSearchInput.value.trim();
-            if (searchTerm) {
-                openPlayerProfileModal(event, searchTerm);
-            } else {
-                alert('Please enter a player name to search.');
-            }
-        }
-
-        document.getElementById('playerSearch').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                searchPlayer();
-            }
-        });
-
-        function handleWebhookSubmit(event) {
-            event.preventDefault();
-
-            const webhookUrlInput = document.getElementById('webhookUrl');
-            const webhookMessageInput = document.getElementById('webhookMessage');
-
-            if (!webhookUrlInput || !webhookMessageInput) {
-                console.error("Error: Webhook URL or Message element not found.");
-                alert("An internal error occurred. Please try again or check the console.");
-                return;
-            }
-
-            const webhookUrl = webhookUrlInput.value;
-            const webhookMessage = webhookMessageInput.value;
-
-            if (!webhookUrl) {
-                alert('Please enter a Discord Webhook URL.');
-                return;
-            }
-
-            console.log('Attempting to configure webhook:');
-            console.log('URL:', webhookUrl);
-            console.log('Message:', webhookMessage || 'No test message provided.');
-
-            alert('Webhook configuration simulated. In a real application, this would send data to a backend or directly use the webhook. For security and functionality, direct client-side webhook calls are not recommended without a proxy.');
-        }
-    </script>
-</body>
-</html>
