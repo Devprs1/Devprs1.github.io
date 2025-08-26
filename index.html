@@ -84,7 +84,7 @@
             text-shadow: 0 0 5px rgba(var(--accent-gold-rgb), 0.5);
         }
 
-        /* Main Nav Bar (Home, Tier List, etc.) */
+        /* Main Nav Bar (Home, Community) */
         .main-nav-bar {
             background-color: var(--header-bg-color);
             border-bottom: 1px solid var(--border-color-dark);
@@ -285,6 +285,7 @@
             text-overflow: ellipsis;
         }
 
+        /* New styles for player rank and info as per screenshot */
         .player-rank-col {
             width: 60px;
             text-align: center;
@@ -292,41 +293,62 @@
             font-weight: 700;
             color: var(--text-light);
             position: relative;
-            display: flex;
-            flex-direction: column;
+            display: flex; /* Changed to flex for proper centering of number/badge */
+            justify-content: center;
             align-items: center;
-            gap: 5px;
+            gap: 5px; /* Space between badge and number if badge exists */
         }
-
-        .rank-badge-img {
-            width: 50px; /* Size of the badge image */
+        .rank-number {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--text-light);
+            z-index: 1; /* Ensure number is above potential badge image */
+        }
+        .rank-emblem { /* For ranks 1-3 with an emblem */
+            width: 25px; /* Smaller emblem */
             height: auto;
-            image-rendering: pixelated;
+            position: absolute; /* Position behind the number */
+            opacity: 0.7;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
         }
 
         .player-info-col {
             flex-grow: 1;
             display: flex;
-            flex-direction: column;
-            gap: 5px;
-            padding-left: 15px; /* Space from rank badge */
+            align-items: center; /* Align avatar and text horizontally */
+            gap: 10px; /* Space between avatar and name */
+            padding-left: 0; /* No extra padding here */
         }
 
-        .player-info-col a {
+        .player-avatar {
+            width: 32px; /* Smaller avatar for leaderboard */
+            height: 32px;
+            border-radius: 4px; /* Slightly rounded corners for avatar */
+            border: 1px solid var(--border-color-light);
+            image-rendering: pixelated;
+        }
+
+        .player-details {
+            display: flex;
+            flex-direction: column;
+            gap: 3px; /* Space between name and tier/points */
+        }
+
+        .player-details a {
             text-decoration: none;
             color: var(--text-light);
-            font-size: 1.3em;
+            font-size: 1.1em; /* Slightly smaller name in leaderboard */
             font-weight: 700;
             text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.3);
             transition: color 0.2s ease, text-shadow 0.2s ease;
-            cursor: pointer; /* Indicate clickable */
+            cursor: pointer;
         }
-        .player-info-col a:hover {
+        .player-details a:hover {
             color: var(--accent-gold);
             text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.6);
         }
 
-        .player-info-col .player-tier-points-label { /* Renamed for clarity */
+        .player-tier-points-label {
             font-size: 0.85em;
             color: var(--text-dark);
             display: flex;
@@ -334,7 +356,7 @@
             gap: 8px;
         }
 
-        .player-info-col .player-tier-badge {
+        .player-tier-badge {
             display: inline-block;
             background-color: var(--tier-combatmaster); /* Example tier color */
             color: white;
@@ -377,13 +399,14 @@
             margin-right: 20px;
         }
 
+        /* Item icons as per new screenshot */
         .player-items-col {
             flex-shrink: 0;
             display: flex;
-            gap: 5px; /* Space between item icons */
-            width: 300px; /* Fixed width for item icons */
-            justify-content: flex-end; /* Align to right */
-            flex-wrap: wrap; /* Allow wrapping if too many items */
+            gap: 5px;
+            width: 300px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
         }
 
         .item-icon-container {
@@ -399,24 +422,33 @@
             border: 1px solid #333;
             border-radius: 4px;
             background-color: #222;
+            background-size: 80% 80%; /* Fit icon image within the div */
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            image-rendering: pixelated;
+            font-size: 0.7em; /* Text inside icon */
+            font-weight: 700;
+            color: var(--text-light); /* Color for text inside icon */
+            text-transform: uppercase;
         }
+        /* Specific item icon backgrounds - using generic placeholders */
+        .item-icon[data-item-type="crystal"] { background-image: url('https://pvptiers.com/icons/gamemodes/crystal.png'); }
+        .item-icon[data-item-type="sword"] { background-image: url('https://pvptiers.com/icons/gamemodes/sword.png'); }
+        .item-icon[data-item-type="heart"] { background-image: url('https://pvptiers.com/icons/gamemodes/heart.png'); }
+        .item-icon[data-item-type="pot"] { background-image: url('https://pvptiers.com/icons/gamemodes/potion_red.png'); }
+        .item-icon[data-item-type="neth_block"] { background-image: url('https://pvptiers.com/icons/gamemodes/netherite_block.png'); }
+        .item-icon[data-item-type="smp"] { background-image: url('https://pvptiers.com/icons/gamemodes/smp.png'); }
+        .item-icon[data-item-type="axe"] { background-image: url('https://pvptiers.com/icons/gamemodes/axe.png'); }
+        .item-icon[data-item-type="question"] { background-image: url('https://pvptiers.com/icons/gamemodes/question.png'); }
 
-        .item-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            image-rendering: pixelated;
-        }
 
         .item-label {
             position: absolute;
-            bottom: -5px; /* Position below icon */
+            bottom: -5px;
             background-color: var(--accent-gold);
             color: #333;
             font-size: 0.65em;
@@ -427,7 +459,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-            transform: translateY(50%); /* Adjust for bottom position */
+            transform: translateY(50%);
         }
 
 
@@ -753,18 +785,18 @@
             border: 1px solid var(--border-color-dark);
             border-radius: 5px;
             background-color: #222;
+            background-size: 80% 80%; /* Fit icon image within the div */
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            image-rendering: pixelated;
-        }
-        .modal-tier-icon img, .modal-retired-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            image-rendering: pixelated;
+            font-size: 0.7em;
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: uppercase;
         }
         .modal-retired-item .item-label {
             position: static; /* Adjust label for modal grid */
@@ -788,14 +820,8 @@
 
     <nav class="main-nav-bar">
         <ul>
-            <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Home Icon">HOME</a></li>
-            <li><a href="#" class="active"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Tier List Icon">TIER LIST</a></li>
-            <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Community Icon">COMMUNITY</a></li>
-            <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Resources Icon">RESOURCES</a></li>
-            <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Server Icon">SERVER</a></li>
-            <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Affiliates Icon">AFFILIATES</a></li>
-            <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Support Icon">SUPPORT</a></li>
-            <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Store Icon">STORE</a></li>
+            <li><a href="index.html" class="active"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Home Icon">HOME</a></li>
+            <li><a href="#"><img src="https://pvptiers.com/icons/tiers/smp.png" alt="Community Icon">COMMUNITY</a></li>
         </ul>
     </nav>
 
@@ -855,14 +881,18 @@
                     <!-- Player Entry 1 -->
                     <div class="player-row">
                         <div class="player-rank-col">
-                            <img src="https://i.imgur.com/sS475yU.png" alt="Rank 1 Badge" class="rank-badge-img"> <!-- Placeholder for gold badge -->
+                            <img src="https://i.imgur.com/e5k0T7t.png" alt="Rank Emblem" class="rank-emblem"> <!-- Small emblem for top ranks -->
+                            <span class="rank-number">1</span>
                         </div>
                         <div class="player-info-col">
-                            <a href="#" data-player-name="ItzRealMe" onclick="openPlayerProfileModal(event, 'ItzRealMe')">ItzRealMe</a>
-                            <span class="player-tier-points-label">
-                                <span class="player-tier-badge">COMBATMASTER</span>
-                                <span>300 Points</span>
-                            </span>
+                            <img src="https://mc-heads.net/avatar/ItzRealMe/32" alt="ItzRealMe Skin" class="player-avatar">
+                            <div class="player-details">
+                                <a href="#" data-player-name="ItzRealMe" onclick="openPlayerProfileModal(event, 'ItzRealMe')">ItzRealMe</a>
+                                <span class="player-tier-points-label">
+                                    <span class="player-tier-badge">COMBATMASTER</span>
+                                    <span>300 Points</span>
+                                </span>
+                            </div>
                         </div>
                         <div class="player-region-col">
                             <span class="region-badge region-na">NA</span>
@@ -872,35 +902,31 @@
                         </div>
                         <div class="player-items-col">
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/crystal.png" alt="Crystal"></div>
+                                <div class="item-icon" data-item-type="crystal">Cr</div>
                                 <span class="item-label">HT1</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/potion_red.png" alt="Potion"></div>
+                                <div class="item-icon" data-item-type="sword">Sw</div>
                                 <span class="item-label">HT1</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/netherite_block.png" alt="Netherite Block"></div>
+                                <div class="item-icon" data-item-type="heart">He</div>
                                 <span class="item-label">HT1</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/smp.png" alt="SMP Icon"></div>
+                                <div class="item-icon" data-item-type="pot">Po</div>
                                 <span class="item-label">HT1</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/sword.png" alt="Sword"></div>
+                                <div class="item-icon" data-item-type="neth_block">Ne</div>
                                 <span class="item-label">HT2</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/heart.png" alt="Heart"></div>
+                                <div class="item-icon" data-item-type="axe">Ax</div>
                                 <span class="item-label">LT2</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/axe.png" alt="Axe"></div>
-                                <span class="item-label">LT2</span>
-                            </div>
-                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/question.png" alt="Question Mark"></div>
+                                <div class="item-icon" data-item-type="question">?</div>
                                 <span class="item-label">?</span>
                             </div>
                         </div>
@@ -909,14 +935,18 @@
                     <!-- Player Entry 2 -->
                     <div class="player-row">
                         <div class="player-rank-col">
-                            <img src="https://i.imgur.com/yU4eYwP.png" alt="Rank 2 Badge" class="rank-badge-img"> <!-- Placeholder for silver badge -->
+                            <img src="https://i.imgur.com/e5k0T7t.png" alt="Rank Emblem" class="rank-emblem">
+                            <span class="rank-number">2</span>
                         </div>
                         <div class="player-info-col">
-                            <a href="#" data-player-name="Marlowww" onclick="openPlayerProfileModal(event, 'Marlowww')">Marlowww</a>
-                            <span class="player-tier-points-label">
-                                <span class="player-tier-badge">COMBATMASTER</span>
-                                <span>284 Points</span>
-                            </span>
+                            <img src="https://mc-heads.net/avatar/Marlowww/32" alt="Marlowww Skin" class="player-avatar">
+                            <div class="player-details">
+                                <a href="#" data-player-name="Marlowww" onclick="openPlayerProfileModal(event, 'Marlowww')">Marlowww</a>
+                                <span class="player-tier-points-label">
+                                    <span class="player-tier-badge">COMBATMASTER</span>
+                                    <span>284 Points</span>
+                                </span>
+                            </div>
                         </div>
                         <div class="player-region-col">
                             <span class="region-badge region-na">NA</span>
@@ -925,33 +955,29 @@
                             284
                         </div>
                         <div class="player-items-col">
-                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/smp.png" alt="SMP Icon"></div>
+                            <div class="item-icon-container">
+                                <div class="item-icon" data-item-type="crystal">Cr</div>
                                 <span class="item-label">HT1</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/crystal.png" alt="Crystal"></div>
-                                <span class="item-label">HT1</span>
-                            </div>
-                            <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/heart.png" alt="Heart"></div>
+                                <div class="item-icon" data-item-type="sword">Sw</div>
                                 <span class="item-label">LT1</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/potion_red.png" alt="Potion"></div>
+                                <div class="item-icon" data-item-type="heart">He</div>
                                 <span class="item-label">LT1</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/sword.png" alt="Sword"></div>
+                                <div class="item-icon" data-item-type="pot">Po</div>
                                 <span class="item-label">LT1</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/axe.png" alt="Axe"></div>
+                                <div class="item-icon" data-item-type="neth_block">Ne</div>
                                 <span class="item-label">LT2</span>
                             </div>
-                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/question.png" alt="Question Mark"></div>
-                                <span class="item-label">?</span>
+                            <div class="item-icon-container">
+                                <div class="item-icon" data-item-type="axe">Ax</div>
+                                <span class="item-label">LT2</span>
                             </div>
                         </div>
                     </div>
@@ -959,14 +985,18 @@
                     <!-- Player Entry 3 -->
                     <div class="player-row">
                         <div class="player-rank-col">
-                            <img src="https://i.imgur.com/D4s6LgQ.png" alt="Rank 3 Badge" class="rank-badge-img"> <!-- Placeholder for bronze badge -->
+                            <img src="https://i.imgur.com/e5k0T7t.png" alt="Rank Emblem" class="rank-emblem">
+                            <span class="rank-number">3</span>
                         </div>
                         <div class="player-info-col">
-                            <a href="#" data-player-name="Swight" onclick="openPlayerProfileModal(event, 'Swight')">Swight</a>
-                            <span class="player-tier-points-label">
-                                <span class="player-tier-badge">COMBATMASTER</span>
-                                <span>220 Points</span>
-                            </span>
+                            <img src="https://mc-heads.net/avatar/Swight/32" alt="Swight Skin" class="player-avatar">
+                            <div class="player-details">
+                                <a href="#" data-player-name="Swight" onclick="openPlayerProfileModal(event, 'Swight')">Swight</a>
+                                <span class="player-tier-points-label">
+                                    <span class="player-tier-badge">COMBATMASTER</span>
+                                    <span>220 Points</span>
+                                </span>
+                            </div>
                         </div>
                         <div class="player-region-col">
                             <span class="region-badge region-na">NA</span>
@@ -976,27 +1006,27 @@
                         </div>
                         <div class="player-items-col">
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/sword.png" alt="Sword"></div>
+                                <div class="item-icon" data-item-type="crystal">Cr</div>
                                 <span class="item-label">HT3</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/potion_red.png" alt="Potion"></div>
+                                <div class="item-icon" data-item-type="sword">Sw</div>
                                 <span class="item-label">HT3</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/crystal.png" alt="Crystal"></div>
+                                <div class="item-icon" data-item-type="heart">He</div>
                                 <span class="item-label">HT3</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/netherite_block.png" alt="Netherite Block"></div>
+                                <div class="item-icon" data-item-type="pot">Po</div>
                                 <span class="item-label">LT3</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/heart.png" alt="Heart"></div>
+                                <div class="item-icon" data-item-type="neth_block">Ne</div>
                                 <span class="item-label">HT1</span>
                             </div>
-                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/smp.png" alt="SMP Icon"></div>
+                            <div class="item-icon-container">
+                                <div class="item-icon" data-item-type="smp">Sm</div>
                                 <span class="item-label">HT1</span>
                             </div>
                         </div>
@@ -1004,13 +1034,18 @@
 
                     <!-- Player Entry 4 -->
                     <div class="player-row">
-                        <div class="player-rank-col">4</div>
+                        <div class="player-rank-col">
+                            <span class="rank-number">4</span>
+                        </div>
                         <div class="player-info-col">
-                            <a href="#" data-player-name="coldified" onclick="openPlayerProfileModal(event, 'coldified')">coldified</a>
-                            <span class="player-tier-points-label">
-                                <span class="player-tier-badge">COMBATMASTER</span>
-                                <span>208 Points</span>
-                            </span>
+                            <img src="https://mc-heads.net/avatar/coldified/32" alt="coldified Skin" class="player-avatar">
+                            <div class="player-details">
+                                <a href="#" data-player-name="coldified" onclick="openPlayerProfileModal(event, 'coldified')">coldified</a>
+                                <span class="player-tier-points-label">
+                                    <span class="player-tier-badge">COMBATMASTER</span>
+                                    <span>208 Points</span>
+                                </span>
+                            </div>
                         </div>
                         <div class="player-region-col">
                             <span class="region-badge region-eu">EU</span>
@@ -1019,28 +1054,28 @@
                             208
                         </div>
                         <div class="player-items-col">
-                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/sword.png" alt="Sword"></div>
+                            <div class="item-icon-container">
+                                <div class="item-icon" data-item-type="crystal">Cr</div>
                                 <span class="item-label">HT2</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/potion_red.png" alt="Potion"></div>
+                                <div class="item-icon" data-item-type="sword">Sw</div>
                                 <span class="item-label">LT2</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/crystal.png" alt="Crystal"></div>
+                                <div class="item-icon" data-item-type="heart">He</div>
                                 <span class="item-label">LT3</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/netherite_block.png" alt="Netherite Block"></div>
+                                <div class="item-icon" data-item-type="pot">Po</div>
                                 <span class="item-label">HT1</span>
                             </div>
                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/heart.png" alt="Heart"></div>
+                                <div class="item-icon" data-item-type="neth_block">Ne</div>
                                 <span class="item-label">HT1</span>
                             </div>
-                             <div class="item-icon-container">
-                                <div class="item-icon"><img src="https://pvptiers.com/icons/gamemodes/smp.png" alt="SMP Icon"></div>
+                            <div class="item-icon-container">
+                                <div class="item-icon" data-item-type="smp">Sm</div>
                                 <span class="item-label">HT2</span>
                             </div>
                         </div>
@@ -1096,50 +1131,52 @@
                 <h3 class="modal-section-title">Tiers</h3>
                 <div class="modal-tiers-grid" id="modalPlayerTiers">
                     <!-- Dynamic Tier Icons Go Here -->
-                    <div class="modal-tier-item"><div class="modal-tier-icon"><img src="https://pvptiers.com/icons/gamemodes/question.png" alt="?"></div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon"><img src="https://pvptiers.com/icons/gamemodes/question.png" alt="?"></div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon"><img src="https://pvptiers.com/icons/gamemodes/question.png" alt="?"></div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon"><img src="https://pvptiers.com/icons/gamemodes/question.png" alt="?"></div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon"><img src="https://pvptiers.com/icons/gamemodes/question.png" alt="?"></div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon"><img src="https://pvptiers.com/icons/gamemodes/question.png" alt="?"></div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon"><img src="https://pvptiers.com/icons/gamemodes/question.png" alt="?"></div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon"><img src="https://pvptiers.com/icons/gamemodes/question.png" alt="?"></div></div>
-                    <div class="modal-tier-item"><div class="modal-tier-icon"><img src="https://pvptiers.com/icons/gamemodes/question.png" alt="?"></div></div>
+                    <!-- Example for Marlowww -->
+                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="crystal">Cr</div></div>
+                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="sword">Sw</div></div>
+                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="pot">Po</div></div>
+                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="axe">Ax</div></div>
+                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="smp">Sm</div></div>
+                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="uhc">He</div></div>
+                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="neth_pot">Ne</div></div>
+                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="mace">Ma</div></div>
+                    <div class="modal-tier-item"><div class="modal-tier-icon" data-item-type="question">?</div></div>
                 </div>
 
                 <h3 class="modal-section-title">Retired</h3>
                 <div class="modal-retired-grid" id="modalPlayerRetiredItems">
                     <!-- Dynamic Retired Items Go Here -->
+                    <!-- Example for Marlowww -->
                     <div class="modal-retired-item">
-                        <div class="modal-retired-icon"><img src="https://pvptiers.com/icons/gamemodes/crystal.png" alt="Crystal"></div>
+                        <div class="modal-retired-icon" data-item-type="crystal">Cr</div>
                         <span class="item-label">HT1</span>
                     </div>
                     <div class="modal-retired-item">
-                        <div class="modal-retired-icon"><img src="https://pvptiers.com/icons/gamemodes/smp.png" alt="SMP Icon"></div>
+                        <div class="modal-retired-icon" data-item-type="smp">Sm</div>
                         <span class="item-label">HT1</span>
                     </div>
                     <div class="modal-retired-item">
-                        <div class="modal-retired-icon"><img src="https://pvptiers.com/icons/gamemodes/sword.png" alt="Sword"></div>
+                        <div class="modal-retired-icon" data-item-type="sword">Sw</div>
                         <span class="item-label">LT1</span>
                     </div>
                     <div class="modal-retired-item">
-                        <div class="modal-retired-icon"><img src="https://pvptiers.com/icons/gamemodes/heart.png" alt="Heart"></div>
+                        <div class="modal-retired-icon" data-item-type="heart">He</div>
                         <span class="item-label">LT1</span>
                     </div>
                     <div class="modal-retired-item">
-                        <div class="modal-retired-icon"><img src="https://pvptiers.com/icons/gamemodes/potion_red.png" alt="Potion"></div>
+                        <div class="modal-retired-icon" data-item-type="pot">Po</div>
                         <span class="item-label">LT1</span>
                     </div>
                     <div class="modal-retired-item">
-                        <div class="modal-retired-icon"><img src="https://pvptiers.com/icons/gamemodes/axe.png" alt="Axe"></div>
+                        <div class="modal-retired-icon" data-item-type="axe">Ax</div>
                         <span class="item-label">LT2</span>
                     </div>
                     <div class="modal-retired-item">
-                        <div class="modal-retired-icon"><img src="https://pvptiers.com/icons/gamemodes/netherite_block.png" alt="Netherite Block"></div>
+                        <div class="modal-retired-icon" data-item-type="neth_block">Ne</div>
                         <span class="item-label">LT2</span>
                     </div>
                     <div class="modal-retired-item">
-                        <div class="modal-retired-icon"><img src="https://pvptiers.com/icons/gamemodes/question.png" alt="Question"></div>
+                        <div class="modal-retired-icon" data-item-type="question">?</div>
                         <span class="item-label">?</span>
                     </div>
                 </div>
@@ -1148,137 +1185,162 @@
     </div>
 
     <script>
-        // Mock Player Data (Centralized for modal)
+        // Mock Player Data (Centralized for modal and leaderboard)
         const mockPlayerData = {
             'itzrealme': {
                 name: 'ItzRealMe',
                 rank: 1,
-                rankBadgeUrl: 'https://i.imgur.com/sS475yU.png', // Gold badge
+                rankEmblem: true, // true if rank 1-3, false otherwise
+                rankBadgeUrl: 'https://i.imgur.com/sS475yU.png', // Gold badge for modal
                 region: 'NA',
                 tier: 'COMBATMASTER',
                 points: 300,
-                skinUrl: 'https://mc-heads.net/avatar/ItzRealMe/100',
-                tiers: [ // Example: some are active, some are just question marks
-                    { icon: 'https://pvptiers.com/icons/tiers/crystal.png', label: 'HT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
+                skinUrl: 'https://mc-heads.net/avatar/ItzRealMe/100', // For modal larger skin
+                avatarUrl: 'https://mc-heads.net/avatar/ItzRealMe/32', // For leaderboard smaller avatar
+                tiers: [
+                    { type: 'crystal', label: 'Cr' },
+                    { type: 'sword', label: 'Sw' },
+                    { type: 'pot', label: 'Po' },
+                    { type: 'axe', label: 'Ax' },
+                    { type: 'smp', label: 'Sm' },
+                    { type: 'uhc', label: 'He' },
+                    { type: 'neth_pot', label: 'Ne' },
+                    { type: 'mace', label: 'Ma' },
+                    { type: 'question', label: '?' },
                 ],
                 retiredItems: [
-                    { icon: 'https://pvptiers.com/icons/gamemodes/crystal.png', label: 'HT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/potion_red.png', label: 'HT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/netherite_block.png', label: 'HT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/smp.png', label: 'HT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/sword.png', label: 'HT2' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/heart.png', label: 'LT2' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/axe.png', label: 'LT2' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
+                    { type: 'crystal', label: 'HT1' },
+                    { type: 'sword', label: 'HT1' },
+                    { type: 'heart', label: 'HT1' },
+                    { type: 'pot', label: 'HT1' },
+                    { type: 'neth_block', label: 'HT2' },
+                    { type: 'axe', label: 'LT2' },
+                    { type: 'question', label: '?' },
                 ]
             },
             'marlowww': {
                 name: 'Marlowww',
                 rank: 2,
-                rankBadgeUrl: 'https://i.imgur.com/yU4eYwP.png', // Silver badge
+                rankEmblem: true,
+                rankBadgeUrl: 'https://i.imgur.com/yU4eYwP.png', // Silver badge for modal
                 region: 'NA',
                 tier: 'COMBATMASTER',
                 points: 284,
                 skinUrl: 'https://mc-heads.net/avatar/Marlowww/100',
-                 tiers: [ // Example: some are active, some are just question marks
-                    { icon: 'https://pvptiers.com/icons/tiers/sword.png', label: 'HT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
+                avatarUrl: 'https://mc-heads.net/avatar/Marlowww/32',
+                 tiers: [
+                    { type: 'crystal', label: 'Cr' },
+                    { type: 'sword', label: 'Sw' },
+                    { type: 'pot', label: 'Po' },
+                    { type: 'axe', label: 'Ax' },
+                    { type: 'smp', label: 'Sm' },
+                    { type: 'uhc', label: 'He' },
+                    { type: 'neth_pot', label: 'Ne' },
+                    { type: 'mace', label: 'Ma' },
+                    { type: 'question', label: '?' },
                 ],
                 retiredItems: [
-                    { icon: 'https://pvptiers.com/icons/gamemodes/crystal.png', label: 'HT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/smp.png', label: 'HT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/sword.png', label: 'LT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/heart.png', label: 'LT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/potion_red.png', label: 'LT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/axe.png', label: 'LT2' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/netherite_block.png', label: 'LT2' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
+                    { type: 'crystal', label: 'HT1' },
+                    { type: 'sword', label: 'LT1' },
+                    { type: 'heart', label: 'LT1' },
+                    { type: 'pot', label: 'LT1' },
+                    { type: 'neth_block', label: 'LT2' },
+                    { type: 'axe', label: 'LT2' },
+                    { type: 'question', label: '?' },
                 ]
             },
             'swight': {
                 name: 'Swight',
                 rank: 3,
-                rankBadgeUrl: 'https://i.imgur.com/D4s6LgQ.png', // Bronze badge
+                rankEmblem: true,
+                rankBadgeUrl: 'https://i.imgur.com/D4s6LgQ.png', // Bronze badge for modal
                 region: 'NA',
                 tier: 'COMBATMASTER',
                 points: 220,
                 skinUrl: 'https://mc-heads.net/avatar/Swight/100',
+                avatarUrl: 'https://mc-heads.net/avatar/Swight/32',
                 tiers: [
-                    { icon: 'https://pvptiers.com/icons/tiers/axe.png', label: 'HT3' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
+                    { type: 'crystal', label: 'Cr' },
+                    { type: 'sword', label: 'Sw' },
+                    { type: 'pot', label: 'Po' },
+                    { type: 'axe', label: 'Ax' },
+                    { type: 'smp', label: 'Sm' },
+                    { type: 'uhc', label: 'He' },
+                    { type: 'neth_pot', label: 'Ne' },
+                    { type: 'mace', label: 'Ma' },
+                    { type: 'question', label: '?' },
                 ],
                 retiredItems: [
-                    { icon: 'https://pvptiers.com/icons/gamemodes/sword.png', label: 'HT3' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/potion_red.png', label: 'HT3' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/crystal.png', label: 'HT3' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/netherite_block.png', label: 'LT3' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/heart.png', label: 'HT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/smp.png', label: 'HT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
+                    { type: 'crystal', label: 'HT3' },
+                    { type: 'sword', label: 'HT3' },
+                    { type: 'heart', label: 'HT3' },
+                    { type: 'pot', label: 'LT3' },
+                    { type: 'neth_block', label: 'HT1' },
+                    { type: 'smp', label: 'HT1' },
+                    { type: 'question', label: '?' },
                 ]
             },
             'coldified': {
                 name: 'coldified',
                 rank: 4,
-                rankBadgeUrl: '', // No specific badge for rank > 3, will display rank number
+                rankEmblem: false,
+                rankBadgeUrl: '', // No specific badge for rank > 3
                 region: 'EU',
                 tier: 'COMBATMASTER',
                 points: 208,
                 skinUrl: 'https://mc-heads.net/avatar/coldified/100',
+                avatarUrl: 'https://mc-heads.net/avatar/coldified/32',
                 tiers: [
-                    { icon: 'https://pvptiers.com/icons/tiers/pot.png', label: 'HT2' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' },
+                    { type: 'crystal', label: 'Cr' },
+                    { type: 'sword', label: 'Sw' },
+                    { type: 'pot', label: 'Po' },
+                    { type: 'axe', label: 'Ax' },
+                    { type: 'smp', label: 'Sm' },
+                    { type: 'uhc', label: 'He' },
+                    { type: 'neth_pot', label: 'Ne' },
+                    { type: 'mace', label: 'Ma' },
+                    { type: 'question', label: '?' },
                 ],
                 retiredItems: [
-                    { icon: 'https://pvptiers.com/icons/gamemodes/sword.png', label: 'HT2' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/potion_red.png', label: 'LT2' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/crystal.png', label: 'LT3' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/netherite_block.png', label: 'HT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/heart.png', label: 'HT1' },
-                    { icon: 'https://pvptiers.com/icons/gamemodes/smp.png', label: 'HT2' },
+                    { type: 'crystal', label: 'HT2' },
+                    { type: 'sword', label: 'LT2' },
+                    { type: 'heart', label: 'LT3' },
+                    { type: 'pot', label: 'HT1' },
+                    { type: 'neth_block', label: 'HT1' },
+                    { type: 'smp', label: 'HT2' },
                 ]
             }
         };
+
+        // Helper function to get text for item icon based on type
+        function getItemIconText(type) {
+            switch(type) {
+                case 'crystal': return 'Cr';
+                case 'sword': return 'Sw';
+                case 'heart': return 'He';
+                case 'pot': return 'Po';
+                case 'neth_pot': return 'Ne';
+                case 'neth_block': return 'Ne'; // Use same for Netherite Pot/Block
+                case 'smp': return 'Sm';
+                case 'axe': return 'Ax';
+                case 'mace': return 'Ma';
+                case 'question': return '?';
+                default: return '?';
+            }
+        }
 
         function populateModal(playerName) {
             const playerData = mockPlayerData[playerName.toLowerCase()] || {
                 name: playerName,
                 rank: 'N/A',
+                rankEmblem: false,
                 rankBadgeUrl: '',
                 region: 'N/A',
                 tier: 'Unranked',
                 points: 0,
-                skinUrl: `https://mc-heads.net/avatar/${playerName}/100`, // Fallback for unknown player
-                tiers: Array(9).fill({ icon: 'https://pvptiers.com/icons/gamemodes/question.png', label: '?' }), // Default 9 question marks
+                skinUrl: `https://mc-heads.net/avatar/${playerName}/100`,
+                avatarUrl: `https://mc-heads.net/avatar/${playerName}/32`,
+                tiers: Array(9).fill({ type: 'question', label: '?' }),
                 retiredItems: []
             };
 
@@ -1294,32 +1356,31 @@
             const modalPlayerRankBadge = document.getElementById('modalPlayerRankBadge');
             if (playerData.rankBadgeUrl) {
                 modalPlayerRankBadge.src = playerData.rankBadgeUrl;
-                modalPlayerRankBadge.style.display = 'block'; // Show badge
+                modalPlayerRankBadge.style.display = 'block';
             } else {
-                modalPlayerRankBadge.style.display = 'none'; // Hide if no badge
+                modalPlayerRankBadge.style.display = 'none';
             }
 
-            // NameMC Link
             document.getElementById('namemcLink').href = `https://namemc.com/profile/${playerData.name}`;
 
-            // Populate Tiers grid
-            const modalPlayerTiers = document.getElementById('modalPlayerTiers');
-            modalPlayerTiers.innerHTML = '';
+            // Populate Tiers grid in modal
+            const modalPlayerTiersContainer = document.getElementById('modalPlayerTiers');
+            modalPlayerTiersContainer.innerHTML = '';
             playerData.tiers.forEach(item => {
-                modalPlayerTiers.innerHTML += `
+                modalPlayerTiersContainer.innerHTML += `
                     <div class="modal-tier-item">
-                        <div class="modal-tier-icon"><img src="${item.icon}" alt="${item.label}"></div>
+                        <div class="modal-tier-icon" data-item-type="${item.type}">${getItemIconText(item.type)}</div>
                     </div>
                 `;
             });
 
-            // Populate Retired Items grid
-            const modalPlayerRetiredItems = document.getElementById('modalPlayerRetiredItems');
-            modalPlayerRetiredItems.innerHTML = '';
+            // Populate Retired Items grid in modal
+            const modalPlayerRetiredItemsContainer = document.getElementById('modalPlayerRetiredItems');
+            modalPlayerRetiredItemsContainer.innerHTML = '';
             playerData.retiredItems.forEach(item => {
-                modalPlayerRetiredItems.innerHTML += `
+                modalPlayerRetiredItemsContainer.innerHTML += `
                     <div class="modal-retired-item">
-                        <div class="modal-retired-icon"><img src="${item.icon}" alt="${item.label}"></div>
+                        <div class="modal-retired-icon" data-item-type="${item.type || 'question'}">${getItemIconText(item.type || 'question')}</div>
                         <span class="item-label">${item.label}</span>
                     </div>
                 `;
@@ -1328,7 +1389,7 @@
 
 
         function openPlayerProfileModal(event, playerName) {
-            event.preventDefault(); // Prevent default link behavior
+            event.preventDefault();
             populateModal(playerName);
             document.getElementById('playerProfileModalOverlay').classList.add('active');
         }
@@ -1345,13 +1406,12 @@
             }
             const searchTerm = playerSearchInput.value.trim();
             if (searchTerm) {
-                openPlayerProfileModal(event, searchTerm); // Use the modal for search
+                openPlayerProfileModal(event, searchTerm);
             } else {
                 alert('Please enter a player name to search.');
             }
         }
 
-        // Add event listener for Enter key in search input
         document.getElementById('playerSearch').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
                 searchPlayer();
