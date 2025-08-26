@@ -229,7 +229,7 @@
 
         .main-content-grid {
             display: grid;
-            grid-template-columns: 1fr 280px;
+            grid-template-columns: 1fr 280px; /* Leaderboard / Right Sidebar */
             gap: 30px;
         }
 
@@ -322,7 +322,7 @@
             font-size: 0.9em;
             letter-spacing: 0.8px;
         }
-        .leaderboard-table-header .player-rank-col { width: 50px; text-align: center; }
+        .leaderboard-table-header .player-rank-col { width: 80px; text-align: center; } /* Wider for the composite badge */
         .leaderboard-table-header .player-info-col { flex-grow: 1; padding-left: 0; }
         .leaderboard-table-header .player-region-col { width: 100px; text-align: center; }
         .leaderboard-table-header .player-points-col { width: 100px; text-align: right; margin-right: 20px; }
@@ -393,18 +393,19 @@
             text-overflow: ellipsis;
         }
 
-        /* --- LEADERBOARD RANK NUMBER STYLES --- */
+        /* --- LEADERBOARD RANK STYLES (COMPOSITE BADGE for 1-3, NUMBER for 4+) --- */
         .player-rank-col {
-            width: 50px;
+            width: 80px; /* Wider to accommodate the composite badge */
             text-align: center;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         .rank-composite-badge { /* Rank badge for ranks 1-3 */
-            width: 38px; /* Corrected size for composite badge */
-            height: 38px;
+            width: 50px; /* Precise size for composite badge */
+            height: 50px;
             flex-shrink: 0;
             filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.9)); /* Strong glow */
             transition: filter 0.2s ease;
@@ -425,31 +426,16 @@
             color: var(--text-light);
             text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1);
         }
-        /* --- END LEADERBOARD RANK NUMBER STYLES --- */
+        /* --- END LEADERBOARD RANK STYLES --- */
 
 
         .player-info-col {
             flex-grow: 1;
             display: flex;
-            align-items: center;
-            gap: 8px; /* Slightly less gap */
-            padding-left: 0;
-        }
-
-        .player-avatar {
-            width: 25px; /* Smaller avatar */
-            height: 25px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color-light);
-            image-rendering: pixelated;
-            filter: drop-shadow(0 0 15px rgba(0,0,0,1));
-        }
-
-        .player-details {
-            display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Stack name and tier/points */
             justify-content: center;
-            gap: 2px; /* Smaller gap */
+            gap: 2px;
+            padding-left: 0;
         }
 
         .player-details a {
@@ -467,20 +453,20 @@
         }
 
         .player-tier-points-label {
-            font-size: 0.8em; /* Adjusted font size */
+            font-size: 0.8em;
             color: var(--text-dark);
             display: flex;
             align-items: center;
-            gap: 6px; /* Smaller gap */
+            gap: 6px;
         }
 
         .player-tier-badge {
             display: inline-block;
             background-color: var(--tier-combatmaster);
             color: white;
-            padding: 2px 6px; /* Smaller padding */
+            padding: 2px 6px;
             border-radius: 3px;
-            font-size: 0.7em; /* Smaller font */
+            font-size: 0.7em;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -489,20 +475,20 @@
         }
 
         .player-region-col {
-            width: 80px; /* Adjusted width */
+            width: 80px;
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 4px; /* Smaller gap */
+            gap: 4px;
         }
 
         .region-badge {
             display: inline-block;
-            padding: 4px 8px; /* Smaller padding */
+            padding: 4px 8px;
             border-radius: 4px;
-            font-size: 0.75em; /* Smaller font */
+            font-size: 0.75em;
             font-weight: 700;
             color: white;
             text-transform: uppercase;
@@ -519,7 +505,7 @@
         .region-eu { background-color: var(--tier-eu); }
 
         .region-info-icon {
-            font-size: 0.6em; /* Smaller info icon */
+            font-size: 0.6em;
             color: var(--text-dark);
             cursor: pointer;
             text-shadow: 0 0 10px rgba(0,0,0,1);
@@ -532,12 +518,12 @@
 
 
         .player-points-col {
-            width: 80px; /* Adjusted width */
+            width: 80px;
             text-align: right;
-            font-size: 1.1em; /* Adjusted font size */
+            font-size: 1.1em;
             font-weight: 600;
             color: var(--text-light);
-            margin-right: 15px; /* Adjusted margin */
+            margin-right: 15px;
             text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1);
         }
 
@@ -545,29 +531,29 @@
         .player-items-col {
             flex-shrink: 0;
             display: flex;
-            gap: 3px; /* Smaller gap */
-            width: 280px; /* Adjusted width to fit 8 items x (30px width + 3px gap) */
+            gap: 3px;
+            width: 280px;
             justify-content: flex-end;
             flex-wrap: wrap;
         }
 
-        .item-slot { /* Container for icon and label */
+        .item-slot {
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
-            gap: 1px; /* Smaller gap */
+            gap: 1px;
         }
 
-        .item-icon-hex { /* The hexagonal icon itself */
-            width: 30px; /* Smaller hexagonal icon */
+        .item-icon-hex {
+            width: 30px;
             height: 30px;
-            background-color: #151515; /* Darker icon background */
+            background-color: #151515;
             background-size: 70% 70%;
             background-position: center;
             background-repeat: no-repeat;
             clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-            border: 1px solid #2a2a2a; /* Darker border */
+            border: 1px solid #2a2a2a;
             box-shadow: 0 2px 20px rgba(0,0,0,1);
             filter: drop-shadow(0 0 20px rgba(0,0,0,0.9));
             transition: all 0.2s ease;
@@ -581,15 +567,15 @@
         .item-label-box {
             background-color: var(--accent-gold);
             color: #333;
-            font-size: 0.6em; /* Smaller font */
+            font-size: 0.6em;
             font-weight: 700;
-            padding: 1px 4px; /* Smaller padding */
+            padding: 1px 4px;
             border-radius: 3px;
             white-space: nowrap;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             box-shadow: 0 1px 20px rgba(0,0,0,1);
-            min-width: 30px; /* Adjusted minimum width */
+            min-width: 30px;
             text-align: center;
             transition: all 0.2s ease;
         }
@@ -606,7 +592,7 @@
             gap: 20px;
         }
 
-        .info-card, .search-card, .discord-webhook-sidebar {
+        .info-card, .search-card { /* Discord webhook removed */
             background-color: var(--card-bg-color);
             border: 1px solid var(--border-color-dark);
             border-radius: 8px;
@@ -683,58 +669,6 @@
         }
         .search-card .search-input {
             padding-left: 35px;
-        }
-
-
-        .discord-webhook-sidebar h3 {
-            font-size: 1.2em;
-            color: var(--text-light);
-            margin-bottom: 15px;
-            text-align: center;
-            text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.9);
-        }
-        .discord-webhook-sidebar p {
-            font-size: 0.9em;
-            color: var(--text-dark);
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .discord-webhook-sidebar form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .discord-webhook-sidebar input[type="url"],
-        .discord-webhook-sidebar textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color-dark);
-            border-radius: 5px;
-            background-color: var(--header-bg-color);
-            color: var(--text-light);
-            font-size: 0.9em;
-            resize: vertical;
-            min-height: 40px;
-        }
-        .discord-webhook-sidebar input[type="url"]:focus,
-        .discord-webhook-sidebar textarea:focus {
-            border-color: var(--accent-gold);
-            box-shadow: var(--focus-glow);
-        }
-        .discord-webhook-sidebar button {
-            background-color: var(--accent-gold);
-            color: #333;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .discord-webhook-sidebar button:hover {
-            background-color: #ffd24c;
-            box-shadow: 0 0 40px rgba(var(--accent-gold-rgb), 1);
-            transform: translateY(-6px);
         }
 
         /* Profile Modal Styles */
@@ -1054,7 +988,7 @@
 
             <div class="main-content-grid">
                 <div class="leaderboard-section">
-                    <div class="leaderboard-table-header player-row">
+                    <div class="leaderboard-table-header">
                         <div class="player-rank-col">#</div>
                         <div class="player-info-col">PLAYER</div>
                         <div class="player-region-col region-th">REGION</div>
@@ -1234,7 +1168,6 @@
                                 <span class="rank-number">4</span>
                             </div>
                             <div class="player-info-col">
-                                <img src="https://mc-heads.net/avatar/coldified/32" alt="coldified Skin" class="player-avatar">
                                 <div class="player-details">
                                     <a href="#" data-player-name="coldified" onclick="openPlayerProfileModal(event, 'coldified')">coldified</a>
                                     <span class="player-tier-points-label">
@@ -1508,4 +1441,4 @@
         });
     </script>
 </body>
-</html>
+</html>```
