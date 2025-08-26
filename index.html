@@ -19,8 +19,8 @@
             --accent-gold: #ffb800; /* Main accent color */
             --accent-gold-rgb: 255, 184, 0; /* RGB for rgba() uses */
             --glow-color: #ffb800;
-            --hover-dark: #2a2a2a;
-            --focus-glow: 0 0 20px rgba(var(--accent-gold-rgb), 0.9); /* Stronger focus glow */
+            --hover-dark: #2e2e2e; /* Slightly lighter hover for distinction */
+            --focus-glow: 0 0 25px rgba(var(--accent-gold-rgb), 0.95); /* Even stronger focus glow */
 
             /* Tier Colors */
             --tier-combatmaster: #8854c4;
@@ -64,7 +64,7 @@
             background-size: 400px 400px, 350px 350px;
             animation-duration: 60s;
             opacity: 0.7;
-            filter: blur(0.5px) drop-shadow(0 0 3px rgba(var(--accent-gold-rgb), 0.3));
+            filter: blur(0.5px) drop-shadow(0 0 5px rgba(var(--accent-gold-rgb), 0.4));
             animation-delay: -10s;
         }
 
@@ -75,7 +75,7 @@
             animation-duration: 45s;
             animation-delay: -20s;
             opacity: 0.9;
-            filter: blur(0.2px) drop-shadow(0 0 5px rgba(var(--accent-gold-rgb), 0.4));
+            filter: blur(0.2px) drop-shadow(0 0 8px rgba(var(--accent-gold-rgb), 0.5));
         }
 
         .particle3 {
@@ -85,7 +85,7 @@
             animation-duration: 30s;
             animation-delay: -30s;
             opacity: 1;
-            filter: drop-shadow(0 0 8px rgba(var(--accent-gold-rgb), 0.5));
+            filter: drop-shadow(0 0 12px rgba(var(--accent-gold-rgb), 0.6));
         }
 
         .particle4 {
@@ -95,7 +95,7 @@
             animation-duration: 20s;
             animation-delay: -40s;
             opacity: 1;
-            filter: drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.6));
+            filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.7));
         }
         /* --- End Particle Background Animation --- */
 
@@ -122,12 +122,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 40px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.9); /* Stronger shadow */
         }
 
         .top-header .logo img {
             height: 40px;
-            filter: drop-shadow(0 0 12px rgba(var(--accent-gold-rgb), 0.6));
+            filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.7)); /* Stronger glow */
         }
 
         .top-header .server-ip {
@@ -140,20 +140,20 @@
             font-size: 0.9em;
             color: var(--text-dark);
             border: 1px solid var(--border-color-light);
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            box-shadow: 0 0 12px rgba(0,0,0,0.6); /* Stronger shadow */
         }
 
         .top-header .server-ip span {
             color: var(--accent-gold);
             font-weight: 600;
-            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.8);
+            text-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.9); /* Stronger glow */
         }
 
         .main-nav-bar {
             background-color: var(--header-bg-color);
             border-bottom: 1px solid var(--border-color-dark);
             padding: 10px 0;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.8); /* Stronger shadow */
         }
 
         .main-nav-bar ul {
@@ -175,29 +175,29 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            text-shadow: 0 0 6px rgba(0,0,0,0.8);
+            text-shadow: 0 0 8px rgba(0,0,0,0.9); /* Enhanced text shadow */
             font-size: 0.95em;
         }
 
         .main-nav-bar ul li a img {
             height: 20px;
-            filter: brightness(0.7) drop-shadow(0 0 4px rgba(0,0,0,0.6));
+            filter: brightness(0.7) drop-shadow(0 0 5px rgba(0,0,0,0.7)); /* Initial subtle filter */
             transition: filter 0.3s ease;
         }
 
         .main-nav-bar ul li a:hover,
         .main-nav-bar ul li a.active {
-            background-color: #333333;
-            transform: translateY(-4px);
-            box-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.7), 0 8px 20px rgba(0,0,0,0.7);
+            background-color: var(--hover-dark);
+            transform: translateY(-5px); /* More pronounced lift */
+            box-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 0.8), 0 10px 25px rgba(0,0,0,0.8); /* Stronger glow + lift shadow */
             color: var(--accent-gold);
             border: 1px solid var(--accent-gold);
-            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.9);
+            text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1); /* Stronger gold text glow */
         }
 
         .main-nav-bar ul li a:hover img,
         .main-nav-bar ul li a.active img {
-            filter: brightness(1) drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.8));
+            filter: brightness(1) drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.95)); /* Full color + glowing icon */
         }
 
         .container {
@@ -211,7 +211,7 @@
             font-weight: 700;
             color: var(--text-light);
             margin-bottom: 25px;
-            text-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 0.9), 0 0 20px rgba(var(--accent-gold-rgb), 0.7);
+            text-shadow: 0 0 40px rgba(var(--accent-gold-rgb), 1), 0 0 25px rgba(var(--accent-gold-rgb), 0.8); /* More intense glow */
             letter-spacing: 2px;
             text-align: left;
         }
@@ -231,7 +231,7 @@
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8); /* Stronger shadow */
             gap: 5px;
         }
 
@@ -249,14 +249,14 @@
             border: 1px solid transparent;
             min-width: 70px;
             box-sizing: border-box;
-            text-shadow: 0 0 3px rgba(0,0,0,0.6);
+            text-shadow: 0 0 4px rgba(0,0,0,0.7);
         }
 
         .gamemode-nav a img {
             width: 30px;
             height: 30px;
             margin-bottom: 5px;
-            filter: grayscale(80%) brightness(0.8) drop-shadow(0 0 4px rgba(0,0,0,0.6));
+            filter: grayscale(80%) brightness(0.7) drop-shadow(0 0 5px rgba(0,0,0,0.7));
             transition: filter 0.2s ease;
             image-rendering: pixelated;
         }
@@ -264,27 +264,27 @@
         .gamemode-nav a:hover {
             background-color: var(--card-bg-color);
             color: var(--text-light);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
-            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            transform: translateY(-3px);
         }
 
         .gamemode-nav a.active {
             background-color: var(--card-bg-color);
             color: var(--accent-gold);
             border-color: var(--accent-gold);
-            box-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.8);
-            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 0.9); /* Stronger glow for active */
+            transform: translateY(-4px); /* More pronounced active lift */
         }
 
         .gamemode-nav a.active img,
         .gamemode-nav a:hover img {
-            filter: grayscale(0%) brightness(1) drop-shadow(0 0 12px rgba(var(--accent-gold-rgb), 0.9));
+            filter: grayscale(0%) brightness(1) drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.95)); /* Glowing color icon */
         }
 
         .leaderboard-section {
             background-color: var(--card-bg-color);
             border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.9); /* Stronger shadow */
             padding: 20px;
             border: 1px solid var(--border-color-dark);
         }
@@ -297,7 +297,7 @@
             border-radius: 6px;
             margin-bottom: 10px;
             padding: 10px 15px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.7);
         }
 
         .leaderboard-table-header > div {
@@ -311,9 +311,9 @@
             font-size: 0.9em;
             letter-spacing: 0.8px;
         }
-        .leaderboard-table-header .player-rank-col { width: 80px; text-align: center; } /* Wider for badge */
-        .leaderboard-table-header .player-info-col { flex-grow: 1; padding-left: 0; } /* No extra padding */
-        .leaderboard-table-header .player-region-col { width: 100px; text-align: center; } /* Wider for icon */
+        .leaderboard-table-header .player-rank-col { width: 80px; text-align: center; }
+        .leaderboard-table-header .player-info-col { flex-grow: 1; padding-left: 0; }
+        .leaderboard-table-header .player-region-col { width: 100px; text-align: center; }
         .leaderboard-table-header .player-points-col { width: 100px; text-align: right; margin-right: 20px; }
         .leaderboard-table-header .player-items-col { flex-shrink: 0; width: 300px; text-align: right;}
 
@@ -341,10 +341,10 @@
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .player-row:hover {
-            background-color: #2e2e2e;
+            background-color: var(--hover-dark);
             border-color: var(--accent-gold);
-            box-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 0.8), 0 8px 25px rgba(0,0,0,0.8);
-            transform: translateY(-7px) scale(1.015);
+            box-shadow: 0 0 40px rgba(var(--accent-gold-rgb), 0.9), 0 10px 30px rgba(0,0,0,0.9); /* Intense lift and glow */
+            transform: translateY(-8px) scale(1.02); /* More pronounced lift effect */
             z-index: 10;
         }
 
@@ -355,75 +355,64 @@
             text-overflow: ellipsis;
         }
 
-        /* --- NEW RANK BADGE STYLES --- */
+        /* --- LEADERBOARD RANK BADGE STYLES (NEW) --- */
         .player-rank-col {
-            width: 80px; /* Wider to accommodate badge */
+            width: 80px;
             text-align: center;
             position: relative;
-            display: flex; /* Allow content to be centered */
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap: 5px; /* Space between rank and optional badge */
-        }
-
-        /* Generic rank number for ranks 4+ */
-        .rank-number {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: var(--text-light);
-            z-index: 1;
-            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.5);
-        }
-
-        /* Composite rank badge for ranks 1-3 */
-        .rank-composite-badge {
-            width: 60px; /* Adjust size to match screenshot */
-            height: 60px;
-            position: relative; /* Container for emblem and avatar */
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
+        }
+
+        .rank-number { /* For ranks 4+ */
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--text-light);
+            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.7);
+        }
+
+        .rank-composite-badge { /* For ranks 1-3, pre-rendered image with skin */
+            width: 60px;
+            height: 60px;
             flex-shrink: 0;
-            filter: drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.8)); /* Glow for badge */
+            filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.9)); /* Strong glow */
             transition: filter 0.2s ease;
         }
         .player-row:hover .rank-composite-badge {
-            filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.9));
+            filter: drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 1));
         }
-
         .rank-composite-badge img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             image-rendering: pixelated;
         }
-
-        /* Player avatar is part of the badge, not separate */
-        /* --- END NEW RANK BADGE STYLES --- */
+        /* --- END LEADERBOARD RANK BADGE STYLES --- */
 
 
         .player-info-col {
             flex-grow: 1;
             display: flex;
-            flex-direction: column; /* Stack name and tier/points */
+            flex-direction: column;
             justify-content: center;
-            gap: 3px; /* Space between name and tier/points */
-            padding-left: 0; /* No extra padding */
+            gap: 3px;
+            padding-left: 0;
         }
 
         .player-details a {
             text-decoration: none;
             color: var(--text-light);
-            font-size: 1.3em; /* Larger name */
+            font-size: 1.3em;
             font-weight: 700;
-            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.5);
+            text-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.7);
             transition: color 0.2s ease, text-shadow 0.2s ease;
             cursor: pointer;
         }
         .player-details a:hover {
             color: var(--accent-gold);
-            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.9);
+            text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1);
         }
 
         .player-tier-points-label {
@@ -444,15 +433,15 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.6);
-            text-shadow: 0 0 4px rgba(0,0,0,0.6);
+            box-shadow: 0 0 12px rgba(0,0,0,0.7);
+            text-shadow: 0 0 5px rgba(0,0,0,0.7);
         }
 
         .player-region-col {
-            width: 100px; /* Wider for badge and icon */
+            width: 100px;
             text-align: center;
             display: flex;
-            flex-direction: column; /* Stack badge and icon */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             gap: 5px;
@@ -466,14 +455,14 @@
             font-weight: 700;
             color: white;
             text-transform: uppercase;
-            background-color: var(--tier-nr); /* Default NA for example */
-            box-shadow: 0 2px 10px rgba(0,0,0,0.6);
-            text-shadow: 0 0 4px rgba(0,0,0,0.6);
-            filter: drop-shadow(0 0 8px rgba(var(--accent-gold-rgb), 0.5)); /* Subtle glow */
+            background-color: var(--tier-nr);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.7);
+            text-shadow: 0 0 5px rgba(0,0,0,0.7);
+            filter: drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.6));
             transition: filter 0.2s ease;
         }
         .player-row:hover .region-badge {
-            filter: drop-shadow(0 0 12px rgba(var(--accent-gold-rgb), 0.7)); /* Stronger glow on hover */
+            filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.9));
         }
         .region-na { background-color: var(--tier-nr); }
         .region-eu { background-color: var(--tier-eu); }
@@ -482,12 +471,12 @@
             font-size: 0.7em;
             color: var(--text-dark);
             cursor: pointer;
-            text-shadow: 0 0 3px rgba(0,0,0,0.5);
+            text-shadow: 0 0 4px rgba(0,0,0,0.6);
             transition: color 0.2s ease, transform 0.2s ease;
         }
         .region-info-icon:hover {
             color: var(--accent-gold);
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
 
@@ -498,10 +487,10 @@
             font-weight: 600;
             color: var(--text-light);
             margin-right: 20px;
-            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.5);
+            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.7);
         }
 
-        /* --- NEW ITEM KITS STYLES (HEXAGONAL) --- */
+        /* --- ITEM KITS STYLES (HEXAGONAL) --- */
         .player-items-col {
             flex-shrink: 0;
             display: flex;
@@ -516,37 +505,27 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            padding-bottom: 10px; /* Space for the label and line */
+            padding-bottom: 10px;
         }
 
         .item-icon {
-            width: 40px; /* Larger hexagonal icon */
+            width: 40px;
             height: 40px;
             background-color: #222;
-            background-size: 70% 70%; /* Image fit */
+            background-size: 70% 70%;
             background-position: center;
             background-repeat: no-repeat;
-            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); /* Hexagon shape */
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
             border: 1px solid #333;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            filter: drop-shadow(0 0 8px rgba(0,0,0,0.4));
+            box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
             transition: all 0.2s ease;
         }
         .player-row:hover .item-icon {
-             filter: drop-shadow(0 0 12px rgba(var(--accent-gold-rgb), 0.6));
-             transform: translateY(-2px); /* Slight lift on hover */
+             filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.8));
+             transform: translateY(-3px) scale(1.05); /* Slight lift and scale on hover */
+             border-color: var(--accent-gold);
         }
-
-        /* Specific item icon backgrounds (gamemode tiers.png for better quality) */
-        .item-icon[data-item-type="crystal"] { background-image: url('https://pvptiers.com/icons/tiers/crystal.png'); }
-        .item-icon[data-item-type="sword"] { background-image: url('https://pvptiers.com/icons/tiers/sword.png'); }
-        .item-icon[data-item-type="heart"] { background-image: url('https://pvptiers.com/icons/tiers/uhc.png'); } /* UHC for heart icon */
-        .item-icon[data-item-type="pot"] { background-image: url('https://pvptiers.com/icons/tiers/pot.png'); }
-        .item-icon[data-item-type="neth_block"] { background-image: url('https://pvptiers.com/icons/tiers/neth_pot.png'); } /* Neth Pot for block */
-        .item-icon[data-item-type="smp"] { background-image: url('https://pvptiers.com/icons/tiers/smp.png'); }
-        .item-icon[data-item-type="axe"] { background-image: url('https://pvptiers.com/icons/tiers/axe.png'); }
-        .item-icon[data-item-type="question"] { background-image: url('https://pvptiers.com/icons/gamemodes/question.png'); }
-
 
         .item-label {
             position: absolute;
@@ -562,11 +541,11 @@
             white-space: nowrap;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 1px 8px rgba(0,0,0,0.5);
-            min-width: 30px; /* Ensure a minimum width */
+            box-shadow: 0 1px 10px rgba(0,0,0,0.6);
+            min-width: 30px;
             text-align: center;
+            z-index: 2; /* Above the line */
         }
-        /* Gold glowing line separator */
         .item-icon-container::before {
             content: '';
             position: absolute;
@@ -574,10 +553,10 @@
             width: 80%;
             height: 1px;
             background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
-            box-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.7);
+            box-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.8); /* Stronger glow */
             z-index: 1;
         }
-        /* --- END NEW ITEM KITS STYLES --- */
+        /* --- END ITEM KITS STYLES --- */
 
 
         /* Right Sidebar Panel */
@@ -592,7 +571,7 @@
             border: 1px solid var(--border-color-dark);
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
         }
 
         .info-card .info-button {
@@ -607,23 +586,23 @@
             border-radius: 6px;
             text-decoration: none;
             transition: all 0.2s ease;
-            text-shadow: 0 0 10px rgba(0,0,0,0.7);
+            text-shadow: 0 0 12px rgba(0,0,0,0.8);
             gap: 10px;
             border: 1px solid var(--border-color-light);
         }
 
         .info-card .info-button:hover {
-            background-color: #333333;
-            box-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.6), 0 8px 20px rgba(0,0,0,0.6);
+            background-color: var(--hover-dark);
+            box-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 0.7), 0 10px 25px rgba(0,0,0,0.7);
             color: var(--accent-gold);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
 
         .info-card .info-button::before {
             content: 'ⓘ';
             font-size: 1.2em;
             vertical-align: middle;
-            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.5);
+            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.6);
         }
 
         .search-card .search-input {
@@ -660,7 +639,7 @@
             color: var(--text-dark);
             font-size: 1.1em;
             pointer-events: none;
-            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+            text-shadow: 0 0 8px rgba(0,0,0,0.7);
         }
         .search-card .search-input {
             padding-left: 35px;
@@ -672,7 +651,7 @@
             color: var(--text-light);
             margin-bottom: 15px;
             text-align: center;
-            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.5);
+            text-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.6);
         }
         .discord-webhook-sidebar p {
             font-size: 0.9em;
@@ -714,8 +693,8 @@
         }
         .discord-webhook-sidebar button:hover {
             background-color: #ffd24c;
-            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.8);
-            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.9);
+            transform: translateY(-3px);
         }
 
         /* Profile Modal Styles */
@@ -725,7 +704,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95); /* Even darker overlay */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -744,14 +723,14 @@
             background-color: var(--header-bg-color);
             border: 1px solid var(--border-color-light);
             border-radius: 10px;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.95);
+            box-shadow: 0 10px 60px rgba(0, 0, 0, 0.98); /* Even stronger shadow */
             width: 450px;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
             padding: 20px;
-            transform: scale(0.7);
-            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transform: scale(0.6); /* Start even smaller for more dramatic effect */
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* More pronounced bounce effect */
         }
         .profile-modal-overlay.active .profile-modal {
             transform: scale(1);
@@ -771,7 +750,7 @@
             font-size: 1.8em;
             font-weight: 700;
             color: var(--text-light);
-            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.8);
+            text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.9); /* Stronger glow */
             letter-spacing: 0.5px;
         }
 
@@ -785,7 +764,7 @@
         }
         .profile-modal-close-btn:hover {
             color: var(--accent-gold);
-            transform: rotate(90deg) scale(1.2);
+            transform: rotate(180deg) scale(1.3); /* More dramatic close button */
         }
 
         .modal-player-overview {
@@ -804,13 +783,13 @@
         .modal-player-meta .region-badge {
             font-size: 0.9em;
             padding: 6px 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.7);
         }
         .modal-player-meta .player-tier-badge {
             font-size: 0.9em;
             padding: 6px 12px;
             background-color: var(--tier-combatmaster);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.7);
         }
         .modal-player-meta .overall-points-display {
             display: flex;
@@ -823,13 +802,13 @@
             font-size: 0.9em;
             font-weight: 600;
             color: var(--text-light);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.6);
-            text-shadow: 0 0 6px rgba(var(--accent-gold-rgb), 0.4);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.7);
+            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.5);
         }
         .modal-player-meta .overall-points-display img {
             width: 20px;
             height: 20px;
-            filter: drop-shadow(0 0 10px rgba(var(--accent-gold-rgb), 0.7));
+            filter: drop-shadow(0 0 12px rgba(var(--accent-gold-rgb), 0.8));
         }
         .modal-player-meta .overall-points-display span {
             color: var(--accent-gold);
@@ -841,7 +820,7 @@
             width: 120px;
             height: auto;
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 25px rgba(0,0,0,0.8));
+            filter: drop-shadow(0 0 30px rgba(0,0,0,0.9));
             margin-bottom: 20px;
             transition: transform 0.3s ease;
         }
@@ -850,10 +829,10 @@
         }
 
         .modal-rank-badge { /* This will be the composite badge for the modal */
-            width: 100px; /* Larger for modal */
+            width: 100px;
             height: 100px;
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 0.8));
+            filter: drop-shadow(0 0 25px rgba(var(--accent-gold-rgb), 0.9));
             margin-bottom: 20px;
             transition: transform 0.3s ease;
         }
@@ -874,11 +853,11 @@
             font-weight: 600;
             font-size: 0.95em;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.7);
         }
         .namemc-button:hover {
-            background-color: #333333;
-            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.7);
+            background-color: var(--hover-dark);
+            box-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.8);
             transform: translateY(-3px);
             color: var(--accent-gold);
         }
@@ -887,7 +866,7 @@
             font-size: 1.2em;
             vertical-align: middle;
             line-height: 1;
-            text-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.5);
+            text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.6);
         }
 
         .modal-section-title {
@@ -898,7 +877,7 @@
             margin: 30px 0 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(0,0,0,0.6);
+            text-shadow: 0 0 12px rgba(0,0,0,0.7);
         }
 
         .modal-tiers-grid, .modal-retired-grid {
@@ -919,7 +898,7 @@
             width: 40px;
             height: 40px;
             border: 1px solid var(--border-color-dark);
-            border-radius: 5px; /* Keep square for tiers in modal as per screenshot, but add glow */
+            border-radius: 5px;
             background-color: #222;
             background-size: 80% 80%;
             background-position: center;
@@ -928,35 +907,35 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.6);
             font-size: 0.7em;
             font-weight: 700;
             color: var(--text-light);
             text-transform: uppercase;
-            text-shadow: 0 0 4px rgba(0,0,0,0.6);
-            filter: drop-shadow(0 0 8px rgba(0,0,0,0.4));
+            text-shadow: 0 0 5px rgba(0,0,0,0.7);
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
             transition: all 0.2s ease;
         }
-        .modal-tier-icon:hover {
-            transform: scale(1.1);
-            filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.7));
+        .modal-tier-icon:hover, .modal-retired-icon:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 0.8));
             border-color: var(--accent-gold);
         }
 
-        /* Grayscale filter for locked tiers */
+
         .modal-tier-icon.locked {
-            filter: grayscale(100%) brightness(0.5) drop-shadow(0 0 5px rgba(0,0,0,0.3));
+            filter: grayscale(100%) brightness(0.4) drop-shadow(0 0 8px rgba(0,0,0,0.5));
             border-color: #444;
         }
         .modal-tier-icon.locked:hover {
             transform: none;
-            filter: grayscale(100%) brightness(0.6) drop-shadow(0 0 8px rgba(0,0,0,0.4));
+            filter: grayscale(100%) brightness(0.5) drop-shadow(0 0 10px rgba(0,0,0,0.6));
             border-color: #666;
         }
 
-        /* Retired items in modal use hexagonal style */
+        /* Retired items in modal use hexagonal style, consistent with leaderboard */
         .modal-retired-item .modal-retired-icon {
-             clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); /* Hexagon shape */
+             clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
         }
         .modal-retired-item .item-label {
             position: static;
@@ -964,16 +943,16 @@
             transform: none;
             font-size: 0.7em;
             padding: 2px 5px;
-            box-shadow: 0 1px 8px rgba(0,0,0,0.5);
+            box-shadow: 0 1px 10px rgba(0,0,0,0.6);
         }
-        .modal-retired-item .item-icon-container::before { /* Gold glowing line for retired items in modal */
+        .modal-retired-item .item-icon-container::before {
             content: '';
             position: absolute;
             bottom: 10px;
             width: 80%;
             height: 1px;
             background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
-            box-shadow: 0 0 8px rgba(var(--accent-gold-rgb), 0.7);
+            box-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.8);
             z-index: 1;
         }
     </style>
@@ -1061,7 +1040,8 @@
                         <div class="player-row">
                             <div class="player-rank-col">
                                 <div class="rank-composite-badge">
-                                    <img src="https://i.imgur.com/ItzRealMe_Rank1.png" alt="Rank 1 Badge"> <!-- Custom composite badge with skin -->
+                                    <!-- This image includes the player's skin within the rank badge -->
+                                    <img src="https://i.imgur.com/ItzRealMe_Rank1.png" alt="Rank 1 Badge">
                                 </div>
                             </div>
                             <div class="player-info-col">
@@ -1090,7 +1070,7 @@
                                     <span class="item-label">HT1</span>
                                 </div>
                                 <div class="item-icon-container">
-                                    <div class="item-icon" data-item-type="heart"></div>
+                                    <div class="item-icon" data-item-type="uhc"></div>
                                     <span class="item-label">HT1</span>
                                 </div>
                                 <div class="item-icon-container">
@@ -1098,7 +1078,7 @@
                                     <span class="item-label">HT1</span>
                                 </div>
                                 <div class="item-icon-container">
-                                    <div class="item-icon" data-item-type="neth_block"></div>
+                                    <div class="item-icon" data-item-type="neth_pot"></div>
                                     <span class="item-label">HT2</span>
                                 </div>
                                 <div class="item-icon-container">
@@ -1116,7 +1096,7 @@
                         <div class="player-row">
                             <div class="player-rank-col">
                                 <div class="rank-composite-badge">
-                                    <img src="https://i.imgur.com/Marlowww_Rank2.png" alt="Rank 2 Badge"> <!-- Custom composite badge with skin -->
+                                    <img src="https://i.imgur.com/Marlowww_Rank2.png" alt="Rank 2 Badge">
                                 </div>
                             </div>
                             <div class="player-info-col">
@@ -1141,11 +1121,15 @@
                                     <span class="item-label">HT1</span>
                                 </div>
                                 <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="smp"></div>
+                                    <span class="item-label">HT1</span>
+                                </div>
+                                <div class="item-icon-container">
                                     <div class="item-icon" data-item-type="sword"></div>
                                     <span class="item-label">LT1</span>
                                 </div>
                                 <div class="item-icon-container">
-                                    <div class="item-icon" data-item-type="heart"></div>
+                                    <div class="item-icon" data-item-type="uhc"></div>
                                     <span class="item-label">LT1</span>
                                 </div>
                                 <div class="item-icon-container">
@@ -1153,12 +1137,16 @@
                                     <span class="item-label">LT1</span>
                                 </div>
                                 <div class="item-icon-container">
-                                    <div class="item-icon" data-item-type="neth_block"></div>
+                                    <div class="item-icon" data-item-type="axe"></div>
                                     <span class="item-label">LT2</span>
                                 </div>
                                 <div class="item-icon-container">
-                                    <div class="item-icon" data-item-type="axe"></div>
+                                    <div class="item-icon" data-item-type="neth_pot"></div>
                                     <span class="item-label">LT2</span>
+                                </div>
+                                <div class="item-icon-container">
+                                    <div class="item-icon" data-item-type="question"></div>
+                                    <span class="item-label">?</span>
                                 </div>
                             </div>
                         </div>
@@ -1167,7 +1155,7 @@
                         <div class="player-row">
                             <div class="player-rank-col">
                                 <div class="rank-composite-badge">
-                                    <img src="https://i.imgur.com/Swight_Rank3.png" alt="Rank 3 Badge"> <!-- Custom composite badge with skin -->
+                                    <img src="https://i.imgur.com/Swight_Rank3.png" alt="Rank 3 Badge">
                                 </div>
                             </div>
                             <div class="player-info-col">
@@ -1196,7 +1184,7 @@
                                     <span class="item-label">HT3</span>
                                 </div>
                                 <div class="item-icon-container">
-                                    <div class="item-icon" data-item-type="heart"></div>
+                                    <div class="item-icon" data-item-type="uhc"></div>
                                     <span class="item-label">HT3</span>
                                 </div>
                                 <div class="item-icon-container">
@@ -1204,7 +1192,7 @@
                                     <span class="item-label">LT3</span>
                                 </div>
                                 <div class="item-icon-container">
-                                    <div class="item-icon" data-item-type="neth_block"></div>
+                                    <div class="item-icon" data-item-type="neth_pot"></div>
                                     <span class="item-label">HT1</span>
                                 </div>
                                 <div class="item-icon-container">
@@ -1245,7 +1233,7 @@
                                     <span class="item-label">LT2</span>
                                 </div>
                                 <div class="item-icon-container">
-                                    <div class="item-icon" data-item-type="heart"></div>
+                                    <div class="item-icon" data-item-type="uhc"></div>
                                     <span class="item-label">LT3</span>
                                 </div>
                                 <div class="item-icon-container">
@@ -1253,7 +1241,7 @@
                                     <span class="item-label">HT1</span>
                                 </div>
                                 <div class="item-icon-container">
-                                    <div class="item-icon" data-item-type="neth_block"></div>
+                                    <div class="item-icon" data-item-type="neth_pot"></div>
                                     <span class="item-label">HT1</span>
                                 </div>
                                 <div class="item-icon-container">
@@ -1307,8 +1295,9 @@
                         OVERALL <span id="modalPlayerPoints">284</span> Points
                     </div>
                 </div>
+                <!-- This image uses mc-heads.net to dynamically fetch the player's skin -->
                 <img id="modalPlayerSkin" src="https://mc-heads.net/avatar/Marlowww/100" alt="Player Skin" class="modal-player-skin">
-                <!-- Use a specific rank badge for the modal that matches the rank, not always silver -->
+                <!-- This image is a placeholder for the composite badge for the modal -->
                 <img id="modalPlayerRankBadge" src="https://i.imgur.com/Marlowww_Rank2.png" alt="Rank Badge" class="modal-rank-badge">
                 <a href="#" class="namemc-button" target="_blank" id="namemcLink">NameMC</a>
 
@@ -1342,11 +1331,13 @@
         const mockPlayerData = {
             'itzrealme': {
                 name: 'ItzRealMe', rank: 1, region: 'NA', tier: 'COMBATMASTER', points: 300,
-                leaderboardRankBadge: 'https://i.imgur.com/ItzRealMe_Rank1.png', // Badge specifically for leaderboard row
-                modalRankBadge: 'https://i.imgur.com/ItzRealMe_Rank1.png', // Badge for modal
+                // Leaderboard composite badge (player skin + rank emblem)
+                leaderboardRankBadge: 'https://i.imgur.com/ItzRealMe_Rank1.png',
+                // Modal composite badge (same as leaderboard for simplicity, but could be different)
+                modalRankBadge: 'https://i.imgur.com/ItzRealMe_Rank1.png',
                 unlockedTiers: ['crystal', 'sword', 'axe', 'pot', 'smp', 'uhc'],
                 retiredItems: [
-                    { type: 'crystal', label: 'HT1' }, { type: 'sword', label: 'HT1' }, { type: 'uhc', label: 'HT1' }, // Changed heart to uhc type
+                    { type: 'crystal', label: 'HT1' }, { type: 'sword', label: 'HT1' }, { type: 'uhc', label: 'HT1' },
                     { type: 'pot', label: 'HT1' }, { type: 'neth_pot', label: 'HT2' }, { type: 'axe', label: 'LT2' }, { type: 'question', label: '?' }
                 ]
             },
@@ -1407,7 +1398,7 @@
             document.getElementById('modalPlayerSkin').src = `https://mc-heads.net/avatar/${playerName}/100`;
 
             const modalPlayerRankBadge = document.getElementById('modalPlayerRankBadge');
-            if (playerData.modalRankBadge) { // Use modal-specific rank badge
+            if (playerData.modalRankBadge) {
                 modalPlayerRankBadge.src = playerData.modalRankBadge;
                 modalPlayerRankBadge.style.display = 'block';
             } else {
@@ -1448,7 +1439,7 @@
         function openPlayerProfileModal(event, playerName) {
             if (event) event.preventDefault();
             populateModal(playerName);
-            if (mockPlayerData[playerName.toLowerCase()]) { // Only open if player data was found
+            if (mockPlayerData[playerName.toLowerCase()]) {
                 document.getElementById('playerProfileModalOverlay').classList.add('active');
             }
         }
@@ -1489,7 +1480,7 @@
             alert('Webhook configuration simulated.');
         }
 
-        // --- Initial setup for leaderboard item icons and rank badges ---
+        // --- Initial setup for leaderboard item icons and rank badges on DOMContentLoaded ---
         document.addEventListener('DOMContentLoaded', () => {
             // Apply background images to leaderboard item icons
             document.querySelectorAll('.item-icon[data-item-type]').forEach(iconElement => {
@@ -1500,29 +1491,30 @@
                 }
             });
 
-            // Populate leaderboard rank badges/numbers
+            // Populate leaderboard rank badges/numbers dynamically based on mock data
             const leaderboardBody = document.getElementById('leaderboardBody');
             if (leaderboardBody) {
-                let rank = 1;
+                let currentRank = 1; // Counter to match mock data order
                 for (const playerKey in mockPlayerData) {
                     const playerData = mockPlayerData[playerKey];
-                    // Find the corresponding player-row element (assuming structure matches order)
-                    const playerRowElement = leaderboardBody.children[rank - 1]; // Children are div.player-row
+                    const playerRowElement = leaderboardBody.children[currentRank - 1]; // Assuming order matches
                     if (playerRowElement) {
                         const rankCol = playerRowElement.querySelector('.player-rank-col');
                         if (rankCol) {
                             if (playerData.leaderboardRankBadge) {
+                                // For ranks 1-3, use the composite badge image
                                 rankCol.innerHTML = `
                                     <div class="rank-composite-badge">
                                         <img src="${playerData.leaderboardRankBadge}" alt="Rank ${playerData.rank} Badge">
                                     </div>
                                 `;
                             } else {
+                                // For ranks 4+, just display the number
                                 rankCol.innerHTML = `<span class="rank-number">${playerData.rank}</span>`;
                             }
                         }
                     }
-                    rank++;
+                    currentRank++;
                 }
             }
         });
