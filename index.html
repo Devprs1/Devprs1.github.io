@@ -23,8 +23,8 @@
             --accent-red-glow-rgb: 255, 69, 0;
             --accent-purple: #8854c4; /* For combatmaster badge */
             
-            --hover-dark: #3a3a3a; /* More distinct hover background */
-            --focus-glow: 0 0 35px rgba(var(--accent-gold-rgb), 1); /* Even stronger focus glow */
+            --hover-dark: #252525; /* Darker hover for background consistency */
+            --focus-glow: 0 0 35px rgba(var(--accent-gold-rgb), 1); /* Intense focus glow */
 
             /* Tier Colors */
             --tier-combatmaster: var(--accent-purple);
@@ -222,7 +222,7 @@
             font-weight: 700;
             color: var(--text-light);
             margin-bottom: 25px;
-            text-shadow: 0 0 60px rgba(var(--accent-gold-rgb), 1), 0 0 40px rgba(var(--accent-red-glow-rgb), 0.9); /* Mixed intense glow */
+            text-shadow: 0 0 60px rgba(var(--accent-gold-rgb), 1), 0 0 40px rgba(var(--accent-red-glow-rgb), 0.9);
             letter-spacing: 2px;
             text-align: left;
         }
@@ -354,31 +354,32 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.8); /* Base shadow for the row */
         }
         .player-row:hover {
-            background: linear-gradient(to right, #2e260f, #453b15); /* Slightly brighter on hover */
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 60px rgba(var(--accent-gold-rgb), 1), 0 18px 50px rgba(0,0,0,1); /* Max intense lift and glow */
-            transform: translateY(-12px) scale(1.03); /* More pronounced lift effect */
+            background: linear-gradient(to right, #201a0a, #352c0e); /* Maintain dark background on hover */
+            border-color: var(--accent-gold); /* Keep gold border for actual row element */
+            box-shadow: 0 0 5px rgba(0,0,0,0.5); /* Subtle shadow for row itself */
+            transform: translateY(-12px) scale(1.03);
             z-index: 10;
         }
         .player-row:hover::before {
             content: '';
             position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            background: linear-gradient(45deg, rgba(var(--accent-red-glow-rgb), 0.6), var(--accent-gold), rgba(var(--accent-red-glow-rgb), 0.6));
+            top: -2px; /* Adjusted from -3px for a tighter border as in image */
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: transparent; /* Actual border should be transparent to show glow */
             z-index: -1;
-            border-radius: 9px;
-            box-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 1), 0 0 30px rgba(var(--accent-red-glow-rgb), 1);
-            filter: blur(8px); /* Wider, softer glow */
-            opacity: 1; /* Always fully opaque on hover */
-            animation: borderGlow 1.5s infinite alternate; /* Subtle animation */
+            border-radius: 8px; /* Match row border radius */
+            box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1), /* Inner glow effect */
+                        inset 0 0 0 2px var(--accent-gold); /* Crisp golden border */
+            filter: none; /* No blur, crisp outline */
+            opacity: 1;
+            animation: borderGlow 1.5s infinite alternate;
         }
 
         @keyframes borderGlow {
             0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.015); opacity: 1; }
+            100% { transform: scale(1.005); opacity: 1; } /* Subtle pulse */
         }
 
 
@@ -403,7 +404,7 @@
             font-size: 1.3em;
             font-weight: 700;
             color: var(--text-light);
-            text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1); /* Intense glow for rank number */
+            text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1);
         }
         /* --- END LEADERBOARD RANK NUMBER STYLES --- */
 
@@ -422,7 +423,7 @@
             border-radius: 4px;
             border: 1px solid var(--border-color-light);
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 12px rgba(0,0,0,0.9)); /* Stronger shadow */
+            filter: drop-shadow(0 0 12px rgba(0,0,0,0.9));
         }
 
         .player-details {
@@ -437,7 +438,7 @@
             color: var(--text-light);
             font-size: 1.4em;
             font-weight: 700;
-            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 1); /* Stronger player name glow */
+            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 1);
             transition: color 0.2s ease, text-shadow 0.2s ease;
             cursor: pointer;
         }
