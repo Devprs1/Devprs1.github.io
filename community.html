@@ -271,6 +271,8 @@
             height: 24px;
             filter: brightness(0.8) drop-shadow(0 0 10px rgba(0,0,0,1));
             transition: filter 0.2s ease;
+            border: 1px solid var(--accent-gold);
+            border-radius: 4px;
         }
 
         .discord-button:hover img {
@@ -378,6 +380,17 @@
             display: flex;
             justify-content: center;
         }
+
+        .no-js-message {
+            text-align: center;
+            font-size: 1.2em;
+            color: var(--text-dark);
+            margin: 20px 0;
+            background-color: var(--card-bg-color);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color-dark);
+        }
     </style>
 </head>
 <body>
@@ -407,12 +420,15 @@
 
         <div class="container">
             <h1 class="community-title">Join Our Community</h1>
+            <noscript>
+                <div class="no-js-message">You need to enable JavaScript to view the full community features.</div>
+            </noscript>
             <div class="discord-section">
                 <h2>Nepali Minecraft Community</h2>
                 <p>Join our vibrant community on Discord to connect with fellow players, participate in events, and stay updated with the latest news!</p>
                 <div class="online-count">Online Members: <span id="online-count">Loading...</span></div>
-                <a href="https://discord.gg/your-discord-invite" class="discord-button" target="_blank">
-                    <img src="https://i.imgur.com/discord-icon.png" alt="Discord Icon">
+                <a href="https://discord.gg/zZtPqVVsXG" class="discord-button" target="_blank">
+                    <img src="https://pvptiers.com/icons/tiers/overall.png" alt="Discord Logo">
                     Join Discord
                 </a>
             </div>
