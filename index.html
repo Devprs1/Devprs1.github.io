@@ -15,7 +15,7 @@
             --border-color-dark: #1a1a1a; /* Dark gray for borders */
             --border-color-light: #333;
             --text-light: #ffffff; /* Pure white for main text */
-            --text-dark: #bbbbbb; /* Lighter dark text for contrast */
+            --text-dark: #aaaaaa; /* Lighter dark text for contrast */
 
             --accent-gold: #ffb800; /* Main accent color */
             --accent-gold-rgb: 255, 184, 0; /* RGB for rgba() uses */
@@ -136,10 +136,68 @@
             box-shadow: 0 4px 40px rgba(0, 0, 0, 1);
         }
 
-        .top-header .logo img {
-            height: 40px;
-            filter: drop-shadow(0 0 25px rgba(var(--accent-gold-rgb), 1));
+        .top-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5em; /* Match logo text size */
+            font-weight: 700;
+            color: var(--accent-gold); /* Gold color for logo text */
+            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 1);
         }
+        .top-header .logo img {
+            height: 30px; /* Smaller logo image */
+            width: auto;
+            filter: drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 1));
+        }
+
+        /* --- Main Nav Bar --- */
+        .main-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-grow: 1; /* Allow to take available space */
+            gap: 20px;
+        }
+
+        .main-nav li a {
+            color: var(--text-dark); /* Default non-active is dark text */
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px; /* Smaller padding */
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Smaller gap */
+            text-shadow: 0 0 10px rgba(0,0,0,1);
+            font-size: 0.85em; /* Smaller font */
+        }
+
+        .main-nav li a img {
+            height: 18px; /* Smaller icons */
+            width: auto;
+            filter: brightness(0.5) drop-shadow(0 0 8px rgba(0,0,0,1)); /* More grayscale, less brightness */
+            transition: filter 0.3s ease;
+        }
+
+        .main-nav li a:hover,
+        .main-nav li a.active {
+            background-color: var(--hover-dark);
+            transform: translateY(-5px); /* Less dramatic lift */
+            box-shadow: 0 0 40px rgba(var(--accent-gold-rgb), 0.9), 0 15px 30px rgba(0,0,0,1);
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 1);
+        }
+
+        .main-nav li a:hover img,
+        .main-nav li a.active img {
+            filter: brightness(1) drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 1));
+        }
+        /* --- End Main Nav Bar --- */
 
         .top-header .server-ip {
             display: flex;
@@ -160,57 +218,6 @@
             text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1);
         }
 
-        .main-nav-bar {
-            background-color: var(--header-bg-color);
-            border-bottom: 1px solid var(--border-color-dark);
-            padding: 10px 0;
-            box-shadow: 0 2px 30px rgba(0, 0, 0, 1);
-        }
-
-        .main-nav-bar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-        }
-
-        .main-nav-bar ul li a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-shadow: 0 0 15px rgba(0,0,0,1);
-            font-size: 0.95em;
-        }
-
-        .main-nav-bar ul li a img {
-            height: 20px;
-            filter: brightness(0.6) drop-shadow(0 0 10px rgba(0,0,0,1));
-            transition: filter 0.3s ease;
-        }
-
-        .main-nav-bar ul li a:hover,
-        .main-nav-bar ul li a.active {
-            background-color: var(--hover-dark);
-            transform: translateY(-8px);
-            box-shadow: 0 0 60px rgba(var(--accent-gold-rgb), 1), 0 20px 50px rgba(0,0,0,1);
-            color: var(--accent-gold);
-            border: 1px solid var(--accent-gold);
-            text-shadow: 0 0 40px rgba(var(--accent-gold-rgb), 1);
-        }
-
-        .main-nav-bar ul li a:hover img,
-        .main-nav-bar ul li a.active img {
-            filter: brightness(1) drop-shadow(0 0 30px rgba(var(--accent-gold-rgb), 1));
-        }
-
         .container {
             max-width: 1400px;
             margin: 30px auto;
@@ -218,56 +225,50 @@
         }
 
         h1.rankings-title {
-            font-size: 3.5em;
+            font-size: 2.5em; /* Smaller title */
             font-weight: 700;
             color: var(--text-light);
-            margin-bottom: 25px;
-            text-shadow: 0 0 70px rgba(var(--accent-gold-rgb), 1), 0 0 50px rgba(var(--accent-red-glow-rgb), 1);
+            margin-bottom: 20px;
+            text-shadow: 0 0 50px rgba(var(--accent-gold-rgb), 1), 0 0 35px rgba(var(--accent-red-glow-rgb), 1);
             letter-spacing: 2px;
             text-align: left;
-        }
-
-        .main-content-grid {
-            display: grid;
-            grid-template-columns: 1fr 280px;
-            gap: 30px;
         }
 
         .gamemode-nav {
             background-color: var(--header-bg-color);
             border: 1px solid var(--border-color-dark);
             border-radius: 8px;
-            padding: 10px 15px;
-            margin-bottom: 30px;
+            padding: 8px 12px; /* Smaller padding */
+            margin-bottom: 25px; /* Smaller margin */
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
-            box-shadow: 0 4px 40px rgba(0, 0, 0, 1);
-            gap: 5px;
+            box-shadow: 0 4px 35px rgba(0, 0, 0, 1);
+            gap: 4px; /* Smaller gap */
         }
 
         .gamemode-nav a {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 8px 10px;
+            padding: 6px 8px; /* Smaller padding */
             text-decoration: none;
             color: var(--text-dark);
-            font-size: 0.85em;
+            font-size: 0.8em; /* Smaller font */
             font-weight: 600;
-            border-radius: 6px;
+            border-radius: 5px;
             transition: all 0.2s ease;
             border: 1px solid transparent;
-            min-width: 70px;
+            min-width: 60px; /* Smaller min-width */
             box-sizing: border-box;
-            text-shadow: 0 0 8px rgba(0,0,0,1);
+            text-shadow: 0 0 5px rgba(0,0,0,1);
         }
 
         .gamemode-nav a img {
-            width: 30px;
-            height: 30px;
-            margin-bottom: 5px;
-            filter: grayscale(80%) brightness(0.5) drop-shadow(0 0 12px rgba(0,0,0,1));
+            width: 25px; /* Smaller icons */
+            height: 25px;
+            margin-bottom: 3px; /* Smaller margin */
+            filter: grayscale(80%) brightness(0.4) drop-shadow(0 0 8px rgba(0,0,0,1)); /* More grayscale, darker */
             transition: filter 0.2s ease;
             image-rendering: pixelated;
         }
@@ -275,29 +276,36 @@
         .gamemode-nav a:hover {
             background-color: var(--card-bg-color);
             color: var(--text-light);
-            box-shadow: 0 0 35px rgba(0, 0, 0, 1);
-            transform: translateY(-6px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+            transform: translateY(-4px);
         }
 
         .gamemode-nav a.active {
             background-color: var(--card-bg-color);
             color: var(--accent-gold);
             border-color: var(--accent-gold);
-            box-shadow: 0 0 50px rgba(var(--accent-gold-rgb), 1);
-            transform: translateY(-7px);
+            box-shadow: 0 0 45px rgba(var(--accent-gold-rgb), 1);
+            transform: translateY(-5px);
         }
 
         .gamemode-nav a.active img,
         .gamemode-nav a:hover img {
-            filter: grayscale(0%) brightness(1) drop-shadow(0 0 25px rgba(var(--accent-gold-rgb), 1));
+            filter: grayscale(0%) brightness(1) drop-shadow(0 0 22px rgba(var(--accent-gold-rgb), 1));
+        }
+
+        .main-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 280px; /* Leaderboard / Right Sidebar */
+            gap: 20px; /* Adjusted gap */
         }
 
         .leaderboard-section {
             background-color: var(--card-bg-color);
             border-radius: 8px;
-            box-shadow: 0 15px 70px rgba(0, 0, 0, 1);
-            padding: 20px;
+            box-shadow: 0 15px 75px rgba(0, 0, 0, 1);
+            padding: 15px;
             border: 1px solid var(--border-color-dark);
+            flex-grow: 1;
         }
 
         .leaderboard-table-header {
@@ -306,27 +314,27 @@
             background-color: var(--header-bg-color);
             border: 1px solid var(--border-color-dark);
             border-radius: 6px;
-            margin-bottom: 15px; /* More space below header */
-            padding: 8px 15px; /* Slightly smaller padding */
-            box-shadow: 0 2px 30px rgba(0,0,0,1);
+            margin-bottom: 15px;
+            padding: 6px 10px;
+            box-shadow: 0 2px 25px rgba(0,0,0,1);
         }
 
         .leaderboard-table-header > div {
-            padding: 0 10px;
+            padding: 0 8px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             color: var(--text-dark);
             font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.9em;
-            letter-spacing: 0.8px;
+            font-size: 0.8em;
+            letter-spacing: 0.7px;
         }
-        .leaderboard-table-header .player-rank-col { width: 50px; text-align: center; }
+        .leaderboard-table-header .player-rank-col { width: 80px; text-align: center; } /* Wider for badge */
         .leaderboard-table-header .player-info-col { flex-grow: 1; padding-left: 0; }
-        .leaderboard-table-header .player-region-col { width: 100px; text-align: center; }
-        .leaderboard-table-header .player-points-col { width: 100px; text-align: right; margin-right: 20px; }
-        .leaderboard-table-header .player-items-col { flex-shrink: 0; width: 300px; text-align: right;}
+        .leaderboard-table-header .player-region-col { width: 80px; text-align: center; } /* Adjusted width */
+        .leaderboard-table-header .player-points-col { width: 80px; text-align: right; margin-right: 15px; } /* Adjusted width and margin */
+        .leaderboard-table-header .player-items-col { flex-shrink: 0; width: 250px; text-align: right;} /* Adjusted width */
 
         .leaderboard-table-header .region-th {
             cursor: pointer;
@@ -334,8 +342,8 @@
         }
         .leaderboard-table-header .region-th::after {
             content: 'ⓘ';
-            margin-left: 5px;
-            font-size: 0.8em;
+            margin-left: 4px;
+            font-size: 0.7em;
             color: var(--text-dark);
             vertical-align: super;
         }
@@ -344,40 +352,40 @@
         .player-row {
             display: flex;
             align-items: center;
-            background: linear-gradient(to right, #101010, #151515); /* Darker row background for consistency */
+            background: linear-gradient(to right, #101010, #151515);
             border: 1px solid var(--border-color-dark);
             border-radius: 6px;
-            margin-bottom: 15px; /* More space between rows */
-            padding: 5px 15px; /* Smaller padding for compact row height */
+            margin-bottom: 12px;
+            padding: 4px 10px;
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
-            box-shadow: 0 5px 25px rgba(0,0,0,1); /* Stronger base shadow for the row */
+            box-shadow: 0 4px 20px rgba(0,0,0,1);
         }
         .player-row:hover {
-            background: linear-gradient(to right, #101010, #151515); /* Maintain dark background on hover */
-            border-color: var(--accent-gold); /* Keep gold border for actual row element */
-            box-shadow: 0 0 5px rgba(0,0,0,0.5); /* Subtle shadow for row itself */
-            transform: translateY(-15px) scale(1.04); /* More pronounced lift effect */
+            background: linear-gradient(to right, #101010, #151515);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+            transform: translateY(-8px) scale(1.02);
             z-index: 10;
         }
-        .player-row::before { /* Default subtle golden outline, always present */
+        .player-row::before {
             content: '';
             position: absolute;
-            top: -1px; left: -1px; right: -1px; bottom: -1px; /* Subtle outline */
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
             background: transparent;
-            border-radius: 7px; /* Slightly larger than row for outline */
-            box-shadow: inset 0 0 0 1px rgba(var(--accent-gold-rgb), 0.2); /* Subtle internal golden border */
+            border-radius: 7px;
+            box-shadow: inset 0 0 0 1px rgba(var(--accent-gold-rgb), 0.15);
             z-index: -1;
             transition: all 0.3s ease;
         }
-        .player-row:hover::before { /* Intense golden outline on hover */
-            top: -2px; left: -2px; right: -2px; bottom: -2px; /* Thicker outline */
-            box-shadow: inset 0 0 0 2px var(--accent-gold), /* Crisp gold border */
-                        0 0 20px rgba(var(--accent-gold-rgb), 1), /* Soft glow around border */
-                        0 0 10px rgba(var(--accent-red-glow-rgb), 0.7); /* Subtle red tint to glow */
+        .player-row:hover::before {
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            box-shadow: inset 0 0 0 2px var(--accent-gold),
+                        0 0 18px rgba(var(--accent-gold-rgb), 1),
+                        0 0 8px rgba(var(--accent-red-glow-rgb), 0.6);
             filter: none;
             opacity: 1;
-            animation: borderGlowPulse 1.5s infinite alternate; /* Subtle pulse animation on hover */
+            animation: borderGlowPulse 1.5s infinite alternate;
         }
 
         @keyframes borderGlowPulse {
@@ -387,141 +395,159 @@
 
 
         .player-row > div {
-            padding: 0 10px;
+            padding: 0 8px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        /* --- LEADERBOARD RANK NUMBER STYLES --- */
+        /* --- LEADERBOARD RANK STYLES (COMPOSITE BADGE for 1-3, NUMBER for 4+) --- */
         .player-rank-col {
-            width: 50px;
+            width: 80px; /* Wider to accommodate rank emblem + number */
             text-align: center;
             position: relative;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            align-items: center; /* Vertically center content */
+            justify-content: flex-start; /* Align to left within its column */
+            gap: 5px; /* Space between rank emblem and rank number */
+        }
+        .rank-composite-badge { /* Rank badge for ranks 1-3 */
+            width: 40px; /* Precise size for composite badge */
+            height: 40px;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.9));
+            transition: filter 0.2s ease;
+        }
+        .player-row:hover .rank-composite-badge {
+            filter: drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 1));
+        }
+        .rank-composite-badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: pixelated;
         }
 
-        .rank-number {
-            font-size: 1.2em; /* Adjusted for smaller row */
+        .rank-number { /* For ranks 4+ and text within badges */
+            font-size: 1.0em; /* Adjusted for smaller row */
             font-weight: 700;
             color: var(--text-light);
-            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 1);
+            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 1);
         }
-        /* --- END LEADERBOARD RANK NUMBER STYLES --- */
+        /* --- END LEADERBOARD RANK STYLES --- */
 
 
         .player-info-col {
             flex-grow: 1;
             display: flex;
-            align-items: center;
-            gap: 8px; /* Slightly less gap */
+            align-items: center; /* Align avatar and name/tier block horizontally */
+            gap: 8px; /* Gap between avatar and name/tier block */
             padding-left: 0;
         }
 
-        .player-avatar {
-            width: 25px; /* Smaller avatar */
-            height: 25px;
-            border-radius: 4px;
+        .player-avatar { /* Avatar in info col */
+            width: 24px; /* Corrected smaller avatar size */
+            height: 24px;
+            border-radius: 3px;
             border: 1px solid var(--border-color-light);
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 15px rgba(0,0,0,1));
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.9));
         }
 
         .player-details {
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Stack name and tier/points */
             justify-content: center;
-            gap: 2px; /* Smaller gap */
+            gap: 1px;
         }
 
         .player-details a {
             text-decoration: none;
             color: var(--text-light);
-            font-size: 1.2em; /* Adjusted font size */
+            font-size: 1.1em;
             font-weight: 700;
-            text-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 1);
+            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 1);
             transition: color 0.2s ease, text-shadow 0.2s ease;
             cursor: pointer;
         }
         .player-details a:hover {
             color: var(--accent-gold);
-            text-shadow: 0 0 50px rgba(var(--accent-gold-rgb), 1);
+            text-shadow: 0 0 40px rgba(var(--accent-gold-rgb), 1);
         }
 
         .player-tier-points-label {
-            font-size: 0.8em; /* Adjusted font size */
+            font-size: 0.75em;
             color: var(--text-dark);
             display: flex;
             align-items: center;
-            gap: 6px; /* Smaller gap */
+            gap: 5px;
+            margin-top: 1px;
         }
 
         .player-tier-badge {
             display: inline-block;
             background-color: var(--tier-combatmaster);
             color: white;
-            padding: 2px 6px; /* Smaller padding */
-            border-radius: 3px;
-            font-size: 0.7em; /* Smaller font */
+            padding: 1px 5px;
+            border-radius: 2px;
+            font-size: 0.65em;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 0 20px rgba(0,0,0,1);
-            text-shadow: 0 0 12px rgba(0,0,0,1);
+            box-shadow: 0 0 15px rgba(0,0,0,0.9);
+            text-shadow: 0 0 8px rgba(0,0,0,0.9);
         }
 
         .player-region-col {
-            width: 80px; /* Adjusted width */
+            width: 80px;
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 4px; /* Smaller gap */
+            gap: 3px;
         }
 
         .region-badge {
             display: inline-block;
-            padding: 4px 8px; /* Smaller padding */
-            border-radius: 4px;
-            font-size: 0.75em; /* Smaller font */
+            padding: 3px 7px;
+            border-radius: 3px;
+            font-size: 0.7em;
             font-weight: 700;
             color: white;
             text-transform: uppercase;
             background-color: var(--tier-nr);
-            box-shadow: 0 2px 25px rgba(0,0,0,1);
-            text-shadow: 0 0 12px rgba(0,0,0,1);
-            filter: drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 1));
+            box-shadow: 0 2px 20px rgba(0,0,0,0.9);
+            text-shadow: 0 0 10px rgba(0,0,0,0.9);
+            filter: drop-shadow(0 0 18px rgba(var(--accent-gold-rgb), 1));
             transition: filter 0.2s ease;
         }
         .player-row:hover .region-badge {
-            filter: drop-shadow(0 0 40px rgba(var(--accent-gold-rgb), 1));
+            filter: drop-shadow(0 0 35px rgba(var(--accent-gold-rgb), 1));
         }
         .region-na { background-color: var(--tier-nr); }
         .region-eu { background-color: var(--tier-eu); }
 
         .region-info-icon {
-            font-size: 0.6em; /* Smaller info icon */
+            font-size: 0.55em;
             color: var(--text-dark);
             cursor: pointer;
-            text-shadow: 0 0 10px rgba(0,0,0,1);
+            text-shadow: 0 0 8px rgba(0,0,0,0.9);
             transition: color 0.2s ease, transform 0.2s ease;
         }
         .region-info-icon:hover {
             color: var(--accent-gold);
-            transform: scale(1.5);
+            transform: scale(1.6);
         }
 
 
         .player-points-col {
-            width: 80px; /* Adjusted width */
+            width: 80px;
             text-align: right;
-            font-size: 1.1em; /* Adjusted font size */
+            font-size: 1.1em;
             font-weight: 600;
             color: var(--text-light);
-            margin-right: 15px; /* Adjusted margin */
+            margin-right: 10px;
             text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1);
         }
 
@@ -529,7 +555,7 @@
         .player-items-col {
             flex-shrink: 0;
             display: flex;
-            gap: 3px; /* Smaller gap */
+            gap: 2px;
             width: 250px; /* Adjusted width */
             justify-content: flex-end;
             flex-wrap: wrap;
@@ -540,18 +566,18 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            gap: 1px; /* Smaller gap */
+            gap: 1px;
         }
 
         .item-icon-hex {
             width: 30px; /* Smaller hexagonal icon */
             height: 30px;
-            background-color: #151515; /* Darker icon background */
+            background-color: #151515;
             background-size: 70% 70%;
             background-position: center;
             background-repeat: no-repeat;
             clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-            border: 1px solid #2a2a2a; /* Darker border */
+            border: 1px solid #2a2a2a;
             box-shadow: 0 2px 20px rgba(0,0,0,1);
             filter: drop-shadow(0 0 20px rgba(0,0,0,0.9));
             transition: all 0.2s ease;
@@ -565,9 +591,9 @@
         .item-label-box {
             background-color: var(--accent-gold);
             color: #333;
-            font-size: 0.6em; /* Smaller font */
+            font-size: 0.6em;
             font-weight: 700;
-            padding: 1px 4px; /* Smaller padding */
+            padding: 1px 4px;
             border-radius: 3px;
             white-space: nowrap;
             text-transform: uppercase;
@@ -578,7 +604,7 @@
             transition: all 0.2s ease;
         }
         .player-row:hover .item-label-box {
-            box-shadow: 0 1px 30px rgba(var(--accent-gold-rgb), 1);
+            box-shadow: 0 1px 35px rgba(var(--accent-gold-rgb), 1);
         }
         /* --- END ITEM KITS STYLES --- */
 
@@ -588,9 +614,10 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            /* No need for margin-top here as it's part of the grid */
         }
 
-        .info-card, .search-card, .discord-webhook-sidebar {
+        .info-card, .search-card {
             background-color: var(--card-bg-color);
             border: 1px solid var(--border-color-dark);
             border-radius: 8px;
@@ -663,63 +690,15 @@
             color: var(--text-dark);
             font-size: 1.1em;
             pointer-events: none;
-            text-shadow: 0 0 12px rgba(0,0,0,1);
+            text-shadow: 0 0 15px rgba(0,0,0,1);
         }
         .search-card .search-input {
             padding-left: 35px;
         }
+        
+        /* Discord Webhook Integration - Removed as per request */
+        .discord-webhook-sidebar { display: none; }
 
-
-        .discord-webhook-sidebar h3 {
-            font-size: 1.2em;
-            color: var(--text-light);
-            margin-bottom: 15px;
-            text-align: center;
-            text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.9);
-        }
-        .discord-webhook-sidebar p {
-            font-size: 0.9em;
-            color: var(--text-dark);
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .discord-webhook-sidebar form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .discord-webhook-sidebar input[type="url"],
-        .discord-webhook-sidebar textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color-dark);
-            border-radius: 5px;
-            background-color: var(--header-bg-color);
-            color: var(--text-light);
-            font-size: 0.9em;
-            resize: vertical;
-            min-height: 40px;
-        }
-        .discord-webhook-sidebar input[type="url"]:focus,
-        .discord-webhook-sidebar textarea:focus {
-            border-color: var(--accent-gold);
-            box-shadow: var(--focus-glow);
-        }
-        .discord-webhook-sidebar button {
-            background-color: var(--accent-gold);
-            color: #333;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .discord-webhook-sidebar button:hover {
-            background-color: #ffd24c;
-            box-shadow: 0 0 40px rgba(var(--accent-gold-rgb), 1);
-            transform: translateY(-6px);
-        }
 
         /* Profile Modal Styles */
         .profile-modal-overlay {
@@ -973,7 +952,6 @@
     <div class="page-wrapper">
         <div class="top-header">
             <div class="logo">
-                <!-- Placeholder for PvPTiers Logo -->
                 <img src="https://i.imgur.com/example_logo.png" alt="PvPTiers Logo">
             </div>
             <div class="server-ip">
@@ -1266,16 +1244,6 @@
                             <input type="text" id="playerSearch" placeholder="SEARCH...">
                         </div>
                     </div>
-
-                    <div class="discord-webhook-sidebar">
-                        <h3>Discord Webhook Integration</h3>
-                        <p>Get live updates!</p>
-                        <form onsubmit="handleWebhookSubmit(event)">
-                            <input type="url" id="webhookUrl" placeholder="Webhook URL" required>
-                            <textarea id="webhookMessage" rows="3" placeholder="Test Message (Optional)"></textarea>
-                            <button type="submit">Test & Save</button>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1333,6 +1301,8 @@
         const mockPlayerData = {
             'itzrealme': {
                 name: 'ItzRealMe', rank: 1, region: 'NA', tier: 'COMBATMASTER', points: 300,
+                // These are for the leaderboard's 1st column, next to the rank number.
+                leaderboardRankBadge: 'https://i.imgur.com/ItzRealMe_Rank1.png', // Placeholder for rank 1 emblem
                 modalRankBadge: 'https://i.imgur.com/sS475yU.png', // Placeholder gold emblem for modal
                 unlockedTiers: ['crystal', 'sword', 'axe', 'pot', 'smp', 'uhc'],
                 retiredItems: [
@@ -1342,6 +1312,7 @@
             },
             'marlowww': {
                 name: 'Marlowww', rank: 2, region: 'NA', tier: 'COMBATMASTER', points: 284,
+                leaderboardRankBadge: 'https://i.imgur.com/Marlowww_Rank2.png', // Placeholder for rank 2 emblem
                 modalRankBadge: 'https://i.imgur.com/yU4eYwP.png', // Placeholder silver emblem for modal
                 unlockedTiers: ['crystal', 'sword', 'uhc', 'smp', 'neth_pot'],
                 retiredItems: [
@@ -1352,6 +1323,7 @@
             },
             'swight': {
                 name: 'Swight', rank: 3, region: 'NA', tier: 'COMBATMASTER', points: 220,
+                leaderboardRankBadge: 'https://i.imgur.com/Swight_Rank3.png', // Placeholder for rank 3 emblem
                 modalRankBadge: 'https://i.imgur.com/D4s6LgQ.png', // Placeholder bronze emblem for modal
                 unlockedTiers: ['crystal', 'sword', 'uhc', 'axe'],
                 retiredItems: [
@@ -1361,6 +1333,7 @@
             },
             'coldified': {
                 name: 'coldified', rank: 4, region: 'EU', tier: 'COMBATMASTER', points: 208,
+                leaderboardRankBadge: '', // No specific badge for rank > 3, will just show rank number
                 modalRankBadge: '', // No specific badge for rank > 3
                 unlockedTiers: ['crystal', 'pot', 'smp', 'mace'],
                 retiredItems: [
@@ -1488,6 +1461,56 @@
                     iconElement.style.backgroundImage = `url('${iconUrl}')`;
                 }
             });
+
+            // Dynamically populate leaderboard rows based on mock data
+            const leaderboardBody = document.getElementById('leaderboardBody');
+            if (leaderboardBody) {
+                leaderboardBody.innerHTML = ''; // Clear existing static rows
+                let currentRank = 1; // Counter to match mock data order
+                for (const playerKey in mockPlayerData) {
+                    const playerData = mockPlayerData[playerKey];
+                    const playerRowHtml = `
+                        <div class="player-row">
+                            <div class="player-rank-col">
+                                ${playerData.rank <= 3 ? `
+                                    <div class="rank-composite-badge">
+                                        <img src="${playerData.leaderboardRankBadge}" alt="Rank ${playerData.rank} Badge">
+                                    </div>
+                                ` : `<span class="rank-number">${playerData.rank}</span>`}
+                            </div>
+                            <div class="player-info-col">
+                                <img src="https://mc-heads.net/avatar/${playerData.name}/32" alt="${playerData.name} Skin" class="player-avatar">
+                                <div class="name-tier-block">
+                                    <a href="#" data-player-name="${playerData.name}" onclick="openPlayerProfileModal(event, '${playerData.name}')">${playerData.name}</a>
+                                    <span class="player-tier-points-label">
+                                        <span class="player-tier-badge">COMBATMASTER</span>
+                                        <span>${playerData.points} Points</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="player-region-col">
+                                <span class="region-badge region-${playerData.region.toLowerCase()}">${playerData.region}</span>
+                                <span class="region-info-icon" title="Region Info">ⓘ</span>
+                            </div>
+                            <div class="player-points-col">
+                                ${playerData.points}
+                            </div>
+                            <div class="player-items-col">
+                                ${playerData.retiredItems.map(item => `
+                                    <div class="item-slot">
+                                        <div class="item-icon-hex" data-item-type="${item.type || 'question'}"
+                                             style="background-image: url('${getGamemodeIconUrl(item.type || 'question')}');">
+                                        </div>
+                                        <div class="item-label-box">${item.label}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    leaderboardBody.innerHTML += playerRowHtml;
+                    currentRank++;
+                }
+            }
         });
     </script>
 </body>
