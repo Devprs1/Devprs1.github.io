@@ -15,7 +15,7 @@
             --border-color-dark: #1a1a1a; /* Dark gray for borders */
             --border-color-light: #333;
             --text-light: #ffffff; /* Pure white for main text */
-            --text-dark: #aaaaaa; /* Lighter dark text */
+            --text-dark: #aaaaaa; /* Lighter dark text for contrast */
 
             --accent-gold: #ffb800; /* Main accent color */
             --accent-gold-rgb: 255, 184, 0; /* RGB for rgba() uses */
@@ -646,8 +646,8 @@
             </div>
             <ul class="main-nav">
                 <li><a href="index.html"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Home Icon">HOME</a></li>
-                <li><a href="index.html"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Tier List Icon">TIER LIST</a></li>
-                <li><a href="community.html" class="active"><img src="https://pvptiers.com/icons/tiers/smp.png" alt="Community Icon">COMMUNITY</a></li>
+                <li><a href="#" class="active"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Tier List Icon">TIER LIST</a></li>
+                <li><a href="#"><img src="https://pvptiers.com/icons/tiers/smp.png" alt="Community Icon">COMMUNITY</a></li>
                 <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Resources Icon">RESOURCES</a></li>
                 <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Server Icon">SERVER</a></li>
                 <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Affiliates Icon">AFFILIATES</a></li>
@@ -746,7 +746,7 @@
     </div>
 
     <script>
-        // --- Mock Data Structure (for modal functionality) ---
+        // --- Mock Data Structure ---
         const allGamemodes = [
             { id: 'crystal', name: 'Crystal', iconUrl: 'https://pvptiers.com/icons/tiers/crystal.png' },
             { id: 'sword', name: 'Sword', iconUrl: 'https://pvptiers.com/icons/tiers/sword.png' },
@@ -762,7 +762,8 @@
         const mockPlayerData = {
             'itzrealme': {
                 name: 'ItzRealMe', rank: 1, region: 'NA', tier: 'COMBATMASTER', points: 300,
-                leaderboardRankBadge: 'https://i.imgur.com/ItzRealMe_Rank1.png', // Not used directly on community page, but kept for consistency
+                // These are for the leaderboard's 1st column, next to the rank number.
+                leaderboardRankBadge: 'https://i.imgur.com/ItzRealMe_Rank1.png', // Placeholder for rank 1 emblem
                 modalRankBadge: 'https://i.imgur.com/sS475yU.png', // Placeholder gold emblem for modal
                 unlockedTiers: ['crystal', 'sword', 'axe', 'pot', 'smp', 'uhc'],
                 retiredItems: [
@@ -772,8 +773,8 @@
             },
             'marlowww': {
                 name: 'Marlowww', rank: 2, region: 'NA', tier: 'COMBATMASTER', points: 284,
-                leaderboardRankBadge: 'https://i.imgur.com/Marlowww_Rank2.png',
-                modalRankBadge: 'https://i.imgur.com/yU4eYwP.png',
+                leaderboardRankBadge: 'https://i.imgur.com/Marlowww_Rank2.png', // Placeholder for rank 2 emblem
+                modalRankBadge: 'https://i.imgur.com/yU4eYwP.png', // Placeholder silver emblem for modal
                 unlockedTiers: ['crystal', 'sword', 'uhc', 'smp', 'neth_pot'],
                 retiredItems: [
                     { type: 'crystal', label: 'HT1' }, { type: 'smp', label: 'HT1' }, { type: 'sword', label: 'LT1' },
@@ -783,8 +784,8 @@
             },
             'swight': {
                 name: 'Swight', rank: 3, region: 'NA', tier: 'COMBATMASTER', points: 220,
-                leaderboardRankBadge: 'https://i.imgur.com/Swight_Rank3.png',
-                modalRankBadge: 'https://i.imgur.com/D4s6LgQ.png',
+                leaderboardRankBadge: 'https://i.imgur.com/Swight_Rank3.png', // Placeholder for rank 3 emblem
+                modalRankBadge: 'https://i.imgur.com/D4s6LgQ.png', // Placeholder bronze emblem for modal
                 unlockedTiers: ['crystal', 'sword', 'uhc', 'axe'],
                 retiredItems: [
                     { type: 'crystal', label: 'HT3' }, { type: 'sword', label: 'HT3' }, { type: 'uhc', label: 'HT3' },
@@ -793,8 +794,8 @@
             },
             'coldified': {
                 name: 'coldified', rank: 4, region: 'EU', tier: 'COMBATMASTER', points: 208,
-                leaderboardRankBadge: '',
-                modalRankBadge: '',
+                leaderboardRankBadge: '', // No specific badge for rank > 3, will just show rank number
+                modalRankBadge: '', // No specific badge for rank > 3
                 unlockedTiers: ['crystal', 'pot', 'smp', 'mace'],
                 retiredItems: [
                     { type: 'crystal', label: 'HT2' }, { type: 'sword', label: 'LT2' }, { type: 'uhc', label: 'LT3' },
@@ -803,7 +804,7 @@
             }
         };
 
-        // --- Helper Functions (replicated for modularity across HTML files) ---
+        // --- Helper Functions ---
 
         function getGamemodeIconUrl(id) {
             const gamemode = allGamemodes.find(gm => gm.id === id);
@@ -900,11 +901,11 @@
             }
         });
 
-        // --- No handleWebhookSubmit for community.html ---
+        // Removed handleWebhookSubmit as it was for discord-webhook-sidebar
         
-        // --- Initial setup for leaderboard item icons on DOMContentLoaded (not directly used here, but safe to include) ---
+        // --- Initial setup for leaderboard item icons on DOMContentLoaded ---
         document.addEventListener('DOMContentLoaded', () => {
-            // This part is primarily for index.html's leaderboard item icons
+            // Apply background images to leaderboard item icons
             document.querySelectorAll('.item-icon-hex[data-item-type]').forEach(iconElement => {
                 const itemType = iconElement.getAttribute('data-item-type');
                 const iconUrl = getGamemodeIconUrl(itemType);
