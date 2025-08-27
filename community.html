@@ -1,10 +1,9 @@
-<!-- community.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PvPTiers - Community</title>
+    <title>NmcTiers - Community</title>
     <!-- Google Fonts - Montserrat for a modern, bold look -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -15,24 +14,17 @@
             --border-color-dark: #1a1a1a; /* Dark gray for borders */
             --border-color-light: #333;
             --text-light: #ffffff; /* Pure white for main text */
-            --text-dark: #aaaaaa; /* Lighter dark text for contrast */
-
+            --text-dark: #bbbbbb; /* Lighter dark text for contrast */
             --accent-gold: #ffb800; /* Main accent color */
             --accent-gold-rgb: 255, 184, 0; /* RGB for rgba() uses */
             --accent-red-glow: #ff4500; /* Reddish glow */
             --accent-red-glow-rgb: 255, 69, 0;
-            --accent-purple: #8854c4; /* For combatmaster badge */
-            
+            --accent-purple: #8854c4; /* For Discord button */
             --hover-dark: #181818; /* Even darker hover for background consistency */
             --focus-glow: 0 0 40px rgba(var(--accent-gold-rgb), 1); /* Max intense focus glow */
-
-            /* Tier Colors */
-            --tier-combatmaster: var(--accent-purple);
-            --tier-nr: #d64a4a; /* More vivid red for NA */
-            --tier-eu: #4a8ad6; /* More vivid blue for EU */
         }
 
-        /* --- Particle Background Animation --- */
+        /* --- Particle Background Animation (Exact from Original) --- */
         @keyframes dropParticles {
             0% { transform: translateY(-100vh); opacity: 0; }
             10% { opacity: 1; }
@@ -62,7 +54,6 @@
             animation: dropParticles linear infinite;
         }
 
-        /* Red, Black, Gold particles */
         .particle1 {
             background-image: radial-gradient(circle at 15% 10%, rgba(var(--accent-red-glow-rgb), 0.1) 1px, transparent 3px),
                             radial-gradient(circle at 85% 90%, rgba(var(--accent-gold-rgb), 0.08) 1px, transparent 3px);
@@ -104,16 +95,14 @@
         }
         /* --- End Particle Background Animation --- */
 
-
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             background-color: var(--main-bg-color);
-            /* Subtle background gradients for base theme */
             background-image:
                 radial-gradient(circle at 10% 90%, rgba(var(--accent-red-glow-rgb), 0.1) 0%, transparent 40%),
                 radial-gradient(circle at 90% 10%, rgba(var(--accent-gold-rgb), 0.08) 0%, transparent 50%),
-                linear-gradient(to bottom, #0d0000, #000000); /* Darker red-black gradient */
+                linear-gradient(to bottom, #0d0000, #000000);
             background-size: cover;
             color: var(--text-light);
             line-height: 1.6;
@@ -136,68 +125,10 @@
             box-shadow: 0 4px 40px rgba(0, 0, 0, 1);
         }
 
-        .top-header .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5em; /* Match logo text size */
-            font-weight: 700;
-            color: var(--accent-gold); /* Gold color for logo text */
-            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 1);
-        }
         .top-header .logo img {
-            height: 30px; /* Smaller logo image */
-            width: auto;
-            filter: drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 1));
+            height: 40px;
+            filter: drop-shadow(0 0 25px rgba(var(--accent-gold-rgb), 1));
         }
-
-        /* --- Main Nav Bar --- */
-        .main-nav {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            flex-grow: 1; /* Allow to take available space */
-            gap: 20px;
-        }
-
-        .main-nav li a {
-            color: var(--text-dark); /* Default non-active is dark text */
-            text-decoration: none;
-            font-weight: 600;
-            padding: 8px 12px; /* Smaller padding */
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px; /* Smaller gap */
-            text-shadow: 0 0 10px rgba(0,0,0,1);
-            font-size: 0.85em; /* Smaller font */
-        }
-
-        .main-nav li a img {
-            height: 18px; /* Smaller icons */
-            width: auto;
-            filter: brightness(0.5) drop-shadow(0 0 8px rgba(0,0,0,1)); /* More grayscale, less brightness */
-            transition: filter 0.3s ease;
-        }
-
-        .main-nav li a:hover,
-        .main-nav li a.active {
-            background-color: var(--hover-dark);
-            transform: translateY(-5px); /* Less dramatic lift */
-            box-shadow: 0 0 40px rgba(var(--accent-gold-rgb), 0.9), 0 15px 30px rgba(0,0,0,1);
-            color: var(--accent-gold);
-            border: 1px solid var(--accent-gold);
-            text-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 1);
-        }
-
-        .main-nav li a:hover img,
-        .main-nav li a.active img {
-            filter: brightness(1) drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 1));
-        }
-        /* --- End Main Nav Bar --- */
 
         .top-header .server-ip {
             display: flex;
@@ -218,415 +149,234 @@
             text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1);
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 20px;
+        .main-nav-bar {
+            background-color: var(--header-bg-color);
+            border-bottom: 1px solid var(--border-color-dark);
+            padding: 10px 0;
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 1);
         }
 
-        h1.page-title { /* Changed from rankings-title for generic page titles */
-            font-size: 2.5em;
+        .main-nav-bar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .main-nav-bar ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 0 15px rgba(0,0,0,1);
+            font-size: 0.95em;
+        }
+
+        .main-nav-bar ul li a img {
+            height: 20px;
+            filter: brightness(0.6) drop-shadow(0 0 10px rgba(0,0,0,1));
+            transition: filter 0.3s ease;
+        }
+
+        .main-nav-bar ul li a:hover,
+        .main-nav-bar ul li a.active {
+            background-color: var(--hover-dark);
+            transform: translateY(-8px);
+            box-shadow: 0 0 60px rgba(var(--accent-gold-rgb), 1), 0 20px 50px rgba(0,0,0,1);
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            text-shadow: 0 0 40px rgba(var(--accent-gold-rgb), 1);
+        }
+
+        .main-nav-bar ul li a:hover img,
+        .main-nav-bar ul li a.active img {
+            filter: brightness(1) drop-shadow(0 0 30px rgba(var(--accent-gold-rgb), 1));
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 30px;
+        }
+
+        h1.community-title {
+            font-size: 3.5em;
             font-weight: 700;
             color: var(--text-light);
-            margin-bottom: 20px;
-            text-shadow: 0 0 50px rgba(var(--accent-gold-rgb), 1), 0 0 35px rgba(var(--accent-red-glow-rgb), 1);
+            margin: 0 0 40px;
+            text-shadow: 0 0 70px rgba(var(--accent-gold-rgb), 1), 0 0 50px rgba(var(--accent-red-glow-rgb), 1);
             letter-spacing: 2px;
-            text-align: left;
+            text-align: center;
         }
 
-        .main-content-grid {
-            display: grid;
-            grid-template-columns: 1fr 280px; /* Main content / Right Sidebar */
-            gap: 20px;
-        }
-
-        .community-section {
+        .discord-section {
             background-color: var(--card-bg-color);
-            border-radius: 8px;
-            box-shadow: 0 15px 75px rgba(0, 0, 0, 1);
-            padding: 20px; /* Slightly more padding for a content page */
             border: 1px solid var(--border-color-dark);
-            flex-grow: 1;
-            text-align: center; /* Center content within community section */
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 15px 70px rgba(0, 0, 0, 1);
+            text-align: center;
+            margin-bottom: 40px;
         }
 
-        .community-section h2 {
+        .discord-section h2 {
             font-size: 2em;
+            font-weight: 700;
             color: var(--text-light);
             margin-bottom: 20px;
             text-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 1);
         }
 
-        .community-links {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            margin-top: 30px;
+        .discord-section p {
+            font-size: 1.1em;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .community-links a {
+        .discord-button {
             display: inline-flex;
             align-items: center;
-            gap: 15px;
-            background-color: var(--header-bg-color);
+            gap: 10px;
+            background-color: var(--accent-purple);
             color: var(--text-light);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 15px 30px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color-light);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.9);
-            transition: all 0.3s ease;
-            font-size: 1.1em;
-            min-width: 250px;
-            justify-content: center;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
-        }
-
-        .community-links a:hover {
-            background-color: var(--hover-dark);
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 0.9), 0 10px 25px rgba(0,0,0,0.8);
-            color: var(--accent-gold);
-            border-color: var(--accent-gold);
-            text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1);
-        }
-        
-        .community-links a img {
-            height: 30px;
-            filter: brightness(0.8);
-            transition: filter 0.3s ease;
-        }
-
-        .community-links a:hover img {
-            filter: brightness(1) drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.9));
-        }
-
-        /* Right Sidebar Panel (Reused from index.html) */
-        .right-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .info-card, .search-card {
-            background-color: var(--card-bg-color);
-            border: 1px solid var(--border-color-dark);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 8px 50px rgba(0, 0, 0, 1);
-        }
-
-        .info-card .info-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--header-bg-color);
-            color: var(--text-light);
-            font-size: 1.1em;
+            font-size: 1.2em;
             font-weight: 600;
             padding: 12px 20px;
             border-radius: 6px;
             text-decoration: none;
             transition: all 0.2s ease;
             text-shadow: 0 0 18px rgba(0,0,0,1);
-            gap: 10px;
             border: 1px solid var(--border-color-light);
         }
 
-        .info-card .info-button:hover {
+        .discord-button:hover {
             background-color: var(--hover-dark);
             box-shadow: 0 0 50px rgba(var(--accent-gold-rgb), 1), 0 18px 40px rgba(0,0,0,1);
             color: var(--accent-gold);
             transform: translateY(-6px);
         }
 
-        .info-card .info-button::before {
-            content: 'ⓘ';
-            font-size: 1.2em;
-            vertical-align: middle;
-            text-shadow: 0 0 18px rgba(var(--accent-gold-rgb), 1);
+        .discord-button img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0.8) drop-shadow(0 0 10px rgba(0,0,0,1));
+            transition: filter 0.2s ease;
         }
 
-        .search-card .search-input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color-dark);
-            border-radius: 6px;
-            background-color: var(--header-bg-color);
-            color: var(--text-light);
-            font-size: 1em;
-            outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        .discord-button:hover img {
+            filter: brightness(1) drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 1));
         }
 
-        .search-card .search-input::placeholder {
-            color: var(--text-dark);
-        }
-
-        .search-card .search-input:focus {
-            border-color: var(--accent-gold);
-            box-shadow: var(--focus-glow);
-        }
-
-        .search-card .search-input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-card .search-input-wrapper::before {
-            content: '🔎';
-            position: absolute;
-            left: 10px;
-            color: var(--text-dark);
-            font-size: 1.1em;
-            pointer-events: none;
-            text-shadow: 0 0 15px rgba(0,0,0,1);
-        }
-        .search-card .search-input {
-            padding-left: 35px;
-        }
-        
-        /* Profile Modal Styles (Reused from index.html) */
-        .profile-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.98);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .profile-modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .profile-modal {
-            background-color: var(--header-bg-color);
-            border: 1px solid var(--border-color-light);
-            border-radius: 10px;
-            box-shadow: 0 10px 80px rgba(0, 0, 0, 1);
-            width: 450px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            padding: 20px;
-            transform: scale(0.4);
-            transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-        .profile-modal-overlay.active .profile-modal {
-            transform: scale(1);
-        }
-
-        .profile-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color-dark);
-            margin-bottom: 20px;
-        }
-
-        .profile-modal-header h2 {
-            margin: 0;
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--text-light);
+        .online-count {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin: 20px 0;
             text-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 1);
-            letter-spacing: 0.5px;
         }
 
-        .profile-modal-close-btn {
-            background: none;
-            border: none;
-            color: var(--text-dark);
-            font-size: 1.8em;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .profile-modal-close-btn:hover {
-            color: var(--accent-gold);
-            transform: rotate(180deg) scale(1.5);
-        }
-
-        .modal-player-overview {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .modal-player-meta {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .modal-player-meta .region-badge {
-            font-size: 0.9em;
-            padding: 6px 12px;
-            box-shadow: 0 2px 20px rgba(0,0,0,1);
-        }
-        .modal-player-meta .player-tier-badge {
-            font-size: 0.9em;
-            padding: 6px 12px;
-            background-color: var(--tier-combatmaster);
-            box-shadow: 0 2px 20px rgba(0,0,0,1);
-        }
-        .modal-player-meta .overall-points-display {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            background-color: var(--card-bg-color);
-            padding: 6px 12px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color-dark);
-            font-size: 0.9em;
-            font-weight: 600;
+        .online-count span {
             color: var(--text-light);
-            box-shadow: 0 2px 20px rgba(0,0,0,1);
-            text-shadow: 0 0 12px rgba(var(--accent-gold-rgb), 0.7);
-        }
-        .modal-player-meta .overall-points-display img {
-            width: 20px;
-            height: 20px;
-            filter: drop-shadow(0 0 20px rgba(var(--accent-gold-rgb), 1));
-        }
-        .modal-player-meta .overall-points-display span {
-            color: var(--accent-gold);
-            margin-left: 3px;
-        }
-
-
-        .modal-player-skin {
-            width: 120px;
-            height: auto;
-            image-rendering: pixelated;
-            filter: drop-shadow(0 0 40px rgba(0,0,0,1));
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
-        }
-        .modal-player-skin:hover {
-            transform: scale(1.15);
-        }
-
-        .modal-rank-badge {
-            width: 70px;
-            height: 70px;
-            image-rendering: pixelated;
-            filter: drop-shadow(0 0 35px rgba(var(--accent-gold-rgb), 1));
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
-        }
-        .modal-rank-badge:hover {
-            transform: scale(1.2);
-        }
-
-        .namemc-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: var(--card-bg-color);
-            border: 1px solid var(--border-color-light);
-            border-radius: 5px;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: var(--text-light);
-            font-weight: 600;
-            font-size: 0.95em;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 20px rgba(0,0,0,1);
-        }
-        .namemc-button:hover {
-            background-color: var(--hover-dark);
-            box-shadow: 0 0 35px rgba(var(--accent-gold-rgb), 1);
-            transform: translateY(-5px);
-            color: var(--accent-gold);
-        }
-        .namemc-button::before {
-            content: '⊓';
-            font-size: 1.2em;
-            vertical-align: middle;
-            line-height: 1;
-            text-shadow: 0 0 15px rgba(var(--accent-gold-rgb), 0.9);
-        }
-
-        .modal-section-title {
-            font-size: 1.1em;
             font-weight: 700;
-            color: var(--text-light);
-            text-align: center;
-            margin: 30px 0 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 0 18px rgba(0,0,0,0.9);
+            text-shadow: 0 0 40px rgba(var(--accent-red-glow-rgb), 1);
         }
 
-        .modal-tiers-grid, .modal-retired-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-            gap: 10px;
-            justify-items: center;
-            margin-bottom: 30px;
-        }
-
-        .modal-tier-item, .modal-retired-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .modal-tier-icon, .modal-retired-icon {
-            width: 40px;
-            height: 40px;
+        .voice-channel-section {
+            background-color: var(--card-bg-color);
             border: 1px solid var(--border-color-dark);
-            border-radius: 5px;
-            background-color: #1a1a1a; /* Darker background for icons */
-            background-size: 80% 80%;
-            background-position: center;
-            background-repeat: no-repeat;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 15px 70px rgba(0, 0, 0, 1);
+            margin-bottom: 40px;
+        }
+
+        .voice-channel-section h3 {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(var(--accent-gold-rgb), 1);
+            text-align: center;
+        }
+
+        .voice-channel-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .voice-channel {
+            background-color: var(--hover-dark);
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color-light);
+        }
+
+        .voice-channel h4 {
+            font-size: 1.4em;
+            color: var(--accent-gold);
+            margin: 0 0 15px;
+            text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1);
+        }
+
+        .voice-channel ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .voice-channel ul li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1em;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .voice-channel ul li img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .voice-channel ul li .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+
+        .voice-channel ul li .status-online { background-color: #43b581; }
+        .voice-channel ul li .status-idle { background-color: #faa61a; }
+        .voice-channel ul li .status-dnd { background-color: #f04747; }
+        .voice-channel ul li .mute::after {
+            content: '🔇';
+            font-size: 0.9em;
+            margin-left: 5px;
+        }
+
+        .voice-channel ul li .deaf::after {
+            content: '🔇';
+            font-size: 0.9em;
+            margin-left: 5px;
+        }
+
+        .discord-widget {
+            margin-top: 40px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            box-shadow: 0 2px 18px rgba(0,0,0,0.9);
-            filter: drop-shadow(0 0 15px rgba(0,0,0,0.8));
-            transition: all 0.2s ease;
-        }
-        .modal-tier-icon:hover, .modal-retired-icon:hover {
-            transform: scale(1.2);
-            filter: drop-shadow(0 0 30px rgba(var(--accent-gold-rgb), 1));
-            border-color: var(--accent-gold);
-        }
-
-        .modal-tier-icon.locked {
-            filter: grayscale(100%) brightness(0.2) drop-shadow(0 0 12px rgba(0,0,0,0.9)); /* Even darker locked */
-            border-color: #3a3a3a;
-        }
-        .modal-tier-icon.locked:hover {
-            transform: none;
-            filter: grayscale(100%) brightness(0.3) drop-shadow(0 0 15px rgba(0,0,0,1));
-            border-color: #5a5a5a;
-        }
-
-        /* Retired items in modal use hexagonal style, consistent with leaderboard */
-        .modal-retired-item .modal-retired-icon {
-             clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-        }
-        .modal-retired-item .item-label-box {
-            position: static;
-            margin-top: 5px;
-            transform: none;
         }
     </style>
 </head>
@@ -641,279 +391,117 @@
     <div class="page-wrapper">
         <div class="top-header">
             <div class="logo">
-                <img src="https://i.imgur.com/example_logo.png" alt="PvPTiers Logo">
-                PvPTiers Logo
+                <img src="https://i.imgur.com/example_logo.png" alt="NmcTiers Logo">
             </div>
-            <ul class="main-nav">
-                <li><a href="index.html"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Home Icon">HOME</a></li>
-                <li><a href="#" class="active"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Tier List Icon">TIER LIST</a></li>
-                <li><a href="#"><img src="https://pvptiers.com/icons/tiers/smp.png" alt="Community Icon">COMMUNITY</a></li>
-                <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Resources Icon">RESOURCES</a></li>
-                <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Server Icon">SERVER</a></li>
-                <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Affiliates Icon">AFFILIATES</a></li>
-                <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Support Icon">SUPPORT</a></li>
-                <li><a href="#"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Store Icon">STORE</a></li>
-            </ul>
             <div class="server-ip">
-                SERVER IP: <span>pvptiers.com</span>
+                SERVER IP: <span>nmctiers.com</span>
             </div>
         </div>
+
+        <nav class="main-nav-bar">
+            <ul>
+                <li><a href="index.html"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Home Icon">HOME</a></li>
+                <li><a href="community.html" class="active"><img src="https://pvptiers.com/icons/tiers/smp.png" alt="Community Icon">COMMUNITY</a></li>
+            </ul>
+        </nav>
 
         <div class="container">
-            <h1 class="page-title">Community</h1>
-
-            <div class="main-content-grid">
-                <div class="community-section">
-                    <h2>Join Our Community!</h2>
-                    <p style="color: var(--text-dark); font-size: 1.1em; margin-bottom: 30px;">Connect with other players, get updates, and share your experiences.</p>
-                    
-                    <div class="community-links">
-                        <a href="https://discord.gg/your-discord-invite" target="_blank">
-                            <img src="https://i.imgur.com/example_discord.png" alt="Discord Icon"> <!-- Placeholder Discord Icon -->
-                            Join our Discord
-                        </a>
-                        <a href="https://twitter.com/yourpvptiers" target="_blank">
-                            <img src="https://i.imgur.com/example_twitter.png" alt="Twitter Icon"> <!-- Placeholder Twitter Icon -->
-                            Follow on Twitter
-                        </a>
-                        <a href="https://youtube.com/yourpvptiers" target="_blank">
-                            <img src="https://i.imgur.com/example_youtube.png" alt="YouTube Icon"> <!-- Placeholder YouTube Icon -->
-                            Subscribe on YouTube
-                        </a>
-                        <a href="#" onclick="alert('Forum is coming soon!')">
-                            <img src="https://i.imgur.com/example_forum.png" alt="Forum Icon"> <!-- Placeholder Forum Icon -->
-                            Visit our Forums
-                        </a>
-                    </div>
-
-                    <h3 style="font-size: 1.5em; color: var(--text-light); margin-top: 50px; text-shadow: 0 0 20px rgba(var(--accent-red-glow-rgb), 0.7);">Community Guidelines</h3>
-                    <p style="color: var(--text-dark); max-width: 700px; margin: 15px auto;">
-                        We strive to maintain a friendly and competitive environment. Please be respectful,
-                        keep discussions constructive, and report any inappropriate behavior to our moderation team.
-                        Your cooperation helps make PvPTiers a better place for everyone!
-                    </p>
-                    
-                </div>
-
-                <div class="right-sidebar">
-                    <div class="info-card">
-                        <a href="#" class="info-button">Info</a>
-                    </div>
-
-                    <div class="search-card">
-                        <div class="search-input-wrapper">
-                            <input type="text" id="playerSearch" placeholder="SEARCH...">
-                        </div>
-                    </div>
+            <h1 class="community-title">Join Our Community</h1>
+            <div class="discord-section">
+                <h2>Nepali Minecraft Community</h2>
+                <p>Join our vibrant community on Discord to connect with fellow players, participate in events, and stay updated with the latest news!</p>
+                <div class="online-count">Online Members: <span id="online-count">Loading...</span></div>
+                <a href="https://discord.gg/your-discord-invite" class="discord-button" target="_blank">
+                    <img src="https://i.imgur.com/discord-icon.png" alt="Discord Icon">
+                    Join Discord
+                </a>
+            </div>
+            <div class="voice-channel-section">
+                <h3>Who's in Voice Chat?</h3>
+                <div class="voice-channel-list" id="voice-channel-list">
+                    <!-- Dynamically populated by JavaScript -->
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Player Profile Modal -->
-    <div id="playerProfileModalOverlay" class="profile-modal-overlay">
-        <div class="profile-modal">
-            <div class="profile-modal-header">
-                <h2 id="modalPlayerName">Player Name</h2>
-                <button class="profile-modal-close-btn" onclick="closePlayerProfileModal()">&#x2715;</button>
-            </div>
-            <div class="modal-player-overview">
-                <div class="modal-player-meta">
-                    <span id="modalPlayerRegion" class="region-badge region-na">NA</span>
-                    <span id="modalPlayerTier" class="player-tier-badge">COMBAT MASTER</span>
-                    <div class="overall-points-display">
-                        <img src="https://pvptiers.com/icons/tiers/overall.png" alt="Overall Icon">
-                        OVERALL <span id="modalPlayerPoints">284</span> Points
-                    </div>
-                </div>
-                <!-- This image uses mc-heads.net to dynamically fetch the player's skin -->
-                <img id="modalPlayerSkin" src="https://mc-heads.net/avatar/Marlowww/100" alt="Player Skin" class="modal-player-skin">
-                <!-- Modal rank badge (generic emblem without skin) -->
-                <img id="modalPlayerRankBadge" src="https://i.imgur.com/yU4eYwP.png" alt="Rank Badge" class="modal-rank-badge">
-                <a href="#" class="namemc-button" target="_blank" id="namemcLink">NameMC</a>
-
-                <h3 class="modal-section-title">Tiers</h3>
-                <div class="modal-tiers-grid" id="modalPlayerTiers">
-                    <!-- Dynamic Tier Icons Go Here -->
-                </div>
-
-                <h3 class="modal-section-title">Retired</h3>
-                <div class="modal-retired-grid" id="modalPlayerRetiredItems">
-                    <!-- Dynamic Retired Items Go Here -->
-                </div>
+            <div class="discord-widget">
+                <iframe src="https://discord.com/widget?id=1394714934960721981&theme=dark" width="350" height="400" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
             </div>
         </div>
     </div>
 
     <script>
-        // --- Mock Data Structure ---
-        const allGamemodes = [
-            { id: 'crystal', name: 'Crystal', iconUrl: 'https://pvptiers.com/icons/tiers/crystal.png' },
-            { id: 'sword', name: 'Sword', iconUrl: 'https://pvptiers.com/icons/tiers/sword.png' },
-            { id: 'uhc', name: 'UHC', iconUrl: 'https://pvptiers.com/icons/tiers/uhc.png' },
-            { id: 'pot', name: 'Pot', iconUrl: 'https://pvptiers.com/icons/tiers/pot.png' },
-            { id: 'neth_pot', name: 'Neth Pot', iconUrl: 'https://pvptiers.com/icons/tiers/neth_pot.png' },
-            { id: 'smp', name: 'SMP', iconUrl: 'https://pvptiers.com/icons/tiers/smp.png' },
-            { id: 'axe', name: 'Axe', iconUrl: 'https://pvptiers.com/icons/tiers/axe.png' },
-            { id: 'mace', name: 'Mace', iconUrl: 'https://pvptiers.com/icons/tiers/mace.png' },
-            { id: 'question', name: 'Question', iconUrl: 'https://pvptiers.com/icons/gamemodes/question.png' }
-        ];
+        async function fetchDiscordData() {
+            const serverId = '1394714934960721981';
+            const apiUrl = `https://discord.com/api/guilds/${serverId}/widget.json`;
 
-        const mockPlayerData = {
-            'itzrealme': {
-                name: 'ItzRealMe', rank: 1, region: 'NA', tier: 'COMBATMASTER', points: 300,
-                // These are for the leaderboard's 1st column, next to the rank number.
-                leaderboardRankBadge: 'https://i.imgur.com/ItzRealMe_Rank1.png', // Placeholder for rank 1 emblem
-                modalRankBadge: 'https://i.imgur.com/sS475yU.png', // Placeholder gold emblem for modal
-                unlockedTiers: ['crystal', 'sword', 'axe', 'pot', 'smp', 'uhc'],
-                retiredItems: [
-                    { type: 'crystal', label: 'HT1' }, { type: 'sword', label: 'HT1' }, { type: 'uhc', label: 'HT1' },
-                    { type: 'pot', label: 'HT1' }, { type: 'neth_pot', label: 'HT2' }, { type: 'axe', label: 'LT2' }, { type: 'question', label: '?' }
-                ]
-            },
-            'marlowww': {
-                name: 'Marlowww', rank: 2, region: 'NA', tier: 'COMBATMASTER', points: 284,
-                leaderboardRankBadge: 'https://i.imgur.com/Marlowww_Rank2.png', // Placeholder for rank 2 emblem
-                modalRankBadge: 'https://i.imgur.com/yU4eYwP.png', // Placeholder silver emblem for modal
-                unlockedTiers: ['crystal', 'sword', 'uhc', 'smp', 'neth_pot'],
-                retiredItems: [
-                    { type: 'crystal', label: 'HT1' }, { type: 'smp', label: 'HT1' }, { type: 'sword', label: 'LT1' },
-                    { type: 'uhc', label: 'LT1' }, { type: 'pot', label: 'LT1' }, { type: 'axe', label: 'LT2' },
-                    { type: 'neth_pot', label: 'LT2' }, { type: 'question', label: '?' }
-                ]
-            },
-            'swight': {
-                name: 'Swight', rank: 3, region: 'NA', tier: 'COMBATMASTER', points: 220,
-                leaderboardRankBadge: 'https://i.imgur.com/Swight_Rank3.png', // Placeholder for rank 3 emblem
-                modalRankBadge: 'https://i.imgur.com/D4s6LgQ.png', // Placeholder bronze emblem for modal
-                unlockedTiers: ['crystal', 'sword', 'uhc', 'axe'],
-                retiredItems: [
-                    { type: 'crystal', label: 'HT3' }, { type: 'sword', label: 'HT3' }, { type: 'uhc', label: 'HT3' },
-                    { type: 'pot', label: 'LT3' }, { type: 'neth_pot', label: 'HT1' }, { type: 'smp', label: 'HT1' }, { type: 'question', label: '?' }
-                ]
-            },
-            'coldified': {
-                name: 'coldified', rank: 4, region: 'EU', tier: 'COMBATMASTER', points: 208,
-                leaderboardRankBadge: '', // No specific badge for rank > 3, will just show rank number
-                modalRankBadge: '', // No specific badge for rank > 3
-                unlockedTiers: ['crystal', 'pot', 'smp', 'mace'],
-                retiredItems: [
-                    { type: 'crystal', label: 'HT2' }, { type: 'sword', label: 'LT2' }, { type: 'uhc', label: 'LT3' },
-                    { type: 'pot', label: 'HT1' }, { type: 'neth_pot', label: 'HT1' }, { type: 'smp', label: 'HT2' }, { type: 'question', label: '?' }
-                ]
-            }
-        };
-
-        // --- Helper Functions ---
-
-        function getGamemodeIconUrl(id) {
-            const gamemode = allGamemodes.find(gm => gm.id === id);
-            return gamemode ? gamemode.iconUrl : allGamemodes.find(gm => gm.id === 'question').iconUrl;
-        }
-
-        function populateModal(playerName) {
-            const playerData = mockPlayerData[playerName.toLowerCase()];
-            
-            if (!playerData) {
-                alert(`Player '${playerName}' not found in mock data.`);
-                return;
-            }
-
-            document.getElementById('modalPlayerName').textContent = playerData.name;
-            const modalPlayerRegion = document.getElementById('modalPlayerRegion');
-            modalPlayerRegion.textContent = playerData.region;
-            modalPlayerRegion.className = `region-badge region-${playerData.region.toLowerCase()}`;
-            document.getElementById('modalPlayerTier').textContent = playerData.tier;
-            document.getElementById('modalPlayerPoints').textContent = playerData.points;
-            document.getElementById('modalPlayerSkin').src = `https://mc-heads.net/avatar/${playerName}/100`;
-
-            const modalPlayerRankBadge = document.getElementById('modalPlayerRankBadge');
-            if (playerData.modalRankBadge) {
-                modalPlayerRankBadge.src = playerData.modalRankBadge;
-                modalPlayerRankBadge.style.display = 'block';
-            } else {
-                modalPlayerRankBadge.style.display = 'none';
-            }
-
-            document.getElementById('namemcLink').href = `https://namemc.com/profile/${playerData.name}`;
-
-            // --- Populate Modal Tiers Grid ---
-            const modalPlayerTiersContainer = document.getElementById('modalPlayerTiers');
-            modalPlayerTiersContainer.innerHTML = '';
-            allGamemodes.slice(0, 8).forEach(gamemode => { // Show 8 main gamemodes
-                const isUnlocked = playerData.unlockedTiers.includes(gamemode.id);
-                modalPlayerTiersContainer.innerHTML += `
-                    <div class="modal-tier-item">
-                        <div class="modal-tier-icon ${isUnlocked ? '' : 'locked'}"
-                             style="background-image: url('${getGamemodeIconUrl(gamemode.id)}');">
-                        </div>
-                    </div>
-                `;
-            });
-
-            // --- Populate Modal Retired Items Grid ---
-            const modalPlayerRetiredItemsContainer = document.getElementById('modalPlayerRetiredItems');
-            modalPlayerRetiredItemsContainer.innerHTML = '';
-            playerData.retiredItems.forEach(item => {
-                modalPlayerRetiredItemsContainer.innerHTML += `
-                    <div class="modal-retired-item">
-                        <div class="item-slot">
-                            <div class="item-icon-hex" data-item-type="${item.type || 'question'}"
-                                 style="background-image: url('${getGamemodeIconUrl(item.type || 'question')}');">
-                            </div>
-                            <div class="item-label-box">${item.label}</div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-        
-        function openPlayerProfileModal(event, playerName) {
-            if (event) event.preventDefault();
-            populateModal(playerName);
-            if (mockPlayerData[playerName.toLowerCase()]) {
-                document.getElementById('playerProfileModalOverlay').classList.add('active');
-            }
-        }
-
-        function closePlayerProfileModal() {
-            document.getElementById('playerProfileModalOverlay').classList.remove('active');
-        }
-
-        function searchPlayer() {
-            const playerSearchInput = document.getElementById('playerSearch');
-            if (!playerSearchInput) {
-                console.error("Error: 'playerSearch' element not found.");
-                return;
-            }
-            const searchTerm = playerSearchInput.value.trim();
-            if (searchTerm) {
-                openPlayerProfileModal(null, searchTerm);
-            } else {
-                alert('Please enter a player name to search.');
-            }
-        }
-
-        document.getElementById('playerSearch').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                searchPlayer();
-            }
-        });
-
-        // Removed handleWebhookSubmit as it was for discord-webhook-sidebar
-        
-        // --- Initial setup for leaderboard item icons on DOMContentLoaded ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // Apply background images to leaderboard item icons
-            document.querySelectorAll('.item-icon-hex[data-item-type]').forEach(iconElement => {
-                const itemType = iconElement.getAttribute('data-item-type');
-                const iconUrl = getGamemodeIconUrl(itemType);
-                if (iconUrl) {
-                    iconElement.style.backgroundImage = `url('${iconUrl}')`;
+            try {
+                const response = await fetch(apiUrl, { cache: 'no-store' });
+                if (!response.ok) {
+                    throw new Error('Failed to fetch Discord widget data');
                 }
-            });
-        });
+                const data = await response.json();
+                
+                // Update online count
+                const onlineCount = data.presence_count || 0;
+                document.getElementById('online-count').textContent = onlineCount;
+
+                // Update voice channel users
+                const voiceChannelList = document.getElementById('voice-channel-list');
+                voiceChannelList.innerHTML = '';
+
+                const voiceChannels = {};
+                data.channels.forEach(channel => {
+                    if (channel.name.includes('Voice Chat') || channel.name.includes('Music')) {
+                        voiceChannels[channel.id] = { name: channel.name, members: [] };
+                    }
+                });
+
+                data.members.forEach(member => {
+                    if (member.channel_id && voiceChannels[member.channel_id]) {
+                        voiceChannels[member.channel_id].members.push(member);
+                    }
+                });
+
+                for (const channelId in voiceChannels) {
+                    const channel = voiceChannels[channelId];
+                    if (channel.members.length === 0) continue;
+
+                    const channelElement = document.createElement('div');
+                    channelElement.className = 'voice-channel';
+                    channelElement.innerHTML = `<h4>${channel.name}</h4><ul></ul>`;
+                    const memberList = channelElement.querySelector('ul');
+
+                    channel.members.forEach(member => {
+                        const li = document.createElement('li');
+                        const statusClass = `status-${member.status}`;
+                        const muteClass = member.self_mute ? 'mute' : '';
+                        const deafClass = member.self_deaf ? 'deaf' : '';
+                        li.innerHTML = `
+                            <img src="${member.avatar_url}" alt="${member.username} avatar" onerror="this.src='https://i.imgur.com/default-avatar.png'">
+                            ${member.username}
+                            <span class="status-indicator ${statusClass}"></span>
+                            <span class="${muteClass} ${deafClass}"></span>
+                        `;
+                        memberList.appendChild(li);
+                    });
+
+                    voiceChannelList.appendChild(channelElement);
+                }
+
+                if (Object.keys(voiceChannels).every(id => voiceChannels[id].members.length === 0)) {
+                    voiceChannelList.innerHTML = '<p>No users in voice channels.</p>';
+                }
+            } catch (error) {
+                console.error('Error fetching Discord data:', error);
+                document.getElementById('online-count').textContent = 'Unavailable';
+                document.getElementById('voice-channel-list').innerHTML = '<p>Unable to load voice channel data.</p>';
+            }
+        }
+
+        // Initial fetch
+        fetchDiscordData();
+
+        // Update every 5 seconds to avoid rate limits
+        setInterval(fetchDiscordData, 5000);
     </script>
 </body>
 </html>
