@@ -547,7 +547,7 @@
             font-size: 1.1em;
             font-weight: 600;
             color: var(--text-light);
-            margin-right: 10px;
+            margin-right: 15px;
             text-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 1);
         }
 
@@ -555,7 +555,7 @@
         .player-items-col {
             flex-shrink: 0;
             display: flex;
-            gap: 2px;
+            gap: 3px;
             width: 250px; /* Adjusted width */
             justify-content: flex-end;
             flex-wrap: wrap;
@@ -591,9 +591,9 @@
         .item-label-box {
             background-color: var(--accent-gold);
             color: #333;
-            font-size: 0.6em;
+            font-size: 0.6em; /* Smaller font */
             font-weight: 700;
-            padding: 1px 4px;
+            padding: 1px 4px; /* Smaller padding */
             border-radius: 3px;
             white-space: nowrap;
             text-transform: uppercase;
@@ -614,7 +614,6 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            /* No need for margin-top here as it's part of the grid */
         }
 
         .info-card, .search-card {
@@ -696,10 +695,6 @@
             padding-left: 35px;
         }
         
-        /* Discord Webhook Integration - Removed as per request */
-        .discord-webhook-sidebar { display: none; }
-
-
         /* Profile Modal Styles */
         .profile-modal-overlay {
             position: fixed;
@@ -952,6 +947,7 @@
     <div class="page-wrapper">
         <div class="top-header">
             <div class="logo">
+                <!-- Placeholder for PvPTiers Logo -->
                 <img src="https://i.imgur.com/example_logo.png" alt="PvPTiers Logo">
             </div>
             <div class="server-ip">
@@ -1302,7 +1298,7 @@
             'itzrealme': {
                 name: 'ItzRealMe', rank: 1, region: 'NA', tier: 'COMBATMASTER', points: 300,
                 // These are for the leaderboard's 1st column, next to the rank number.
-                leaderboardRankBadge: 'https://i.imgur.com/ItzRealMe_Rank1.png', // Placeholder for rank 1 emblem
+                leaderboardRankBadge: 'https://i.imgur.com/rank1_emblem.png', // Placeholder for rank 1 emblem
                 modalRankBadge: 'https://i.imgur.com/sS475yU.png', // Placeholder gold emblem for modal
                 unlockedTiers: ['crystal', 'sword', 'axe', 'pot', 'smp', 'uhc'],
                 retiredItems: [
@@ -1312,7 +1308,7 @@
             },
             'marlowww': {
                 name: 'Marlowww', rank: 2, region: 'NA', tier: 'COMBATMASTER', points: 284,
-                leaderboardRankBadge: 'https://i.imgur.com/Marlowww_Rank2.png', // Placeholder for rank 2 emblem
+                leaderboardRankBadge: 'https://i.imgur.com/rank2_emblem.png', // Placeholder for rank 2 emblem
                 modalRankBadge: 'https://i.imgur.com/yU4eYwP.png', // Placeholder silver emblem for modal
                 unlockedTiers: ['crystal', 'sword', 'uhc', 'smp', 'neth_pot'],
                 retiredItems: [
@@ -1323,7 +1319,7 @@
             },
             'swight': {
                 name: 'Swight', rank: 3, region: 'NA', tier: 'COMBATMASTER', points: 220,
-                leaderboardRankBadge: 'https://i.imgur.com/Swight_Rank3.png', // Placeholder for rank 3 emblem
+                leaderboardRankBadge: 'https://i.imgur.com/rank3_emblem.png', // Placeholder for rank 3 emblem
                 modalRankBadge: 'https://i.imgur.com/D4s6LgQ.png', // Placeholder bronze emblem for modal
                 unlockedTiers: ['crystal', 'sword', 'uhc', 'axe'],
                 retiredItems: [
@@ -1514,4 +1510,4 @@
         });
     </script>
 </body>
-</html>```
+</html>
