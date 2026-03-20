@@ -190,14 +190,7 @@ body {
     letter-spacing: -0.04em;
     margin-bottom: 1.5rem;
     margin-left: -5px;
-}
-
-.hero-title .line {
-    background: linear-gradient(180deg, #FFFFFF 0%, #777777 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    color: #FFFFFF;
 }
 
 .hero-subtitle {
