@@ -3,287 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NmcTiers - Overall Ranking</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --main-bg-color: #050505;
-            --header-bg-color: #080808;
-            --card-bg-color: #101010;
-            --border-color-dark: #1a1a1a;
-            --border-color-light: #333;
-            --text-light: #ffffff;
-            --text-dark: #bbbbbb;
-            --accent-gold: #ffb800;
-            --accent-gold-rgb: 255, 184, 0;
-            --accent-red-glow: #ff4500;
-            --accent-red-glow-rgb: 255, 69, 0;
-            --accent-purple: #8854c4;
-            --hover-dark: #181818;
-            --focus-glow: 0 0 40px rgba(var(--accent-gold-rgb), 1);
-            --tier-combatmaster: var(--accent-purple);
-            --tier-nr: #d64a4a;
-            --tier-eu: #4a8ad6;
-        }
-
-        /* ... (keep existing particle and styling CSS) ... */
-    </style>
+    <title>DevPrs | Professional Portfolio</title>
+    <!-- Modern Clean Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="particle-container">
-        <div class="particle particle1"></div>
-        <div class="particle particle2"></div>
-        <div class="particle particle3"></div>
-        <div class="particle particle4"></div>
+    <!-- Minimal Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- DEVICE CONTROLS -->
+    <div class="device-controls" id="device-controls">
+        <button class="toggle-btn active" data-view="desktop">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            Desktop
+        </button>
+        <button class="toggle-btn" data-view="mobile">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+            Phone
+        </button>
     </div>
 
-    <div class="page-wrapper">
-        <div class="top-header">
-            <div class="logo">
-                <img src="https://i.imgur.com/example_logo.png" alt="PvPTiers Logo">
-            </div>
-            <div class="server-ip">
-                SERVER IP: <span>pvptiers.com</span>
-            </div>
-        </div>
+    <!-- MAIN WRAPPER -->
+    <div class="app-wrapper">
+        <!-- PORTFOLIO VIEW (This will scale down for phone mode) -->
+        <main class="portfolio-view" id="portfolio-view">
+            
+            <!-- CANVAS PARTICLES (Inside the view so it shrinks) -->
+            <canvas id="particles-bg"></canvas>
 
-        <nav class="main-nav-bar">
-            <ul>
-                <li><a href="index.html" class="active"><img src="https://pvptiers.com/icons/tiers/overall.png" alt="Home Icon">HOME</a></li>
-                <li><a href="community.html"><img src="https://pvptiers.com/icons/tiers/smp.png" alt="Community Icon">COMMUNITY</a></li>
-            </ul>
-        </nav>
-
-        <div class="container">
-            <h1 class="rankings-title">Rankings</h1>
-
-            <div class="gamemode-nav">
-                <a href="index.html" class="active">
-                    <img src="https://pvptiers.com/icons/tiers/overall.png" alt="Overall Icon">
-                    OVERALL
-                </a>
-                <a href="crystal.html">
-                    <img src="https://pvptiers.com/icons/tiers/crystal.png" alt="Crystal Icon">
-                    CRYSTAL
-                </a>
-                <a href="sumo.html">
-                    <img src="https://pvptiers.com/icons/tiers/sword.png" alt="Sumo Icon">
-                    SWORD
-                </a>
-                <a href="uhc.html">
-                    <img src="https://pvptiers.com/icons/tiers/uhc.png" alt="UHC Icon">
-                    UHC
-                </a>
-                <a href="soup.html">
-                    <img src="https://pvptiers.com/icons/tiers/pot.png" alt="Pot Icon">
-                    POT
-                </a>
-                <a href="neth_pot.html">
-                    <img src="https://pvptiers.com/icons/tiers/neth_pot.png" alt="Nether Pot Icon">
-                    NETHERITE POT
-                </a>
-                <a href="smp.html">
-                    <img src="https://pvptiers.com/icons/tiers/smp.png" alt="SMP Icon">
-                    SMP
-                </a>
-                <a href="axe.html">
-                    <img src="https://pvptiers.com/icons/tiers/axe.png" alt="Axe Icon">
-                    AXE
-                </a>
-                <a href="mace.html">
-                    <img src="https://pvptiers.com/icons/tiers/mace.png" alt="Mace Icon">
-                    MACE
-                </a>
-            </div>
-
-            <div class="main-content-grid">
-                <div class="leaderboard-section">
-                    <div class="leaderboard-table-header player-row">
-                        <div class="player-rank-col">#</div>
-                        <div class="player-info-col">PLAYER</div>
-                        <div class="player-region-col region-th">REGION</div>
-                        <div class="player-points-col">POINTS</div>
-                        <div class="player-items-col"></div>
+            <!-- Hero Section -->
+            <section class="hero" id="home">
+                <div class="container hero-container">
+                    <p class="hero-label reveal-hero">Software Developer</p>
+                    <h1 class="hero-title">
+                        <span class="line-wrap"><span class="line">DevPrs.</span></span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        <span class="line-wrap"><span class="line">Crafting highly polished,</span></span>
+                        <span class="line-wrap"><span class="line">digital experiences.</span></span>
+                    </p>
+                    
+                    <div class="scroll-prompt reveal-hero">
+                        <div class="scroll-line"></div>
+                        <span>Scroll</span>
                     </div>
-                    <div id="leaderboardBody"></div>
                 </div>
+            </section>
 
-                <div class="right-sidebar">
-                    <div class="info-card">
-                        <a href="#" class="info-button">Info</a>
-                    </div>
-                    <div class="search-card">
-                        <div class="search-input-wrapper">
-                            <input type="text" id="playerSearch" placeholder="SEARCH...">
+            <!-- Details Section -->
+            <section class="details container-section" id="about">
+                <div class="container">
+                    <div class="grid">
+                        <div class="grid-card reveal-card">
+                            <h3 class="card-label">Profile</h3>
+                            <h2 class="card-value">14</h2>
+                            <p class="card-desc">Years old. Passionate <br>about clean code.</p>
+                        </div>
+                        <div class="grid-card reveal-card">
+                            <h3 class="card-label">Base</h3>
+                            <h2 class="card-value">Lisbon</h2>
+                            <p class="card-desc">Portugal based. <br>Originally from Nepal.</p>
+                        </div>
+                        <div class="grid-card reveal-card">
+                            <h3 class="card-label">Focus</h3>
+                            <h2 class="card-value">Web & MC</h2>
+                            <p class="card-desc">Full-stack websites <br>& Minecraft plugins.</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </section>
 
-    <div id="playerProfileModalOverlay" class="profile-modal-overlay">
-        <div class="profile-modal">
-            <div class="profile-modal-header">
-                <h2 id="modalPlayerName">Player Name</h2>
-                <button class="profile-modal-close-btn" onclick="closePlayerProfileModal()">&#x2715;</button>
-            </div>
-            <div class="modal-player-overview">
-                <div class="modal-player-meta">
-                    <span id="modalPlayerRegion" class="region-badge region-na">NA</span>
-                    <span id="modalPlayerTier" class="player-tier-badge">COMBATMASTER</span>
-                    <div class="overall-points-display">
-                        <img src="https://pvptiers.com/icons/tiers/overall.png" alt="Overall Icon">
-                        OVERALL <span id="modalPlayerPoints">284</span> Points
+            <!-- Skills Section -->
+            <section class="skills container-section" id="skills">
+                <div class="container">
+                    <h2 class="section-title reveal-text">Technical Arsenal</h2>
+                    <div class="list-container">
+                        <div class="list-item reveal-list">
+                            <span class="list-name">Minecraft Development</span>
+                            <span class="list-dots"></span>
+                            <span class="list-value">Java, Paper API, Spigot</span>
+                        </div>
+                        <div class="list-item reveal-list">
+                            <span class="list-name">Web Development</span>
+                            <span class="list-dots"></span>
+                            <span class="list-value">HTML, CSS, React, UI/UX</span>
+                        </div>
+                        <div class="list-item reveal-list">
+                            <span class="list-name">Server Infrastructure</span>
+                            <span class="list-dots"></span>
+                            <span class="list-value">Linux, Redis, MySQL</span>
+                        </div>
+                        <div class="list-item reveal-list">
+                            <span class="list-name">Other Proficiencies</span>
+                            <span class="list-dots"></span>
+                            <span class="list-value">Python, Discord Bots, GSAP</span>
+                        </div>
                     </div>
                 </div>
-                <img id="modalPlayerSkin" src="https://mc-heads.net/avatar/Marlowww/100" alt="Player Skin" class="modal-player-skin">
-                <img id="modalPlayerRankBadge" src="https://i.imgur.com/yU4eYwP.png" alt="Rank Badge" class="modal-rank-badge">
-                <a href="#" class="namemc-button" target="_blank" id="namemcLink">NameMC</a>
-                <h3 class="modal-section-title">Tiers</h3>
-                <div class="modal-tiers-grid" id="modalPlayerTiers"></div>
-                <h3 class="modal-section-title">Retired</h3>
-                <div class="modal-retired-grid" id="modalPlayerRetiredItems"></div>
-            </div>
-        </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="projects container-section" id="projects">
+                <div class="container">
+                    <h2 class="section-title reveal-text">Selected Works</h2>
+                    <div class="grid">
+                        <div class="project-card reveal-card">
+                            <div class="project-year">2026</div>
+                            <h3 class="project-title">CpvpCore Plugin</h3>
+                            <p class="project-desc">A deep Minecraft Paper plugin featuring custom 1v1 matchmaking, FFA arenas, and polished death effects.</p>
+                        </div>
+                        <div class="project-card reveal-card">
+                            <div class="project-year">2026</div>
+                            <h3 class="project-title">NPPVP Platform</h3>
+                            <p class="project-desc">A modern, animated React website built for a custom Minecraft server network.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="contact container-section" id="contact">
+                <div class="container contact-container">
+                    <h2 class="contact-title reveal-text">Ready to connect?</h2>
+                    <p class="contact-subtitle reveal-text">Drop a message on Discord.</p>
+                    <div class="contact-action reveal-button">
+                        <a href="https://discord.com/users/devprs1" target="_blank" class="primary-btn hover-target">
+                            @devprs1
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <footer class="footer">
+                    <div class="container footer-content">
+                        <p>&copy; 2026 DevPrs.</p>
+                        <p>Minimalist Edition.</p>
+                    </div>
+                </footer>
+            </section>
+            
+        </main>
     </div>
 
-    <script>
-        const allGamemodes = [
-            { id: 'crystal', name: 'Crystal', iconUrl: 'https://pvptiers.com/icons/tiers/crystal.png' },
-            { id: 'sword', name: 'Sword', iconUrl: 'https://pvptiers.com/icons/tiers/sword.png' },
-            { id: 'uhc', name: 'UHC', iconUrl: 'https://pvptiers.com/icons/tiers/uhc.png' },
-            { id: 'pot', name: 'Pot', iconUrl: 'https://pvptiers.com/icons/tiers/pot.png' },
-            { id: 'neth_pot', name: 'Neth Pot', iconUrl: 'https://pvptiers.com/icons/tiers/neth_pot.png' },
-            { id: 'smp', name: 'SMP', iconUrl: 'https://pvptiers.com/icons/tiers/smp.png' },
-            { id: 'axe', name: 'Axe', iconUrl: 'https://pvptiers.com/icons/tiers/axe.png' },
-            { id: 'mace', name: 'Mace', iconUrl: 'https://pvptiers.com/icons/tiers/mace.png' },
-            { id: 'question', name: 'Question', iconUrl: 'https://pvptiers.com/icons/gamemodes/question.png' }
-        ];
-
-        function getGamemodeIconUrl(id) {
-            const gamemode = allGamemodes.find(gm => gm.id === id);
-            return gamemode ? gamemode.iconUrl : allGamemodes.find(gm => gm.id === 'question').iconUrl;
-        }
-
-        async function fetchLeaderboard() {
-            try {
-                const response = await fetch('http://localhost:5000/api/leaderboard');
-                const leaderboard = await response.json();
-                const leaderboardBody = document.getElementById('leaderboardBody');
-                leaderboardBody.innerHTML = '';
-                leaderboard.forEach((player, index) => {
-                    const row = document.createElement('div');
-                    row.className = 'player-row';
-                    row.innerHTML = `
-                        <div class="player-rank-col"><span class="rank-number">${index + 1}</span></div>
-                        <div class="player-info-col">
-                            <img src="https://mc-heads.net/avatar/${player.name}/32" alt="${player.name} Skin" class="player-avatar">
-                            <div class="player-details">
-                                <a href="#" data-player-name="${player.name}" onclick="openPlayerProfileModal(event, '${player.name}')">${player.name}</a>
-                                <span class="player-tier-points-label">
-                                    <span class="player-tier-badge">COMBATMASTER</span>
-                                    <span>${player.points} Points</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="player-region-col">
-                            <span class="region-badge region-${player.region.toLowerCase()}">${player.region}</span>
-                            <span class="region-info-icon" title="Region Info">ⓘ</span>
-                        </div>
-                        <div class="player-points-col">${player.points}</div>
-                        <div class="player-items-col">
-                            ${player.unlockedTiers.map(t => `
-                                <div class="item-slot">
-                                    <div class="item-icon-hex" data-item-type="${t.gamemode}" style="background-image: url('${getGamemodeIconUrl(t.gamemode)}');"></div>
-                                    <div class="item-label-box">${t.tier}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
-                    leaderboardBody.appendChild(row);
-                });
-            } catch (error) {
-                console.error('Error fetching leaderboard:', error);
-                document.getElementById('leaderboardBody').innerHTML = '<div class="player-row">Error loading leaderboard.</div>';
-            }
-        }
-
-        async function populateModal(playerName) {
-            try {
-                const response = await fetch(`http://localhost:5000/api/leaderboard`);
-                const leaderboard = await response.json();
-                const playerData = leaderboard.find(p => p.name.toLowerCase() === playerName.toLowerCase());
-
-                if (!playerData) {
-                    alert(`Player '${playerName}' not found.`);
-                    return;
-                }
-
-                document.getElementById('modalPlayerName').textContent = playerData.name;
-                const modalPlayerRegion = document.getElementById('modalPlayerRegion');
-                modalPlayerRegion.textContent = playerData.region;
-                modalPlayerRegion.className = `region-badge region-${playerData.region.toLowerCase()}`;
-                document.getElementById('modalPlayerTier').textContent = 'COMBATMASTER'; // Placeholder, adjust if tiers vary
-                document.getElementById('modalPlayerPoints').textContent = playerData.points;
-                document.getElementById('modalPlayerSkin').src = `https://mc-heads.net/avatar/${playerName}/100`;
-                document.getElementById('modalPlayerRankBadge').src = 'https://i.imgur.com/yU4eYwP.png'; // Default badge
-                document.getElementById('namemcLink').href = `https://namemc.com/profile/${playerData.name}`;
-
-                const modalPlayerTiersContainer = document.getElementById('modalPlayerTiers');
-                modalPlayerTiersContainer.innerHTML = '';
-                allGamemodes.slice(0, 8).forEach(gamemode => {
-                    const isUnlocked = playerData.unlockedTiers.some(t => t.gamemode === gamemode.id);
-                    modalPlayerTiersContainer.innerHTML += `
-                        <div class="modal-tier-item">
-                            <div class="modal-tier-icon ${isUnlocked ? '' : 'locked'}"
-                                 style="background-image: url('${getGamemodeIconUrl(gamemode.id)}');">
-                            </div>
-                        </div>
-                    `;
-                });
-
-                const modalPlayerRetiredItemsContainer = document.getElementById('modalPlayerRetiredItems');
-                modalPlayerRetiredItemsContainer.innerHTML = ''; // No retired items in current data
-            } catch (error) {
-                console.error('Error populating modal:', error);
-            }
-        }
-
-        function openPlayerProfileModal(event, playerName) {
-            if (event) event.preventDefault();
-            populateModal(playerName);
-            document.getElementById('playerProfileModalOverlay').classList.add('active');
-        }
-
-        function closePlayerProfileModal() {
-            document.getElementById('playerProfileModalOverlay').classList.remove('active');
-        }
-
-        function searchPlayer() {
-            const playerSearchInput = document.getElementById('playerSearch');
-            if (!playerSearchInput) {
-                console.error("Error: 'playerSearch' element not found.");
-                return;
-            }
-            const searchTerm = playerSearchInput.value.trim();
-            if (searchTerm) {
-                openPlayerProfileModal(null, searchTerm);
-            } else {
-                alert('Please enter a player name to search.');
-            }
-        }
-
-        document.getElementById('playerSearch').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                searchPlayer();
-            }
-        });
-
-        // Initial load and periodic refresh
-        fetchLeaderboard();
-        setInterval(fetchLeaderboard, 30000); // Refresh every 30 seconds
-    </script>
+    <!-- GSAP Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
