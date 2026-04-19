@@ -1,158 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevPrs | Professional Portfolio</title>
-    <!-- Modern Clean Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FloodGuard — Enterprise DDoS Protection for Minecraft</title>
+<meta name="description" content="FloodGuard provides enterprise-grade DDoS protection for Minecraft servers. Free tier available. Protect your server from attacks in real-time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
-    <!-- Minimal Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
 
-    <!-- DEVICE CONTROLS -->
-    <div class="device-controls" id="device-controls">
-        <button class="toggle-btn active" data-view="desktop">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-            Desktop
-        </button>
-        <button class="toggle-btn" data-view="mobile">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-            Phone
-        </button>
+<!-- Animated Background -->
+<div class="bg-grid"></div>
+<div class="bg-glow glow-1"></div>
+<div class="bg-glow glow-2"></div>
+<div class="bg-glow glow-3"></div>
+<canvas id="particles"></canvas>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 7V12C3 17 6.5 21.5 12 22C17.5 21.5 21 17 21 12V7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span>Flood<span class="logo-accent">Guard</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#stats">Network</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-ghost" onclick="openLogin()">Sign In</button>
+      <a href="dashboard.html" class="btn-primary">
+        <span>Dashboard</span>
+        <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="pulse-dot"></span>
+      <span>99.99% Uptime · 2.4 Tbps Network Capacity</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="title-line">Unbreakable</span>
+      <span class="title-line gradient-text">DDoS Protection</span>
+      <span class="title-line">for Minecraft</span>
+    </h1>
+    <p class="hero-subtitle">
+      Enterprise-grade mitigation powered by AI. Block attacks in under 10ms, 
+      keep your players online, and scale to millions — starting <strong>completely free</strong>.
+    </p>
+    <div class="hero-cta">
+      <a href="dashboard.html" class="btn-primary btn-large">
+        <span>Start Protecting Free</span>
+        <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <button class="btn-secondary btn-large" onclick="openLogin()">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="#fff" d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81Z"/></svg>
+        <span>Sign in with Google</span>
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-value" data-target="2400">0</div><div class="stat-label">Gbps Capacity</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><div class="stat-value" data-target="847">0</div><div class="stat-label">Servers Protected</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><div class="stat-value" data-target="12">0</div><div class="stat-label">Global PoPs</div></div>
+    </div>
+  </div>
+
+  <!-- 3D Floating Shield -->
+  <div class="hero-visual">
+    <div class="shield-container">
+      <div class="shield-ring ring-1"></div>
+      <div class="shield-ring ring-2"></div>
+      <div class="shield-ring ring-3"></div>
+      <div class="shield-core">
+        <svg viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00f0ff"/>
+              <stop offset="50%" stop-color="#0080ff"/>
+              <stop offset="100%" stop-color="#8000ff"/>
+            </linearGradient>
+          </defs>
+          <path d="M50 10 L85 25 L85 55 C85 75 70 88 50 92 C30 88 15 75 15 55 L15 25 Z" 
+                fill="url(#shieldGrad)" opacity="0.9"/>
+          <path d="M35 50 L45 60 L65 40" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="orbit orbit-1"><div class="orbit-dot"></div></div>
+      <div class="orbit orbit-2"><div class="orbit-dot"></div></div>
+      <div class="orbit orbit-3"><div class="orbit-dot"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust Bar -->
+<section class="trust-bar">
+  <div class="trust-container">
+    <div class="trust-label">TRUSTED BY 847+ SERVERS WORLDWIDE</div>
+    <div class="trust-logos">
+      <div class="trust-logo">PixelCraft</div>
+      <div class="trust-logo">MineHaven</div>
+      <div class="trust-logo">BlockWorld</div>
+      <div class="trust-logo">CubeNation</div>
+      <div class="trust-logo">EnderRealm</div>
+      <div class="trust-logo">StoneForge</div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+  <div class="section-header">
+    <div class="section-badge">FEATURES</div>
+    <h2 class="section-title">Built for <span class="gradient-text">serious</span> server owners</h2>
+    <p class="section-subtitle">Every feature you need to keep your Minecraft server online, 24/7.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card" data-tilt>
+      <div class="feature-icon icon-blue">
+        <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Sub-10ms Mitigation</h3>
+      <p>Our AI detects and blocks layer 4 & 7 attacks in milliseconds. Your players never notice a thing.</p>
+      <div class="feature-glow"></div>
+    </div>
+    <div class="feature-card" data-tilt>
+      <div class="feature-icon icon-purple">
+        <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>2.4 Tbps Network</h3>
+      <p>Absorb even the largest botnets. Our distributed edge network spans 12 global regions.</p>
+      <div class="feature-glow"></div>
+    </div>
+    <div class="feature-card" data-tilt>
+      <div class="feature-icon icon-cyan">
+        <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M9 19V13M9 13V5M9 13H15M15 13V19M15 13V5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Real-Time Analytics</h3>
+      <p>Live dashboards with packet-level insights. See every attack as it happens with rich visualizations.</p>
+      <div class="feature-glow"></div>
+    </div>
+    <div class="feature-card" data-tilt>
+      <div class="feature-icon icon-green">
+        <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2"/><path d="M19.4 15A1.65 1.65 0 0 0 19.73 16.82L19.79 16.88A2 2 0 1 1 16.96 19.71L16.9 19.65A1.65 1.65 0 0 0 15.08 19.32A1.65 1.65 0 0 0 14 20.84V21A2 2 0 1 1 10 21V20.91A1.65 1.65 0 0 0 8.92 19.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Smart Filtering</h3>
+      <p>Machine learning distinguishes real players from bots. Zero false positives on legitimate traffic.</p>
+      <div class="feature-glow"></div>
+    </div>
+    <div class="feature-card" data-tilt>
+      <div class="feature-icon icon-orange">
+        <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M12 2V6M12 18V22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M2 12H6M18 12H22M4.93 19.07L7.76 16.24M16.24 7.76L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Plug & Play Setup</h3>
+      <p>Change one IP and you're protected. Works with Paper, Spigot, Bungee, Velocity, and modded servers.</p>
+      <div class="feature-glow"></div>
+    </div>
+    <div class="feature-card" data-tilt>
+      <div class="feature-icon icon-pink">
+        <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M12 2L4 6V12C4 17 7 21 12 22C17 21 20 17 20 12V6L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>24/7 Expert Support</h3>
+      <p>Real humans, not bots. Our security team is always on standby via Discord and live chat.</p>
+      <div class="feature-glow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Live Stats -->
+<section class="stats-section" id="stats">
+  <div class="section-header">
+    <div class="section-badge">LIVE NETWORK</div>
+    <h2 class="section-title">Our network in <span class="gradient-text">real-time</span></h2>
+  </div>
+  <div class="stats-grid">
+    <div class="live-stat">
+      <div class="live-stat-header"><span class="live-indicator"></span>ATTACKS BLOCKED TODAY</div>
+      <div class="live-stat-value" id="attacksBlocked">0</div>
+      <div class="live-stat-bar"><div class="live-stat-fill" style="width:78%"></div></div>
+    </div>
+    <div class="live-stat">
+      <div class="live-stat-header"><span class="live-indicator"></span>PACKETS FILTERED</div>
+      <div class="live-stat-value" id="packetsFiltered">0</div>
+      <div class="live-stat-bar"><div class="live-stat-fill" style="width:92%"></div></div>
+    </div>
+    <div class="live-stat">
+      <div class="live-stat-header"><span class="live-indicator"></span>NETWORK LOAD</div>
+      <div class="live-stat-value" id="networkLoad">0%</div>
+      <div class="live-stat-bar"><div class="live-stat-fill" style="width:34%"></div></div>
+    </div>
+    <div class="live-stat">
+      <div class="live-stat-header"><span class="live-indicator"></span>AVG RESPONSE TIME</div>
+      <div class="live-stat-value" id="responseTime">0ms</div>
+      <div class="live-stat-bar"><div class="live-stat-fill" style="width:15%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing" id="pricing">
+  <div class="section-header">
+    <div class="section-badge">PRICING</div>
+    <h2 class="section-title">Start free. <span class="gradient-text">Scale infinitely.</span></h2>
+    <p class="section-subtitle">No credit card required. Upgrade anytime.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3>Free</h3>
+        <p>Perfect for small servers</p>
+      </div>
+      <div class="pricing-price">
+        <span class="price">$0</span>
+        <span class="period">/forever</span>
+      </div>
+      <ul class="pricing-features">
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Up to 100 Gbps protection</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Layer 4 mitigation</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>1 server protected</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Basic analytics</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Community support</li>
+      </ul>
+      <a href="dashboard.html" class="btn-outline btn-full">Get Started Free</a>
     </div>
 
-    <!-- MAIN WRAPPER -->
-    <div class="app-wrapper">
-        <!-- PORTFOLIO VIEW (This will scale down for phone mode) -->
-        <main class="portfolio-view" id="portfolio-view">
-            
-            <!-- CANVAS PARTICLES (Inside the view so it shrinks) -->
-            <canvas id="particles-bg"></canvas>
-
-            <!-- Hero Section -->
-            <section class="hero" id="home">
-                <div class="container hero-container">
-                    <p class="hero-label reveal-hero">Software Developer</p>
-                    <h1 class="hero-title">
-                        <span class="line-wrap"><span class="line">DevPrs.</span></span>
-                    </h1>
-                    <p class="hero-subtitle">
-                        <span class="line-wrap"><span class="line">Crafting highly polished,</span></span>
-                        <span class="line-wrap"><span class="line">digital experiences.</span></span>
-                    </p>
-                    
-                    <div class="scroll-prompt reveal-hero">
-                        <div class="scroll-line"></div>
-                        <span>Scroll</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Details Section -->
-            <section class="details container-section" id="about">
-                <div class="container">
-                    <div class="grid">
-                        <div class="grid-card reveal-card">
-                            <h3 class="card-label">Profile</h3>
-                            <h2 class="card-value">14</h2>
-                            <p class="card-desc">Years old. Passionate <br>about clean code.</p>
-                        </div>
-                        <div class="grid-card reveal-card">
-                            <h3 class="card-label">Base</h3>
-                            <h2 class="card-value">Lisbon</h2>
-                            <p class="card-desc">Portugal based. <br>Originally from Nepal.</p>
-                        </div>
-                        <div class="grid-card reveal-card">
-                            <h3 class="card-label">Focus</h3>
-                            <h2 class="card-value">Web & MC</h2>
-                            <p class="card-desc">Full-stack websites <br>& Minecraft plugins.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Skills Section -->
-            <section class="skills container-section" id="skills">
-                <div class="container">
-                    <h2 class="section-title reveal-text">Technical Arsenal</h2>
-                    <div class="list-container">
-                        <div class="list-item reveal-list">
-                            <span class="list-name">Minecraft Development</span>
-                            <span class="list-dots"></span>
-                            <span class="list-value">Java, Paper API, Spigot</span>
-                        </div>
-                        <div class="list-item reveal-list">
-                            <span class="list-name">Web Development</span>
-                            <span class="list-dots"></span>
-                            <span class="list-value">HTML, CSS, React, UI/UX</span>
-                        </div>
-                        <div class="list-item reveal-list">
-                            <span class="list-name">Server Infrastructure</span>
-                            <span class="list-dots"></span>
-                            <span class="list-value">Linux, Redis, MySQL</span>
-                        </div>
-                        <div class="list-item reveal-list">
-                            <span class="list-name">Other Proficiencies</span>
-                            <span class="list-dots"></span>
-                            <span class="list-value">Python, Discord Bots, GSAP</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Projects Section -->
-            <section class="projects container-section" id="projects">
-                <div class="container">
-                    <h2 class="section-title reveal-text">Selected Works</h2>
-                    <div class="grid">
-                        <div class="project-card reveal-card">
-                            <div class="project-year">2026</div>
-                            <h3 class="project-title">CpvpCore Plugin</h3>
-                            <p class="project-desc">A deep Minecraft Paper plugin featuring custom 1v1 matchmaking, FFA arenas, and polished death effects.</p>
-                        </div>
-                        <div class="project-card reveal-card">
-                            <div class="project-year">2026</div>
-                            <h3 class="project-title">NPPVP Platform</h3>
-                            <p class="project-desc">A modern, animated React website built for a custom Minecraft server network.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Contact Section -->
-            <section class="contact container-section" id="contact">
-                <div class="container contact-container">
-                    <h2 class="contact-title reveal-text">Ready to connect?</h2>
-                    <p class="contact-subtitle reveal-text">Drop a message on Discord.</p>
-                    <div class="contact-action reveal-button">
-                        <a href="https://discord.com/users/devprs1" target="_blank" class="primary-btn hover-target">
-                            @devprs1
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <footer class="footer">
-                    <div class="container footer-content">
-                        <p>&copy; 2026 DevPrs.</p>
-                        <p>Minimalist Edition.</p>
-                    </div>
-                </footer>
-            </section>
-            
-        </main>
+    <div class="pricing-card pricing-featured">
+      <div class="pricing-badge">MOST POPULAR</div>
+      <div class="pricing-header">
+        <h3>Pro</h3>
+        <p>For growing communities</p>
+      </div>
+      <div class="pricing-price">
+        <span class="price">$19</span>
+        <span class="period">/month</span>
+      </div>
+      <ul class="pricing-features">
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Up to 1 Tbps protection</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Layer 4 + 7 mitigation</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>10 servers protected</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Advanced analytics + API</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority support (24/7)</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom rules engine</li>
+      </ul>
+      <a href="dashboard.html" class="btn-primary btn-full">Start Pro Trial</a>
     </div>
 
-    <!-- GSAP Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="script.js"></script>
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3>Enterprise</h3>
+        <p>Unlimited scale</p>
+      </div>
+      <div class="pricing-price">
+        <span class="price">Custom</span>
+      </div>
+      <ul class="pricing-features">
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited Tbps protection</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated scrubbing centers</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited servers</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated account manager</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>99.999% SLA guarantee</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17L4 12" stroke="#00ff88" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>White-label options</li>
+      </ul>
+      <a href="#" class="btn-outline btn-full">Contact Sales</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="section-header">
+    <div class="section-badge">FAQ</div>
+    <h2 class="section-title">Got <span class="gradient-text">questions?</span></h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item"><button class="faq-q">How does FloodGuard protect my Minecraft server?<span class="faq-icon">+</span></button><div class="faq-a">We proxy your server traffic through our global scrubbing network. Malicious packets are filtered at the edge, and only legitimate player traffic reaches your server.</div></div>
+    <div class="faq-item"><button class="faq-q">Will there be latency added to my server?<span class="faq-icon">+</span></button><div class="faq-a">With 12 global PoPs, most players see less than 2ms of added latency. In many cases, our optimized routing actually reduces latency.</div></div>
+    <div class="faq-item"><button class="faq-q">Is the free tier really free forever?<span class="faq-icon">+</span></button><div class="faq-a">Yes. No credit card, no trials. The free tier is permanently free and includes enough protection for most small to medium servers.</div></div>
+    <div class="faq-item"><button class="faq-q">What happens during a massive attack?<span class="faq-icon">+</span></button><div class="faq-a">Our network can absorb over 2.4 Tbps of attack traffic. If an attack exceeds your plan's limit, we automatically burst-protect you while our team contacts you.</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="final-cta">
+  <div class="cta-box">
+    <h2>Ready to go <span class="gradient-text">unbreakable?</span></h2>
+    <p>Join 847+ server owners sleeping peacefully at night.</p>
+    <div class="cta-buttons">
+      <a href="dashboard.html" class="btn-primary btn-large">Start Free Now</a>
+      <button class="btn-secondary btn-large" onclick="openLogin()">Sign in with Google</button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7V12C3 17 6.5 21.5 12 22C17.5 21.5 21 17 21 12V7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span>Flood<span class="logo-accent">Guard</span></span>
+      </div>
+      <p>Enterprise DDoS protection, built for Minecraft.</p>
+    </div>
+    <div class="footer-links">
+      <div><h4>Product</h4><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="dashboard.html">Dashboard</a></div>
+      <div><h4>Company</h4><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a></div>
+      <div><h4>Support</h4><a href="#">Docs</a><a href="#">Discord</a><a href="#">Status</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 FloodGuard. All systems operational.</div>
+</footer>
+
+<!-- Login Modal -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeLogin()">×</button>
+    <div class="modal-logo">
+      <svg viewBox="0 0 24 24" fill="none" width="48" height="48"><path d="M12 2L3 7V12C3 17 6.5 21.5 12 22C17.5 21.5 21 17 21 12V7L12 2Z" stroke="url(#modalGrad)" stroke-width="2" stroke-linejoin="round"/><path d="M9 12L11 14L15 10" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="modalGrad"><stop stop-color="#00f0ff"/><stop offset="1" stop-color="#8000ff"/></linearGradient></defs></svg>
+    </div>
+    <h2>Welcome to FloodGuard</h2>
+    <p>Sign in to access your dashboard</p>
+    <button class="google-btn" onclick="googleSignIn()">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Continue with Google
+    </button>
+    <div class="modal-divider"><span>OR</span></div>
+    <input type="email" class="modal-input" placeholder="Email address">
+    <input type="password" class="modal-input" placeholder="Password">
+    <button class="btn-primary btn-full">Sign In</button>
+    <p class="modal-footer">Don't have an account? <a href="#">Sign up free</a></p>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
