@@ -1,197 +1,109 @@
-// Register plugins
-gsap.registerPlugin(ScrollTrigger);
-
-// Custom Cursor (Desktop Only)
-const cursor = document.querySelector('.cursor');
-const follower = document.querySelector('.cursor-follower');
-const interactiveElements = document.querySelectorAll('a, button, .hover-target');
-
-let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0, followerX = 0, followerY = 0;
-
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX; mouseY = e.clientY;
-});
-
-gsap.ticker.add(() => {
-    cursorX += (mouseX - cursorX) * 0.8;
-    cursorY += (mouseY - cursorY) * 0.8;
-    followerX += (mouseX - followerX) * 0.15;
-    followerY += (mouseY - followerY) * 0.15;
-    gsap.set(cursor, { x: cursorX, y: cursorY });
-    gsap.set(follower, { x: followerX, y: followerY });
-});
-
-interactiveElements.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        cursor.classList.add('hover'); follower.classList.add('hover');
-    });
-    el.addEventListener('mouseleave', () => {
-        cursor.classList.remove('hover'); follower.classList.remove('hover');
-    });
-});
-
-// Device Preview Logic
-const toggleButtons = document.querySelectorAll('.toggle-btn');
-const portfolioView = document.getElementById('portfolio-view');
-
-toggleButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Toggle Active State
-        toggleButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        // Toggle View Class
-        const view = btn.getAttribute('data-view');
-        if (view === 'mobile') {
-            portfolioView.classList.add('is-mobile');
-        } else {
-            portfolioView.classList.remove('is-mobile');
-        }
-
-        // Extremely important: refresh ScrollTrigger and Canvas after layout transition
-        setTimeout(() => {
-            ScrollTrigger.refresh();
-            // Dispatch a resize event to trigger canvas update
-            window.dispatchEvent(new Event('resize'));
-        }, 800); // 700ms transition time + 100ms buffer
-    });
-});
-
-
-// Initialization Sequence
-function initIntro() {
-    gsap.set('.line', { y: '110%' });
-    gsap.set('.reveal-hero', { opacity: 0, y: 20 });
-
-    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
-
-    tl.to('.hero-title .line', { y: '0%', duration: 1.5, stagger: 0.1, delay: 0.2 })
-      .to('.hero-subtitle .line', { y: '0%', duration: 1.2, stagger: 0.1 }, "-=1")
-      .to('.reveal-hero', { opacity: 1, y: 0, duration: 1, stagger: 0.2 }, "-=0.8");
+// Particle system
+const canvas=document.getElementById('particles');
+if(canvas){
+  const ctx=canvas.getContext('2d');
+  let particles=[];
+  function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+  resize();addEventListener('resize',resize);
+  class P{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.r=Math.random()*1.5+.5;this.c=['#00f0ff','#8000ff','#ff0080'][Math.floor(Math.random()*3)]}
+    update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>canvas.width)this.vx*=-1;if(this.y<0||this.y>canvas.height)this.vy*=-1}
+    draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=this.c;ctx.globalAlpha=.6;ctx.fill();ctx.globalAlpha=1}
+  }
+  for(let i=0;i<80;i++)particles.push(new P());
+  function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.update();p.draw()});
+    // connect close particles
+    for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){
+      const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(0,240,255,${(1-d/120)*.15})`;ctx.stroke()}
+    }
+    requestAnimationFrame(animate)
+  }
+  animate();
 }
 
-// Scroll Animations
-function initScroll() {
-    // Crucial: Tell ScrollTrigger to watch the .portfolio-view element instead of window
-    ScrollTrigger.defaults({
-        scroller: ".portfolio-view"
-    });
-
-    gsap.utils.toArray('.reveal-text').forEach(text => {
-        gsap.from(text, {
-            scrollTrigger: { trigger: text, start: 'top 85%', toggleActions: 'play none none reverse' },
-            y: 40, opacity: 0, duration: 1.2, ease: 'power3.out'
-        });
-    });
-
-    gsap.utils.toArray('.reveal-card, .reveal-list').forEach(card => {
-        gsap.from(card, {
-            scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none reverse' },
-            y: 40, opacity: 0, duration: 1, ease: 'power3.out'
-        });
-    });
-
-    gsap.from('.reveal-button', {
-        scrollTrigger: { trigger: '.reveal-button', start: 'top 90%', toggleActions: 'play none none reverse' },
-        scale: 0.9, opacity: 0, duration: 0.8, ease: 'back.out(1.5)'
-    });
+// Counter animation
+function animateCounter(el,target,duration=2000){
+  const start=performance.now();
+  const startVal=parseInt(el.textContent)||0;
+  function tick(now){
+    const p=Math.min((now-start)/duration,1);
+    const eased=1-Math.pow(1-p,3);
+    el.textContent=Math.floor(startVal+(target-startVal)*eased).toLocaleString();
+    if(p<1)requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
 }
 
-// Initialize on Load
-window.addEventListener('DOMContentLoaded', () => {
-    initIntro();
-    initScroll();
-    initParticles();
+// Observe stats
+const statsObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('[data-target]').forEach(el=>{
+        animateCounter(el,parseInt(el.dataset.target));
+      });
+      statsObs.unobserve(e.target);
+    }
+  });
+},{threshold:.3});
+document.querySelectorAll('.hero-stats').forEach(el=>statsObs.observe(el));
+
+// Live stats with jitter
+function liveNumber(id,base,variance,suffix=''){
+  const el=document.getElementById(id);
+  if(!el)return;
+  let current=base;
+  function update(){
+    current=base+Math.floor(Math.random()*variance);
+    el.textContent=current.toLocaleString()+suffix;
+  }
+  update();
+  setInterval(()=>{
+    current+=Math.floor(Math.random()*50);
+    el.textContent=current.toLocaleString()+suffix;
+  },2000);
+}
+liveNumber('attacksBlocked',12847,200);
+liveNumber('packetsFiltered',89234521,5000);
+liveNumber('networkLoad',34,5,'%');
+liveNumber('responseTime',8,3,'ms');
+
+// FAQ toggle
+document.querySelectorAll('.faq-q').forEach(q=>{
+  q.addEventListener('click',()=>{q.parentElement.classList.toggle('open')});
 });
 
-// Minimalist Particle System
-function initParticles() {
-    const canvas = document.getElementById('particles-bg');
-    const container = document.getElementById('portfolio-view');
-    if (!canvas || !container) return;
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
-    
-    // Config
-    const particleCount = 40; // Keeps it clean and subtle
-    const connectionDistance = 150;
-    
-    function resize() {
-        width = container.clientWidth;
-        height = container.clientHeight;
-        canvas.width = width;
-        canvas.height = height;
-    }
-    
-    window.addEventListener('resize', resize);
-    resize();
-    
-    class Particle {
-        constructor() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * height;
-            // Slow drift
-            this.vx = (Math.random() - 0.5) * 0.5;
-            this.vy = (Math.random() - 0.5) * 0.5;
-            this.radius = Math.random() * 1.5 + 0.5;
-        }
-        
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
-            
-            // Wrap around edges softly
-            if (this.x < -50) this.x = width + 50;
-            if (this.x > width + 50) this.x = -50;
-            if (this.y < -50) this.y = height + 50;
-            if (this.y > height + 50) this.y = -50;
-        }
-        
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-            ctx.fill();
-        }
-    }
-    
-    // Create particles
-    for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-    }
-    
-    function animateParticles() {
-        ctx.clearRect(0, 0, width, height);
-        
-        // Update and draw
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-        
-        // Connect nearby particles
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                
-                if (dist < connectionDistance) {
-                    // Opacity based on distance (closer = more opaque)
-                    const opacity = 1 - (dist / connectionDistance);
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.15})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.stroke();
-                }
-            }
-        }
-        
-        requestAnimationFrame(animateParticles);
-    }
-    
-    animateParticles();
+// Modal
+function openLogin(){document.getElementById('loginModal').classList.add('active')}
+function closeLogin(){document.getElementById('loginModal').classList.remove('active')}
+document.getElementById('loginModal')?.addEventListener('click',e=>{if(e.target.id==='loginModal')closeLogin()});
+
+function googleSignIn(){
+  // Simulate Google sign-in
+  const btn=event.target.closest('.google-btn');
+  btn.innerHTML='<div style="width:20px;height:20px;border:2px solid #0003;border-top-color:#000;border-radius:50%;animation:spin 1s linear infinite"></div> Signing in...';
+  setTimeout(()=>{
+    localStorage.setItem('fg_user',JSON.stringify({name:'Player',email:'player@floodguard.io',avatar:'P'}));
+    window.location.href='dashboard.html';
+  },1200);
 }
+
+// Navbar scroll
+addEventListener('scroll',()=>{
+  const nav=document.querySelector('.navbar');
+  if(scrollY>20)nav.style.background='rgba(5,6,10,0.9)';else nav.style.background='rgba(5,6,10,0.7)';
+});
+
+// Tilt effect
+document.querySelectorAll('[data-tilt]').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`translateY(-6px) perspective(1000px) rotateX(${-y*6}deg) rotateY(${x*6}deg)`;
+  });
+  card.addEventListener('mouseleave',()=>{card.style.transform=''});
+});
+
+// Spin keyframe
+const sheet=document.styleSheets[0];
+try{sheet.insertRule('@keyframes spin{to{transform:rotate(360deg)}}',sheet.cssRules.length)}catch(e){}
